@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Flow 图标生成器</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .canvas-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            margin: 10px;
+        }
+        .controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+        button {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #4f46e5;
+        }
+        .download-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .download-link {
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+        }
+        .download-link:hover {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Focus Flow 图标生成器</h1>
+        <p style="text-align: center; color: #666;">自动生成所有尺寸的应用图标</p>
+        
+        <div class="canvas-container">
+            <canvas id="iconCanvas" width="512" height="512"></canvas>
+        </div>
+        
+        <div class="controls">
+            <button onclick="generateAllIcons()">生成所有图标</button>
+            <button onclick="downloadAllIcons()">打包下载</button>
+        </div>
+        
+        <div id="downloadLinks" class="download-links"></div>
+    </div>
+
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const icons = {};
+
+        // 绘制图标
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+            
+            // 清空画布
+            ctx.clearRect(0, 0, size, size);
+            
+            // 绘制渐变背景
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            
+            // 圆角矩形背景
+            const radius = size * 0.2;
+            ctx.beginPath();
+            ctx.moveTo(radius, 0);
+            ctx.lineTo(size - radius, 0);
+            ctx.quadraticCurveTo(size, 0, size, radius);
+            ctx.lineTo(size, size - radius);
+            ctx.quadraticCurveTo(size, size, size - radius, size);
+            ctx.lineTo(radius, size);
+            ctx.quadraticCurveTo(0, size, 0, size - radius);
+            ctx.lineTo(0, radius);
+            ctx.quadraticCurveTo(0, 0, radius, 0);
+            ctx.closePath();
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            // 绘制时钟圆圈
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size*0.35, 0, 2 * Math.PI);
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.04;
+            ctx.stroke();
+            
+            // 绘制时钟指针
+            ctx.beginPath();
+            ctx.moveTo(size/2, size/2);
+            ctx.lineTo(size/2, size*0.25);
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.03;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(size/2, size/2);
+            ctx.lineTo(size*0.7, size*0.6);
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.03;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            
+            // 中心点
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size*0.03, 0, 2 * Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            
+            // 添加 FF 文字（只在大尺寸显示）
+            if (size >= 192) {
+                ctx.font = `bold ${size * 0.15}px Arial`;
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('FF', size/2, size*0.85);
+            }
+        }
+
+        // 初始化主画布
+        const mainCanvas = document.getElementById('iconCanvas');
+        drawIcon(mainCanvas, 512);
+
+        // 生成所有图标
+        function generateAllIcons() {
+            const container = document.getElementById('downloadLinks');
+            container.innerHTML = '';
+            
+            sizes.forEach(size => {
+                const canvas = document.createElement('canvas');
+                drawIcon(canvas, size);
+                
+                canvas.toBlob(blob => {
+                    const url = URL.createObjectURL(blob);
+                    icons[size] = { blob, url };
+                    
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `icon-${size}.png`;
+                    link.className = 'download-link';
+                    link.innerHTML = `
+                        <img src="${url}" width="50" height="50" style="display: block; margin: 0 auto 5px;">
+                        ${size}×${size}
+                    `;
+                    container.appendChild(link);
+                });
+            });
+            
+            // 生成 ICO 文件（Windows）
+            setTimeout(() => {
+                generateICO();
+            }, 500);
+        }
+
+        // 生成 ICO 文件
+        function generateICO() {
+            // 这里简化处理，实际 ICO 格式较复杂
+            const canvas = document.createElement('canvas');
+            drawIcon(canvas, 256);
+            
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'icon.ico';
+                link.className = 'download-link';
+                link.innerHTML = `
+                    <img src="${url}" width="50" height="50" style="display: block; margin: 0 auto 5px;">
+                    icon.ico
+                `;
+                document.getElementById('downloadLinks').appendChild(link);
+            });
+        }
+
+        // 打包下载所有图标
+        async function downloadAllIcons() {
+            if (Object.keys(icons).length === 0) {
+                alert('请先生成图标！');
+                return;
+            }
+            
+            // 创建下载脚本
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+            document.head.appendChild(script);
+            
+            script.onload = async () => {
+                const zip = new JSZip();
+                const iconsFolder = zip.folder('icons');
+                
+                // 添加所有 PNG 图标
+                for (const [size, data] of Object.entries(icons)) {
+                    iconsFolder.file(`icon-${size}.png`, data.blob);
+                }
+                
+                // 添加使用说明
+                const readme = `Focus Flow 图标使用说明
+========================
+
+1. Web/PWA 使用:
+   - 将 icons 文件夹放到项目的 assets 目录下
+   - 在 manifest.json 中引用对应尺寸的图标
+
+2. Electron 使用:
+   - Windows: 使用 icon.ico
+   - macOS: 需要转换为 .icns 格式
+   - Linux: 使用 icon-512.png
+
+3. 移动应用:
+   - iOS: 使用 icon-1024.png 在 App Store Connect
+   - Android: 使用 icon-512.png 作为主图标
+
+生成时间: ${new Date().toLocaleString()}
+`;
+                zip.file('README.txt', readme);
+                
+                // 生成并下载 ZIP
+                const content = await zip.generateAsync({ type: 'blob' });
+                const url = URL.createObjectURL(content);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'focus-flow-icons.zip';
+                a.click();
+            };
+        }
+
+        // 页面加载时自动生成
+        window.onload = () => {
+            generateAllIcons();
+        };
+    </script>
+</body>
+</html>

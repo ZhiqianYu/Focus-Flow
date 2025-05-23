@@ -1,0 +1,47 @@
+{
+  "name": "focus-flow-timer",
+  "version": "1.0.0",
+  "description": "基于神经科学的智能学习计时器",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "electron .",
+    "start-web": "python -m http.server 8080",
+    "build-win": "electron-builder --win",
+    "build-mac": "electron-builder --mac",
+    "build-linux": "electron-builder --linux"
+  },
+  "keywords": ["timer", "study", "productivity", "pomodoro"],
+  "author": "Zhiqian Yu",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.0"
+  },
+  "build": {
+    "appId": "com.zhiqianyu.focusflow",
+    "productName": "Focus Flow",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!**/*.ts",
+      "!*.code-workspace",
+      "!.gitignore",
+      "!README.md",
+      "!dist"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    }
+  }
+}
