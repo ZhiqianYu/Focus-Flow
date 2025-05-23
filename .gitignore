@@ -5,6 +5,12 @@ __pycache__/
 
 # C extensions
 *.so
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.vscode/
 
 # Distribution / packaging
 .Python
