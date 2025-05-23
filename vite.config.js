@@ -2,6 +2,18 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
+VitePWA({
+  registerType: 'autoUpdate',
+  workbox: {
+    globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg}'],
+    navigateFallback: null,
+    cleanupOutdatedCaches: true
+  },
+  manifest: {
+    // 保持原有的manifest配置...
+  }
+})
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
