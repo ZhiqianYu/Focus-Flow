@@ -1,0 +1,36 @@
+.progress-container {
+  margin-top: 15px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4));
+  animation: shimmer 2s infinite;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #6b7280;
+}

@@ -2,15 +2,16 @@
   "name": "focus-flow-timer",
   "version": "1.0.0",
   "description": "基于神经科学的智能学习计时器",
-  "main": "src/main/main.js",
+  "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start:electron": "electron .",
-    "start-web": "python -m http.server 8080",
-    "build-win": "electron-builder --win",
-    "build-mac": "electron-builder --mac",
-    "build-linux": "electron-builder --linux"
+    "preview": "vite preview",
+    "electron:dev": "vite --config vite.electron.config.js",
+    "electron:build": "vite build --config vite.electron.config.js && electron-builder",
+    "build-win": "vite build --config vite.electron.config.js && electron-builder --win",
+    "build-mac": "vite build --config vite.electron.config.js && electron-builder --mac",
+    "build-linux": "vite build --config vite.electron.config.js && electron-builder --linux"
   },
   "keywords": [
     "timer",
@@ -20,10 +21,18 @@
   ],
   "author": "Zhiqian Yu",
   "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
     "electron": "^27.3.11",
     "electron-builder": "^24.6.0",
     "vite": "^6.3.5",
+    "vite-plugin-electron": "^0.15.4",
     "vite-plugin-pwa": "^1.0.0"
   },
   "build": {
@@ -33,24 +42,28 @@
       "output": "dist"
     },
     "files": [
-      "**/*",
-      "!**/*.ts",
-      "!*.code-workspace",
-      "!.gitignore",
-      "!README.md",
-      "!dist"
+      "dist/**/*",
+      "dist-electron/**/*"
     ],
     "win": {
       "target": "nsis",
-      "icon": "assets/icon.ico"
+      "icon": "public/assets/icons/icon.ico"
     },
     "mac": {
       "target": "dmg",
-      "icon": "assets/icon.icns"
+      "icon": "public/assets/icons/icon.icns"
     },
     "linux": {
       "target": "AppImage",
-      "icon": "assets/icon.png"
+      "icon": "public/assets/icons/icon.png"
     }
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZhiqianYu/Focus-Flow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ZhiqianYu/Focus-Flow/issues"
+  },
+  "homepage": "https://github.com/ZhiqianYu/Focus-Flow#readme"
 }

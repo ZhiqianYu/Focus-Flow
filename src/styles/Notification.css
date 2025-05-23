@@ -1,0 +1,31 @@
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 16px 24px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+  z-index: 2000;
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification.success {
+  border-left: 4px solid var(--success);
+}
+
+.notification.error {
+  border-left: 4px solid var(--danger);
+}
+
+.notification.info {
+  border-left: 4px solid var(--primary);
+}

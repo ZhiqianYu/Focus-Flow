@@ -1,0 +1,71 @@
+.controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 6px 20px 0 rgba(99, 102, 241, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--dark);
+  border: 2px solid #e5e7eb;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--light);
+  border-color: #d1d5db;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #dc2626;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .controls {
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1;
+    min-width: 120px;
+  }
+}
