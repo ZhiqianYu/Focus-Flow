@@ -62,9 +62,59 @@
   font-weight: 600;
 }
 
+/* 设置图标样式 */
+.settings-icon {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.settings-icon:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.timer-settings-icon {
+  top: 15px;
+  right: 15px;
+}
+
+.audio-settings-icon {
+  top: 15px;
+  left: 15px;
+}
+
+.settings-icon svg {
+  color: white;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
   .timer-main {
     font-size: 3rem;
+  }
+  
+  .timer-display {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .timer-main {
+    font-size: 2.5rem;
+  }
+  
+  .timer-sub {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 }

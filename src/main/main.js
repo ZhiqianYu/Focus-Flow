@@ -1,6 +1,10 @@
-const { app, BrowserWindow, ipcMain, Menu, Tray } = require('electron');
-const path = require('path');
+import { app, BrowserWindow } from 'electron'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
 const fs = require('fs');
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // 存储主窗口引用，防止 JavaScript 的垃圾回收机制
 let mainWindow = null;

@@ -1,0 +1,85 @@
+{
+  "app": {
+    "name": "Focus Flow",
+    "tagline": "Smart Learning Timer Based on Neuroscience"
+  },
+  "timer": {
+    "start": "Start Learning",
+    "pause": "Pause",
+    "resume": "Resume",
+    "reset": "Reset",
+    "stageTime": "Stage Time",
+    "breakTime": "Break Time",
+    "status": {
+      "ready": "Ready to Start",
+      "stage": "Focused Learning",
+      "shortBreak": "Short Review",
+      "stageBreak": "Stage Break"
+    }
+  },
+  "settings": {
+    "title": "Timer Settings",
+    "totalTime": "Total Time",
+    "stageTime": "Stage Time",
+    "randomReminder": "Random Reminder Interval",
+    "breakSettings": "Break Settings",
+    "shortBreak": "Short Break",
+    "stageBreak": "Stage Break",
+    "save": "Save Settings"
+  },
+  "presets": {
+    "pomodoro": "Pomodoro",
+    "deepwork": "Deep Work",
+    "study": "Exam Review",
+    "custom": "Custom"
+  },
+  "audio": {
+    "settings": "Audio Settings",
+    "electronic": "Electronic Sounds",
+    "piano": "Piano Sounds",
+    "nature": "Nature Sounds",
+    "volume": "Volume",
+    "preview": "Preview Sounds",
+    "startSound": "Start Sound",
+    "reminderSound": "Reminder Sound",
+    "breakSound": "Break Sound",
+    "endSound": "End Sound"
+  },
+  "donate": {
+    "button": "Buy Me a Coffee",
+    "title": "Thank You for Your Support!",
+    "message": "Your donation helps me continue improving Focus Flow and developing more useful tools.",
+    "paymentOptions": "Select Payment Method"
+  },
+  "install": {
+    "button": "Install App"
+  },
+  "about": {
+    "title": "About Focus Flow",
+    "description": "Focus Flow is a smart learning timer based on neuroscience principles, using random reminders to promote brain review and memory consolidation.",
+    "author": "Developed by",
+    "contact": "Contact",
+    "license": "This application is licensed under",
+    "sourceCode": "Source code available on",
+    "version": "Current Version"
+  },
+  "notifications": {
+    "start": "Timer started!",
+    "pause": "Timer paused",
+    "resume": "Timer resumed",
+    "reset": "Timer reset",
+    "presetLoaded": "Preset loaded",
+    "pleaseSetTime": "Please set total time and stage time",
+    "stageComplete": "Stage complete! Take a break",
+    "shortBreakStarted": "Time to review what you just learned",
+    "continueStudy": "Continue studying!"
+  },
+  "time": {
+    "hour": "h",
+    "minute": "m",
+    "second": "s",
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  }
+}

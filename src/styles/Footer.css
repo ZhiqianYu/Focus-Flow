@@ -1,0 +1,93 @@
+.app-footer {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.footer-content {
+  position: relative;
+}
+
+.copyright {
+  text-align: center;
+}
+
+.info-button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.info-button:hover {
+  color: var(--primary-dark);
+}
+
+.author-info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 25px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.close-info {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.author-section, .license-section {
+  margin-top: 15px;
+}
+
+.author-section h4, .license-section h4 {
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.author-section p, .license-section p {
+  margin: 5px 0;
+}
+
+.author-section a, .license-section a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.author-section a:hover, .license-section a:hover {
+  text-decoration: underline;
+}
+
+.version-info {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}

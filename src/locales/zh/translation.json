@@ -1,0 +1,85 @@
+{
+  "app": {
+    "name": "Focus Flow",
+    "tagline": "基于神经科学的智能学习计时器"
+  },
+  "timer": {
+    "start": "开始学习",
+    "pause": "暂停",
+    "resume": "继续",
+    "reset": "重置",
+    "stageTime": "阶段时间",
+    "breakTime": "休息时间",
+    "status": {
+      "ready": "准备开始",
+      "stage": "专注学习中",
+      "shortBreak": "短暂回顾",
+      "stageBreak": "阶段休息"
+    }
+  },
+  "settings": {
+    "title": "计时器设置",
+    "totalTime": "总时间",
+    "stageTime": "阶段时间",
+    "randomReminder": "随机提醒间隔",
+    "breakSettings": "休息时间设置",
+    "shortBreak": "短休息",
+    "stageBreak": "阶段休息",
+    "save": "保存设置"
+  },
+  "presets": {
+    "pomodoro": "番茄工作法",
+    "deepwork": "深度工作",
+    "study": "考试复习",
+    "custom": "自定义"
+  },
+  "audio": {
+    "settings": "音频设置",
+    "electronic": "电子音效",
+    "piano": "钢琴音效",
+    "nature": "自然音效",
+    "volume": "音量",
+    "preview": "预览音效",
+    "startSound": "开始提醒音",
+    "reminderSound": "随机提醒音",
+    "breakSound": "阶段休息音",
+    "endSound": "结束提醒音"
+  },
+  "donate": {
+    "button": "请我喝杯咖啡",
+    "title": "感谢您的支持！",
+    "message": "您的打赏将帮助我继续改进Focus Flow，并开发更多有用的工具。",
+    "paymentOptions": "请选择支付方式"
+  },
+  "install": {
+    "button": "安装应用"
+  },
+  "about": {
+    "title": "关于 Focus Flow",
+    "description": "Focus Flow是一款基于神经科学原理的智能学习计时器，通过随机提醒促进大脑回顾和记忆巩固。",
+    "author": "由以下开发",
+    "contact": "联系方式",
+    "license": "本应用采用",
+    "sourceCode": "源代码可在获取",
+    "version": "当前版本"
+  },
+  "notifications": {
+    "start": "计时开始！",
+    "pause": "计时已暂停",
+    "resume": "计时继续",
+    "reset": "计时器已重置",
+    "presetLoaded": "预设已加载",
+    "pleaseSetTime": "请设置总时间和阶段时间",
+    "stageComplete": "阶段完成！休息一下吧",
+    "shortBreakStarted": "时间到！闭眼回顾一下刚才的内容",
+    "continueStudy": "继续学习！"
+  },
+  "time": {
+    "hour": "时",
+    "minute": "分",
+    "second": "秒",
+    "hours": "小时",
+    "minutes": "分钟",
+    "seconds": "秒"
+  }
+}

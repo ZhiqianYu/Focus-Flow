@@ -9,18 +9,18 @@ class AudioGenerator {
         stageBreak: { type: 'triangle', freqs: [261.63, 329.63, 392.00], duration: 1, pattern: 'sweep' },
         end: { type: 'square', freqs: [523.25, 659.25, 783.99, 1046.5], duration: 2, pattern: 'sequence' }
         },
-        piano: {
+      piano: {
         start: { type: 'sine', freqs: [261.63, 329.63, 392.00, 523.25], duration: 1.5, pattern: 'arpeggio-up' },
         random: { type: 'sine', freqs: [440, 554.37, 659.25], duration: 1, pattern: 'chord-soft' },
         stageBreak: { type: 'sine', freqs: [329.63, 392.00, 493.88, 587.33], duration: 1, pattern: 'chord-arp' },
         end: { type: 'sine', freqs: [523.25, 659.25, 783.99, 880, 1046.5], duration: 2, pattern: 'scale-down' }
         },
-        nature: {
+      nature: {
         start: { type: 'sine', freqs: [396, 440, 498], duration: 1.5, pattern: 'bird' },
         random: { type: 'sine', freqs: [220, 330, 440], duration: 1, pattern: 'water' },
         stageBreak: { type: 'sine', freqs: [174.61, 220, 293.66], duration: 1, pattern: 'wind' },
         end: { type: 'sine', freqs: [261.63, 329.63, 392.00, 493.88], duration: 2, pattern: 'chimes' }
-        }
+        },
     };
     this.currentPreset = 'electronic';
   }

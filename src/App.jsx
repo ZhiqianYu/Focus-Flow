@@ -8,16 +8,29 @@ import ControlButtons from './components/ControlButtons';
 import AudioSettingsModal from './components/AudioSettingsModal';
 import Notification from './components/Notification';
 import useTimer from './hooks/useTimer';
+import usePwaInstall from './hooks/usePwaInstall';
+import InstallButton from './components/InstallButton';
+import SafariInstallGuide from './components/SafariInstallGuide';
+import Footer from './components/Footer';
+import DonateButton from './components/DonateButton';
+import { useTranslation } from 'react-i18next';
 
 function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isTimerSettingsOpen, setIsTimerSettingsOpen] = useState(false);
   const [notification, setNotification] = useState(null);
   
   const timer = useTimer();
   const { state, actions, utils } = timer;
+
+  // PWA安装功能
+  const { isInstallable, promptInstall } = usePwaInstall();
+
+  // 国际化支持
+  const { t } = useTranslation();
   
   // 显示通知
-  const showNotification = (message, type = 'success', duration = 3000) => {
+  const showNotification = (message, type = 'success', duration = 1500) => {
     setNotification({ message, type, duration });
   };
   
@@ -60,13 +73,7 @@ function App() {
   
   // 获取状态文本
   const getStatusText = () => {
-    const statusMap = {
-      'ready': '准备开始',
-      'stage': '专注学习中',
-      'shortBreak': '短暂回顾',
-      'stageBreak': '阶段休息'
-    };
-    return statusMap[state.currentPhase] || '准备开始';
+    return t(`timer.status.${state.currentPhase}`);
   };
   
   // 键盘快捷键
@@ -122,12 +129,8 @@ function App() {
           breakTime={utils.formatTime(state.breakTimeLeft)}
           status={getStatusText()}
           phase={state.currentPhase}
-        />
-        
-        {/* 设置面板 */}
-        <SettingsPanel 
-          config={state.config}
-          onConfigChange={handleConfigChange}
+          onOpenAudioSettings={() => setIsSettingsOpen(true)}
+          onOpenTimerSettings={() => setIsTimerSettingsOpen(true)}
         />
       </div>
       
@@ -150,13 +153,35 @@ function App() {
         isPaused={state.isPaused}
         onStartPause={handleStartPause}
         onReset={handleReset}
-        onOpenSettings={() => setIsSettingsOpen(true)}
       />
       
+      {/* 安装按钮 */}
+      <InstallButton 
+        isInstallable={isInstallable} 
+        promptInstall={promptInstall} 
+      />
+      
+      {/* Safari安装指南 */}
+      <SafariInstallGuide />
+      
+      {/* 打赏按钮 */}
+      <DonateButton />
+
+      {/* 添加页脚 */}
+      <Footer />
+
       {/* 音频设置模态框 */}
       <AudioSettingsModal 
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
+      />
+      
+      {/* 计时器设置模态框 */}
+      <SettingsPanel 
+        isOpen={isTimerSettingsOpen}
+        onClose={() => setIsTimerSettingsOpen(false)}
+        config={state.config}
+        onConfigChange={handleConfigChange}
       />
       
       {/* 通知提示 */}
