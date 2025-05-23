@@ -93,36 +93,75 @@
   gap: 8px;
 }
 
-/* 音频预设选项 */
+/* 音频预设选项样式增强 */
 .audio-presets {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
 .audio-option {
   display: flex;
-  align-items: center;
-  padding: 10px;
+  align-items: flex-start;
+  padding: 12px;
   background: white;
   border: 2px solid #e5e7eb;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: var(--transition);
+  width: 100%;
+  margin-bottom: 8px;
 }
 
 .audio-option:hover {
   border-color: var(--primary);
+  background-color: #f9fafb;
 }
 
 .audio-option input[type="radio"] {
-  margin-right: 8px;
+  margin-right: 12px;
+  margin-top: 4px;
 }
 
-.audio-option input[type="radio"]:checked + span {
-  color: var(--primary);
+.audio-option-title {
+  display: block;
   font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--dark);
+}
+
+.audio-option-desc {
+  display: block;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.audio-option input[type="radio"]:checked + div .audio-option-title {
+  color: var(--primary);
+}
+
+/* 音频项样式增强 */
+.audio-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.audio-name {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.audio-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.audio-item {
+  padding: 15px;
+  margin-bottom: 12px;
 }
 
 /* 音量控制 */

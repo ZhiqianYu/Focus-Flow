@@ -36,6 +36,8 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
         </div>
         
         <div className="audio-presets">
+          <h3 style={{ marginBottom: '15px', fontSize: '1rem', color: '#4b5563', width: '100%' }}>声音主题</h3>
+          
           <label className="audio-option">
             <input 
               type="radio" 
@@ -43,8 +45,12 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
               checked={activePreset === 'electronic'} 
               onChange={() => handlePresetChange('electronic')} 
             />
-            <span>电子音效</span>
+            <div>
+              <span className="audio-option-title">电子音效</span>
+              <span className="audio-option-desc">现代合成器音效，适合科技风格的学习环境</span>
+            </div>
           </label>
+          
           <label className="audio-option">
             <input 
               type="radio" 
@@ -52,8 +58,12 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
               checked={activePreset === 'piano'} 
               onChange={() => handlePresetChange('piano')} 
             />
-            <span>钢琴音效</span>
+            <div>
+              <span className="audio-option-title">钢琴音效</span>
+              <span className="audio-option-desc">柔和的钢琴和弦与琶音，营造平静的学习氛围</span>
+            </div>
           </label>
+          
           <label className="audio-option">
             <input 
               type="radio" 
@@ -61,10 +71,13 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
               checked={activePreset === 'nature'} 
               onChange={() => handlePresetChange('nature')} 
             />
-            <span>自然音效</span>
+            <div>
+              <span className="audio-option-title">自然音效</span>
+              <span className="audio-option-desc">自然环境音效，包括鸟鸣、流水和风铃声</span>
+            </div>
           </label>
         </div>
-        
+
         <div className="volume-control">
           <p>音量：{Math.round(volume * 100)}%</p>
           <input 
@@ -79,9 +92,17 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
         </div>
         
         <div className="audio-list">
-          <p style={{ color: '#6b7280', marginBottom: '15px' }}>预览音效</p>
+          <h3 style={{ marginBottom: '15px', fontSize: '1rem', color: '#4b5563' }}>音效预览</h3>
+          
           <div className="audio-item">
-            <span className="audio-name">开始提醒音</span>
+            <div className="audio-info">
+              <span className="audio-name">开始提醒音</span>
+              <span className="audio-desc">
+                {activePreset === 'electronic' && '上升的电子音调序列'}
+                {activePreset === 'piano' && '上行钢琴琶音'}
+                {activePreset === 'nature' && '轻柔的鸟鸣声'}
+              </span>
+            </div>
             <div className="audio-controls">
               <button 
                 className="btn btn-secondary" 
@@ -92,8 +113,16 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
               </button>
             </div>
           </div>
+          
           <div className="audio-item">
-            <span className="audio-name">随机提醒音</span>
+            <div className="audio-info">
+              <span className="audio-name">随机提醒音</span>
+              <span className="audio-desc">
+                {activePreset === 'electronic' && '电子和弦提醒'}
+                {activePreset === 'piano' && '柔和钢琴和弦'}
+                {activePreset === 'nature' && '流水声提醒'}
+              </span>
+            </div>
             <div className="audio-controls">
               <button 
                 className="btn btn-secondary" 
@@ -104,8 +133,16 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
               </button>
             </div>
           </div>
+          
           <div className="audio-item">
-            <span className="audio-name">阶段休息音</span>
+            <div className="audio-info">
+              <span className="audio-name">阶段休息音</span>
+              <span className="audio-desc">
+                {activePreset === 'electronic' && '电子扫频音效'}
+                {activePreset === 'piano' && '和弦分解钢琴声'}
+                {activePreset === 'nature' && '舒缓的风声'}
+              </span>
+            </div>
             <div className="audio-controls">
               <button 
                 className="btn btn-secondary" 
@@ -116,8 +153,16 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
               </button>
             </div>
           </div>
+          
           <div className="audio-item">
-            <span className="audio-name">结束提醒音</span>
+            <div className="audio-info">
+              <span className="audio-name">结束提醒音</span>
+              <span className="audio-desc">
+                {activePreset === 'electronic' && '电子胜利序列'}
+                {activePreset === 'piano' && '下行钢琴音阶'}
+                {activePreset === 'nature' && '和谐的风铃声'}
+              </span>
+            </div>
             <div className="audio-controls">
               <button 
                 className="btn btn-secondary" 
