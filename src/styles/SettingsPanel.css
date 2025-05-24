@@ -15,7 +15,7 @@
 .settings-modal-content {
   background: white;
   border-radius: var(--radius);
-  padding: 30px;
+  padding: 10px;
   max-width: 500px;
   width: 90%;
   max-height: 80vh;
@@ -61,11 +61,11 @@
 .settings-panel {
   background: var(--light);
   border-radius: var(--radius);
-  padding: 20px;
+  padding: 10px;
 }
 
 .setting-group {
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 .setting-group:last-child {

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/SafariInstallGuide.css';
 import usePwaInstall from '../hooks/usePwaInstall';
+import { useTranslation } from 'react-i18next';
 
 const SafariInstallGuide = () => {
+  const { t } = useTranslation();
   const [dismissed, setDismissed] = useState(false);
   const { showSafariGuide } = usePwaInstall();
   
