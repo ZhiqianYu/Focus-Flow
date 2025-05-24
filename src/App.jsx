@@ -8,12 +8,16 @@ import ControlButtons from './components/ControlButtons';
 import AudioSettingsModal from './components/AudioSettingsModal';
 import Notification from './components/Notification';
 import useTimer from './hooks/useTimer';
+
+import Footer from './components/Footer';
+import DonateButton from './components/DonateButton';
+
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './components/LanguageSwitcher';
+
 import usePwaInstall from './hooks/usePwaInstall';
 import InstallButton from './components/InstallButton';
 import SafariInstallGuide from './components/SafariInstallGuide';
-import Footer from './components/Footer';
-import DonateButton from './components/DonateButton';
-import { useTranslation } from 'react-i18next';
 
 function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -29,7 +33,7 @@ function App() {
   // 国际化支持
   const { t } = useTranslation();
   
-  // 显示通知
+  // 显示通知的函数
   const showNotification = (message, type = 'success', duration = 1500) => {
     setNotification({ message, type, duration });
   };
@@ -45,16 +49,20 @@ function App() {
   // 处理开始/暂停
   const handleStartPause = () => {
     const result = actions.toggleTimer();
+    
     if (result) {
       if (!state.isRunning) {
-        showNotification('计时开始！', 'success');
+        // 刚开始计时
+        showNotification(t('notifications.start'), 'success');
       } else if (state.isPaused) {
-        showNotification('计时已暂停', 'info');
+        // 从暂停状态恢复
+        showNotification(t('notifications.resume'), 'info');
       } else {
-        showNotification('计时继续', 'info');
+        // 从运行状态暂停
+        showNotification(t('notifications.pause'), 'info');
       }
     } else {
-      showNotification('请设置总时间和阶段时间', 'error');
+      showNotification(t('notifications.pleaseSetTime'), 'error');
     }
   };
   
@@ -111,6 +119,9 @@ function App() {
   
   return (
     <div className="container">
+      {/* 语言切换器 - 放在容器顶部 */}
+      <LanguageSwitcher />
+
       {/* 标题区域 */}
       <div className="header">
         <h1>Focus Flow</h1>
@@ -147,14 +158,24 @@ function App() {
         />
       </div>
       
-      {/* 控制按钮 */}
-      <ControlButtons 
-        isRunning={state.isRunning}
-        isPaused={state.isPaused}
-        onStartPause={handleStartPause}
-        onReset={handleReset}
-      />
-      
+      {/* 控制按钮和打赏按钮的容器 */}
+      <div className="action-buttons-container">
+        {/* 控制按钮 - 靠左 */}
+        <div className="control-buttons-wrapper">
+          <ControlButtons 
+            isRunning={state.isRunning}
+            isPaused={state.isPaused}
+            onStartPause={handleStartPause}
+            onReset={handleReset}
+          />
+        </div>
+        
+        {/* 打赏按钮 - 靠右 */}
+        <div className="donate-wrapper">
+          <DonateButton />
+        </div>
+      </div>
+
       {/* 安装按钮 */}
       <InstallButton 
         isInstallable={isInstallable} 
@@ -164,9 +185,6 @@ function App() {
       {/* Safari安装指南 */}
       <SafariInstallGuide />
       
-      {/* 打赏按钮 */}
-      <DonateButton />
-
       {/* 添加页脚 */}
       <Footer />
 

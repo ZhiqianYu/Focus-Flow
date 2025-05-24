@@ -14,9 +14,6 @@ const Footer = () => {
           © {currentYear} Focus Flow | <button className="info-button" onClick={() => setShowInfo(!showInfo)}>关于</button>
         </div>
         
-        {/* 添加语言切换器 */}
-        <LanguageSwitcher />
-        
         {showInfo && (
           <div className="author-info">
             <div className="info-card">

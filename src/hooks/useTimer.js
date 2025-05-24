@@ -12,25 +12,25 @@ const DEFAULT_CONFIG = {
 // 预设配置
 const PRESETS = {
   pomodoro: {
-    totalTime: { hours: 2, minutes: 0, seconds: 0 },
+    totalTime: { hours: 3, minutes: 0, seconds: 0 },
     stageTime: { hours: 0, minutes: 25, seconds: 0 },
     randomReminder: { min: 3, max: 5 },
     shortBreak: { minutes: 0, seconds: 10 },
     stageBreak: { minutes: 5, seconds: 0 }
   },
   deepwork: {
-    totalTime: { hours: 4, minutes: 0, seconds: 0 },
+    totalTime: { hours: 6, minutes: 0, seconds: 0 },
     stageTime: { hours: 1, minutes: 30, seconds: 0 },
     randomReminder: { min: 5, max: 10 },
     shortBreak: { minutes: 0, seconds: 15 },
     stageBreak: { minutes: 15, seconds: 0 }
   },
   study: {
-    totalTime: { hours: 3, minutes: 0, seconds: 0 },
-    stageTime: { hours: 0, minutes: 45, seconds: 0 },
-    randomReminder: { min: 4, max: 7 },
-    shortBreak: { minutes: 0, seconds: 10 },
-    stageBreak: { minutes: 10, seconds: 0 }
+    totalTime: { hours: 8, minutes: 0, seconds: 0 },
+    stageTime: { hours: 1, minutes: 30, seconds: 0 },
+    randomReminder: { min: 3, max: 5 },
+    shortBreak: { minutes: 0, seconds: 12 },
+    stageBreak: { minutes: 15, seconds: 0 }
   }
 };
 
@@ -64,6 +64,24 @@ const useTimer = () => {
     const s = seconds % 60;
     return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }, []);
+
+  // 更新显示时间
+  const updateDisplayTimes = useCallback(() => {
+    if (!isRunning) {
+      const totalSeconds = calculateSeconds(config.totalTime);
+      const stageSeconds = calculateSeconds(config.stageTime);
+      const breakSeconds = calculateSeconds(config.shortBreak);
+      
+      setTotalTimeLeft(totalSeconds);
+      setStageTimeLeft(stageSeconds);
+      setBreakTimeLeft(breakSeconds);
+    }
+  }, [isRunning, config, calculateSeconds]);
+
+  // 配置更改时更新显示时间
+  useEffect(() => {
+    updateDisplayTimes();
+  }, [config, updateDisplayTimes]);
   
   // 加载预设
   const loadPreset = useCallback((presetName) => {
@@ -75,8 +93,9 @@ const useTimer = () => {
     if (!preset) return;
     
     setConfig(preset);
+    updateDisplayTimes();
     return preset;
-  }, []);
+  }, [updateDisplayTimes]);
   
   // 开始/暂停计时器
   const toggleTimer = useCallback(() => {
@@ -119,9 +138,10 @@ const useTimer = () => {
     setIsRunning(false);
     setIsPaused(false);
     setCurrentPhase('ready');
-    setTotalTimeLeft(0);
-    setStageTimeLeft(0);
-    setBreakTimeLeft(0);
+    
+    // 重置为当前配置时间，而不是清零
+    updateDisplayTimes();
+    
     setNextReminderTime(0);
     setTotalProgress(0);
     setStageProgress(0);
@@ -130,7 +150,7 @@ const useTimer = () => {
       clearInterval(timerRef.current);
       timerRef.current = null;
     }
-  }, []);
+  }, [updateDisplayTimes]);
   
   // 更新进度
   useEffect(() => {
@@ -251,7 +271,10 @@ const useTimer = () => {
   const saveConfig = useCallback(async (newConfig) => {
     setConfig(newConfig);
     
-    // 如果在Electron环境中，保存到本地文件
+    // 在保存配置后更新显示时间
+    updateDisplayTimes();
+    
+    // 保存到本地存储或Electron
     if (window.electronAPI) {
       try {
         await window.electronAPI.saveConfig(newConfig);
@@ -262,7 +285,7 @@ const useTimer = () => {
       // 在浏览器环境中使用localStorage
       localStorage.setItem('timerConfig', JSON.stringify(newConfig));
     }
-  }, []);
+  }, [updateDisplayTimes]);
   
   const loadSavedConfig = useCallback(async () => {
     let savedConfig = null;
@@ -308,8 +331,11 @@ const useTimer = () => {
   
   // 组件加载时加载配置
   useEffect(() => {
-    loadSavedConfig();
-  }, [loadSavedConfig]);
+    loadSavedConfig().then(() => {
+      // 加载完配置后更新显示时间
+      updateDisplayTimes();
+    });
+  }, [loadSavedConfig, updateDisplayTimes]);
   
   return {
     state: {

@@ -43,6 +43,25 @@
   margin-bottom: 20px;
 }
 
+/* 控制按钮和打赏按钮的布局 */
+.action-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.control-buttons-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.donate-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 /* 响应式设计 */
 @media (max-width: 968px) {
   .main-content {
@@ -57,5 +76,18 @@
 
   .header h1 {
     font-size: 2rem;
+  }
+}
+
+/* 确保移动设备上的响应式布局 */
+@media (max-width: 768px) {
+  .action-buttons-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .control-buttons-wrapper,
+  .donate-wrapper {
+    width: 100%;
   }
 }

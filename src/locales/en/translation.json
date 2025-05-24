@@ -1,19 +1,19 @@
 {
   "app": {
     "name": "Focus Flow",
-    "tagline": "Smart Learning Timer Based on Neuroscience"
+    "tagline": "Neural Science-Based Smart Learning Timer"
   },
   "timer": {
-    "start": "Start Learning",
-    "pause": "Pause",
-    "resume": "Resume",
+    "start": "Start Timer",
+    "pause": "Pause Timer",
+    "resume": "Resume Timer",
     "reset": "Reset",
     "stageTime": "Stage Time",
     "breakTime": "Break Time",
     "status": {
       "ready": "Ready to Start",
       "stage": "Focused Learning",
-      "shortBreak": "Short Review",
+      "shortBreak": "Brief Review",
       "stageBreak": "Stage Break"
     }
   },
@@ -25,42 +25,60 @@
     "breakSettings": "Break Settings",
     "shortBreak": "Short Break",
     "stageBreak": "Stage Break",
-    "save": "Save Settings"
+    "save": "Save Settings",
+    "min": "Min",
+    "max": "Max"
   },
   "presets": {
     "pomodoro": "Pomodoro",
     "deepwork": "Deep Work",
-    "study": "Exam Review",
+    "study": "Exam Prep",
     "custom": "Custom"
   },
   "audio": {
     "settings": "Audio Settings",
     "electronic": "Electronic Sounds",
+    "electronic_desc": "Modern synthesizer sounds, ideal for tech-focused study environments",
     "piano": "Piano Sounds",
+    "piano_desc": "Soft piano chords and arpeggios, creating a calm study atmosphere",
     "nature": "Nature Sounds",
+    "nature_desc": "Natural environment sounds, including birds, water, and wind chimes",
     "volume": "Volume",
     "preview": "Preview Sounds",
     "startSound": "Start Sound",
     "reminderSound": "Reminder Sound",
     "breakSound": "Break Sound",
-    "endSound": "End Sound"
+    "endSound": "End Sound",
+    "theme": "Sound Theme",
+    "play": "Play"
   },
   "donate": {
-    "button": "Buy Me a Coffee",
+    "button": "Donate",
     "title": "Thank You for Your Support!",
     "message": "Your donation helps me continue improving Focus Flow and developing more useful tools.",
-    "paymentOptions": "Select Payment Method"
+    "paymentOptions": "Payment Options",
+    "wechat": "WeChat Pay",
+    "alipay": "Alipay",
+    "paypal": "PayPal",
+    "creditCard": "Credit Card"
   },
   "install": {
-    "button": "Install App"
+    "button": "Install App",
+    "guide": {
+      "title": "Install to Home Screen",
+      "message": "In Safari, tap the share button then select 'Add to Home Screen' to install the app to your device.",
+      "step1": "Tap the share button",
+      "step2": "Scroll and select 'Add to Home Screen'",
+      "step3": "Tap 'Add' to complete installation"
+    }
   },
   "about": {
     "title": "About Focus Flow",
-    "description": "Focus Flow is a smart learning timer based on neuroscience principles, using random reminders to promote brain review and memory consolidation.",
+    "description": "Focus Flow is a smart learning timer based on neuroscience principles, promoting memory consolidation through random reminders.",
     "author": "Developed by",
     "contact": "Contact",
-    "license": "This application is licensed under",
-    "sourceCode": "Source code available on",
+    "license": "This app is licensed under",
+    "sourceCode": "Source code available at",
     "version": "Current Version"
   },
   "notifications": {
@@ -70,8 +88,8 @@
     "reset": "Timer reset",
     "presetLoaded": "Preset loaded",
     "pleaseSetTime": "Please set total time and stage time",
-    "stageComplete": "Stage complete! Take a break",
-    "shortBreakStarted": "Time to review what you just learned",
+    "stageComplete": "Stage complete! Time for a break",
+    "shortBreakStarted": "Time's up! Close your eyes and review what you've learned",
     "continueStudy": "Continue studying!"
   },
   "time": {
@@ -81,5 +99,13 @@
     "hours": "hours",
     "minutes": "minutes",
     "seconds": "seconds"
+  },
+  "footer": {
+    "copyright": "Copyright",
+    "about": "About"
+  },
+  "language": {
+    "name": "English",
+    "select": "Select Language"
   }
 }

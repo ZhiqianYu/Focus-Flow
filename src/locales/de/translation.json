@@ -1,0 +1,111 @@
+{
+  "app": {
+    "name": "Focus Flow",
+    "tagline": "Intelligenter Lerntimer basierend auf Neurowissenschaft"
+  },
+  "timer": {
+    "start": "Timer starten",
+    "pause": "Timer pausieren",
+    "resume": "Timer fortsetzen",
+    "reset": "Zurücksetzen",
+    "stageTime": "Phasenzeit",
+    "breakTime": "Pausenzeit",
+    "status": {
+      "ready": "Bereit zum Starten",
+      "stage": "Konzentriertes Lernen",
+      "shortBreak": "Kurze Wiederholung",
+      "stageBreak": "Phasenpause"
+    }
+  },
+  "settings": {
+    "title": "Timer-Einstellungen",
+    "totalTime": "Gesamtzeit",
+    "stageTime": "Phasenzeit",
+    "randomReminder": "Zufällige Erinnerungsintervalle",
+    "breakSettings": "Pauseneinstellungen",
+    "shortBreak": "Kurze Pause",
+    "stageBreak": "Phasenpause",
+    "save": "Einstellungen speichern",
+    "min": "Min",
+    "max": "Max"
+  },
+  "presets": {
+    "pomodoro": "Pomodoro",
+    "deepwork": "Tiefe Arbeit",
+    "study": "Prüfungsvorbereitung",
+    "custom": "Benutzerdefiniert"
+  },
+  "audio": {
+    "settings": "Audioeinstellungen",
+    "electronic": "Elektronische Klänge",
+    "electronic_desc": "Moderne Synthesizer-Klänge, ideal für technologieorientierte Lernumgebungen",
+    "piano": "Klavierklänge",
+    "piano_desc": "Sanfte Klavierakkorde und Arpeggien für eine ruhige Lernatmosphäre",
+    "nature": "Naturklänge",
+    "nature_desc": "Natürliche Umgebungsgeräusche, einschließlich Vogelstimmen, Wasser und Windspiele",
+    "volume": "Lautstärke",
+    "preview": "Klänge vorhören",
+    "startSound": "Startklang",
+    "reminderSound": "Erinnerungsklang",
+    "breakSound": "Pausenklang",
+    "endSound": "Endklang",
+    "theme": "Klangthema",
+    "play": "Abspielen"
+  },
+  "donate": {
+    "button": "Spenden",
+    "title": "Vielen Dank für Ihre Unterstützung!",
+    "message": "Ihre Spende hilft mir, Focus Flow weiter zu verbessern und mehr nützliche Tools zu entwickeln.",
+    "paymentOptions": "Zahlungsmöglichkeiten",
+    "wechat": "WeChat Pay",
+    "alipay": "Alipay",
+    "paypal": "PayPal",
+    "creditCard": "Kreditkarte"
+  },
+  "install": {
+    "button": "App installieren",
+    "guide": {
+      "title": "Zum Startbildschirm hinzufügen",
+      "message": "In Safari tippen Sie auf die Teilen-Schaltfläche und wählen dann 'Zum Startbildschirm hinzufügen', um die App auf Ihrem Gerät zu installieren.",
+      "step1": "Auf die Teilen-Schaltfläche tippen",
+      "step2": "Scrollen und 'Zum Startbildschirm hinzufügen' wählen",
+      "step3": "Auf 'Hinzufügen' tippen, um die Installation abzuschließen"
+    }
+  },
+  "about": {
+    "title": "Über Focus Flow",
+    "description": "Focus Flow ist ein intelligenter Lerntimer basierend auf neurowissenschaftlichen Prinzipien, der die Gedächtniskonsolidierung durch zufällige Erinnerungen fördert.",
+    "author": "Entwickelt von",
+    "contact": "Kontakt",
+    "license": "Diese App ist lizenziert unter",
+    "sourceCode": "Quellcode verfügbar unter",
+    "version": "Aktuelle Version"
+  },
+  "notifications": {
+    "start": "Timer gestartet!",
+    "pause": "Timer pausiert",
+    "resume": "Timer fortgesetzt",
+    "reset": "Timer zurückgesetzt",
+    "presetLoaded": "Voreinstellung geladen",
+    "pleaseSetTime": "Bitte Gesamtzeit und Phasenzeit einstellen",
+    "stageComplete": "Phase abgeschlossen! Zeit für eine Pause",
+    "shortBreakStarted": "Zeit ist um! Schließen Sie die Augen und wiederholen Sie das Gelernte",
+    "continueStudy": "Lernen fortsetzen!"
+  },
+  "time": {
+    "hour": "Std",
+    "minute": "Min",
+    "second": "Sek",
+    "hours": "Stunden",
+    "minutes": "Minuten",
+    "seconds": "Sekunden"
+  },
+  "footer": {
+    "copyright": "Urheberrecht",
+    "about": "Über"
+  },
+  "language": {
+    "name": "Deutsch",
+    "select": "Sprache auswählen"
+  }
+}

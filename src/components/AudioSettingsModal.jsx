@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/AudioSettingsModal.css';
 import audioGenerator from '../utils/AudioGenerator';
 
 const AudioSettingsModal = ({ isOpen, onClose }) => {
-  const [activePreset, setActivePreset] = useState('electronic');
-  const [volume, setVolume] = useState(0.3);
-  
+  const [activePreset, setActivePreset] = useState(() => {
+    // 从本地存储加载预设，默认为electronic
+    return localStorage.getItem('audioPreset') || 'electronic';
+  });
+  const [volume, setVolume] = useState(() => {
+    // 从本地存储加载音量，默认为0.3
+    return parseFloat(localStorage.getItem('audioVolume') || '0.3');
+  });
+
   const handlePresetChange = (preset) => {
     setActivePreset(preset);
     audioGenerator.setPreset(preset);
+    localStorage.setItem('audioPreset', preset);
   };
   
   const handleVolumeChange = (e) => {
     const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);
     audioGenerator.setVolume(newVolume);
+    localStorage.setItem('audioVolume', newVolume.toString());
   };
   
   const playSound = (type) => {
     audioGenerator.playSound(type);
   };
+
+  useEffect(() => {
+    audioGenerator.setPreset(activePreset);
+    audioGenerator.setVolume(volume);
+  }, [activePreset, volume]);
   
   if (!isOpen) return null;
   

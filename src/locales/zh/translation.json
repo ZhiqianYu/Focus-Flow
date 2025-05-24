@@ -4,9 +4,9 @@
     "tagline": "基于神经科学的智能学习计时器"
   },
   "timer": {
-    "start": "开始学习",
-    "pause": "暂停",
-    "resume": "继续",
+    "start": "开始计时",
+    "pause": "暂停计时",
+    "resume": "继续计时",
     "reset": "重置",
     "stageTime": "阶段时间",
     "breakTime": "休息时间",
@@ -25,7 +25,9 @@
     "breakSettings": "休息时间设置",
     "shortBreak": "短休息",
     "stageBreak": "阶段休息",
-    "save": "保存设置"
+    "save": "保存设置",
+    "min": "最小",
+    "max": "最大"
   },
   "presets": {
     "pomodoro": "番茄工作法",
@@ -36,28 +38,44 @@
   "audio": {
     "settings": "音频设置",
     "electronic": "电子音效",
+    "electronic_desc": "现代合成器音效，适合科技风格的学习环境",
     "piano": "钢琴音效",
+    "piano_desc": "柔和的钢琴和弦与琶音，营造平静的学习氛围",
     "nature": "自然音效",
+    "nature_desc": "自然环境音效，包括鸟鸣、流水和风铃声",
     "volume": "音量",
     "preview": "预览音效",
     "startSound": "开始提醒音",
     "reminderSound": "随机提醒音",
     "breakSound": "阶段休息音",
-    "endSound": "结束提醒音"
+    "endSound": "结束提醒音",
+    "theme": "声音主题",
+    "play": "播放"
   },
   "donate": {
-    "button": "请我喝杯咖啡",
+    "button": "捐赠",
     "title": "感谢您的支持！",
-    "message": "您的打赏将帮助我继续改进Focus Flow，并开发更多有用的工具。",
-    "paymentOptions": "请选择支付方式"
+    "message": "您的捐赠将帮助我继续改进Focus Flow，并开发更多有用的工具。",
+    "paymentOptions": "请选择支付方式",
+    "wechat": "微信支付",
+    "alipay": "支付宝",
+    "paypal": "PayPal",
+    "creditCard": "信用卡"
   },
   "install": {
-    "button": "安装应用"
+    "button": "安装应用",
+    "guide": {
+      "title": "安装到主屏幕",
+      "message": "在Safari中，点击分享按钮然后选择\"添加到主屏幕\"，即可将应用安装到设备。",
+      "step1": "点击分享按钮",
+      "step2": "滚动并选择\"添加到主屏幕\"",
+      "step3": "点击\"添加\"完成安装"
+    }
   },
   "about": {
     "title": "关于 Focus Flow",
     "description": "Focus Flow是一款基于神经科学原理的智能学习计时器，通过随机提醒促进大脑回顾和记忆巩固。",
-    "author": "由以下开发",
+    "author": "开发者",
     "contact": "联系方式",
     "license": "本应用采用",
     "sourceCode": "源代码可在获取",
@@ -81,5 +99,13 @@
     "hours": "小时",
     "minutes": "分钟",
     "seconds": "秒"
+  },
+  "footer": {
+    "copyright": "版权所有",
+    "about": "关于"
+  },
+  "language": {
+    "name": "中文",
+    "select": "选择语言"
   }
 }

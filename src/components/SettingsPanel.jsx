@@ -18,7 +18,14 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange }) => {
     };
     
     setLocalConfig(updatedConfig);
+    // 立即应用更改
     onConfigChange(updatedConfig);
+  };
+
+  const handleSave = () => {
+    // 确保最后一次应用更改
+    onConfigChange(localConfig);
+    onClose();
   };
   
   if (!isOpen) return null;
@@ -225,7 +232,7 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange }) => {
         </div>
         
         <div className="modal-footer">
-          <button className="btn btn-primary" onClick={onClose}>
+          <button className="btn btn-primary" onClick={handleSave}>
             保存设置
           </button>
         </div>

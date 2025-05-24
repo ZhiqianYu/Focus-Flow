@@ -1,23 +1,30 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Notification.css';
 
-const Notification = ({ message, type = 'success', duration = 3000, onClose }) => {
+const Notification = ({ message, type = 'success', duration = 1500, onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (message) {
       setIsVisible(true);
       
+      // 强制设置一个定时器来关闭通知
       const timer = setTimeout(() => {
-        setIsVisible(false);
-        if (onClose) {
-          onClose();
-        }
+        handleClose();
       }, duration);
       
       return () => clearTimeout(timer);
+    } else {
+      setIsVisible(false);
     }
-  }, [message, duration, onClose]);
+  }, [message, duration]);
+
+  const handleClose = () => {
+    setIsVisible(false);
+    setTimeout(() => {
+      if (onClose) onClose();
+    }, 300); // 等待淡出动画完成后再调用onClose
+  };
 
   if (!message) return null;
 
@@ -35,6 +42,11 @@ const Notification = ({ message, type = 'success', duration = 3000, onClose }) =
         )}
       </svg>
       <span>{message}</span>
+      <button className="notification-close" onClick={handleClose}>
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
+        </svg>
+      </button>
     </div>
   );
 };

@@ -1,19 +1,20 @@
 .donate-container {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: flex-end; /* 改为靠右对齐 */
+  margin-top: 0; /* 移除顶部边距，因为它现在在容器中 */
 }
 
 .donate-button {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: 2px;
+  padding: 2px 4px; /* 减小内边距 */
   background: #FFDD00;
   color: #5F4B32;
   border: none;
   border-radius: var(--radius-sm);
-  font-weight: 600;
+  font-weight: 400;
+  font-size: 0.9rem; /* 减小字体大小 */
   cursor: pointer;
   transition: var(--transition);
   box-shadow: 0 4px 6px -1px rgba(255, 221, 0, 0.2), 0 2px 4px -1px rgba(255, 221, 0, 0.12);
@@ -154,13 +155,14 @@
   text-align: center;
 }
 
-@media (max-width: 480px) {
-  .payment-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .donate-container {
+    width: 100%;
+    justify-content: center;
   }
   
-  .qr-codes {
-    flex-direction: column;
-    align-items: center;
+  .donate-button {
+    width: 100%;
+    justify-content: center;
   }
 }
