@@ -50,7 +50,27 @@
     "breakSound": "阶段休息音",
     "endSound": "结束提醒音",
     "theme": "声音主题",
-    "play": "播放"
+    "play": "播放",
+    "descriptions": {
+      "electronic": {
+        "start": "上升的电子音调序列",
+        "reminder": "电子和弦提醒",
+        "stageBreak": "电子扫频音效",
+        "end": "电子胜利序列"
+      },
+      "piano": {
+        "start": "上行钢琴琶音",
+        "reminder": "柔和钢琴和弦",
+        "stageBreak": "和弦分解钢琴声",
+        "end": "下行钢琴音阶"
+      },
+      "nature": {
+        "start": "轻柔的鸟鸣声",
+        "reminder": "流水声提醒",
+        "stageBreak": "舒缓的风声",
+        "end": "和谐的风铃声"
+      }
+    }
   },
   "donate": {
     "button": "捐赠",
@@ -74,18 +94,25 @@
   },
   "about": {
     "title": "关于 Focus Flow",
-    "description": "Focus Flow是一款基于神经科学原理的智能学习计时器，通过随机提醒促进大脑回顾和记忆巩固。",
+    "description": "Focus Flow 是一款基于神经科学原理的智能学习计时器，通过随机提醒促进大脑回顾和记忆巩固。",
     "author": "开发者",
     "contact": "联系方式",
-    "license": "本应用采用",
-    "sourceCode": "源代码可在获取",
-    "version": "当前版本"
+    "sourceCode": "源代码可在",
+    "version": "当前版本",
+    "develop": "开发",
+    "license": "许可",
+    "licenseTitle": "本应用程序遵循",
+    "comD": "商用说明",
+    "get": "获取",
+    "by": "由",
+    "sendEmail": "发送电子邮件"
   },
   "notifications": {
     "start": "计时开始！",
     "pause": "计时已暂停",
     "resume": "计时继续",
     "reset": "计时器已重置",
+    "confirmReset": "确定要重置计时器吗？",
     "presetLoaded": "预设已加载",
     "pleaseSetTime": "请设置总时间和阶段时间",
     "stageComplete": "阶段完成！休息一下吧",
@@ -107,5 +134,14 @@
   "language": {
     "name": "中文",
     "select": "选择语言"
+  },
+  "progress": {
+    "total": "总进度",
+    "stage": "阶段进度",
+    "break": "休息进度"
+  },
+  "document": {
+    "title": "Focus Flow - 阶段随机提醒计时器",
+    "description": "基于神经科学原理的智能学习计时器"
   }
 }

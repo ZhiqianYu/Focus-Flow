@@ -64,25 +64,47 @@
   color: #6b7280;
 }
 
-.author-section, .license-section {
+/* 添加 info-header 样式，保持与其他部分一致 */
+.info-header,
+.author-section, 
+.license-section {
   margin-top: 15px;
 }
 
-.author-section h4, .license-section h4 {
+/* 标题样式统一 */
+.info-header h3 {
+  margin-bottom: 8px;
+  color: var(--dark);
+  font-size: 1.2rem; /* 为 h3 设置适当的大小 */
+  font-weight: 600;
+}
+
+.author-section h4, 
+.license-section h4 {
   margin-bottom: 8px;
   color: var(--dark);
 }
 
-.author-section p, .license-section p {
+/* 段落样式统一 */
+.info-header p,
+.author-section p, 
+.license-section p {
   margin: 5px 0;
+  color: #4b5563; /* 添加颜色以保持一致性 */
+  line-height: 1.5; /* 添加行高以提高可读性 */
 }
 
-.author-section a, .license-section a {
+/* 链接样式保持一致 */
+.info-header a,
+.author-section a, 
+.license-section a {
   color: var(--primary);
   text-decoration: none;
 }
 
-.author-section a:hover, .license-section a:hover {
+.info-header a:hover,
+.author-section a:hover, 
+.license-section a:hover {
   text-decoration: underline;
 }
 

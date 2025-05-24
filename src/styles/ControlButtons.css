@@ -6,16 +6,19 @@
 }
 
 .btn {
-  padding: 12px 30px;
+  padding: clamp(10px, 2vw, 12px) clamp(20px, 3vw, 30px);
   border: none;
   border-radius: var(--radius-sm);
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  min-height: 44px; /* 提高移动端可点击性 */
+  touch-action: manipulation; /* 优化触摸交互 */
 }
 
 .btn:active {

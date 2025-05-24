@@ -80,23 +80,56 @@ const useTimer = () => {
 
   // 配置更改时更新显示时间
   useEffect(() => {
-    updateDisplayTimes();
-  }, [config, updateDisplayTimes]);
-  
-  // 加载预设
+    // 只在非运行状态下更新时间显示
+    if (!isRunning) {
+      const totalSeconds = calculateSeconds(config.totalTime);
+      const stageSeconds = calculateSeconds(config.stageTime);
+      const breakSeconds = calculateSeconds(config.shortBreak);
+      
+      setTotalTimeLeft(totalSeconds);
+      setStageTimeLeft(stageSeconds);
+      setBreakTimeLeft(calculateSeconds(config.shortBreak));
+    }
+  }, [config, calculateSeconds, isRunning]);
+    
+  // 加载预设 - 避免循环更新
   const loadPreset = useCallback((presetName) => {
     if (presetName === 'custom') {
-      return;
+      return null;
     }
 
     const preset = PRESETS[presetName];
-    if (!preset) return;
+    if (!preset) return null;
     
+    // 保存到配置
     setConfig(preset);
-    updateDisplayTimes();
+    
+    // 直接设置时间而不是调用 updateDisplayTimes
+    if (!isRunning) {
+      const totalSeconds = calculateSeconds(preset.totalTime);
+      const stageSeconds = calculateSeconds(preset.stageTime);
+      const breakSeconds = calculateSeconds(preset.shortBreak);
+      
+      setTotalTimeLeft(totalSeconds);
+      setStageTimeLeft(stageSeconds);
+      setBreakTimeLeft(breakSeconds);
+    }
+    
+    // 保存到本地存储或Electron
+    if (window.electronAPI) {
+      try {
+        window.electronAPI.saveConfig(preset);
+      } catch (error) {
+        console.error('保存配置失败:', error);
+      }
+    } else {
+      // 在浏览器环境中使用localStorage
+      localStorage.setItem('timerConfig', JSON.stringify(preset));
+    }
+    
     return preset;
-  }, [updateDisplayTimes]);
-  
+  }, [isRunning, calculateSeconds]);
+    
   // 开始/暂停计时器
   const toggleTimer = useCallback(() => {
     if (!isRunning) {
@@ -139,8 +172,14 @@ const useTimer = () => {
     setIsPaused(false);
     setCurrentPhase('ready');
     
-    // 重置为当前配置时间，而不是清零
-    updateDisplayTimes();
+    // 直接设置时间而不是调用 updateDisplayTimes
+    const totalSeconds = calculateSeconds(config.totalTime);
+    const stageSeconds = calculateSeconds(config.stageTime);
+    const breakSeconds = calculateSeconds(config.shortBreak);
+    
+    setTotalTimeLeft(totalSeconds);
+    setStageTimeLeft(stageSeconds);
+    setBreakTimeLeft(breakSeconds);
     
     setNextReminderTime(0);
     setTotalProgress(0);
@@ -150,7 +189,7 @@ const useTimer = () => {
       clearInterval(timerRef.current);
       timerRef.current = null;
     }
-  }, [updateDisplayTimes]);
+  }, [config, calculateSeconds]);
   
   // 更新进度
   useEffect(() => {
@@ -266,13 +305,21 @@ const useTimer = () => {
     calculateSeconds, 
     resetTimer
   ]);
-  
-  // 保存和加载配置
+
+  // 保存和加载配置 - 避免循环更新
   const saveConfig = useCallback(async (newConfig) => {
     setConfig(newConfig);
     
-    // 在保存配置后更新显示时间
-    updateDisplayTimes();
+    // 直接设置时间而不是调用 updateDisplayTimes
+    if (!isRunning) {
+      const totalSeconds = calculateSeconds(newConfig.totalTime);
+      const stageSeconds = calculateSeconds(newConfig.stageTime);
+      const breakSeconds = calculateSeconds(newConfig.shortBreak);
+      
+      setTotalTimeLeft(totalSeconds);
+      setStageTimeLeft(stageSeconds);
+      setBreakTimeLeft(breakSeconds);
+    }
     
     // 保存到本地存储或Electron
     if (window.electronAPI) {
@@ -285,7 +332,7 @@ const useTimer = () => {
       // 在浏览器环境中使用localStorage
       localStorage.setItem('timerConfig', JSON.stringify(newConfig));
     }
-  }, [updateDisplayTimes]);
+  }, [isRunning, calculateSeconds]);
   
   const loadSavedConfig = useCallback(async () => {
     let savedConfig = null;
@@ -331,11 +378,8 @@ const useTimer = () => {
   
   // 组件加载时加载配置
   useEffect(() => {
-    loadSavedConfig().then(() => {
-      // 加载完配置后更新显示时间
-      updateDisplayTimes();
-    });
-  }, [loadSavedConfig, updateDisplayTimes]);
+    loadSavedConfig();
+  }, [loadSavedConfig]);
   
   return {
     state: {

@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import '../styles/PresetButtons.css';
+import { useTranslation } from 'react-i18next';
 
 const PresetButtons = ({ onSelectPreset }) => {
+
+  const { t } = useTranslation();
+
   const [activePreset, setActivePreset] = useState(null);
   
   const handlePresetClick = (preset) => {
@@ -15,25 +19,25 @@ const PresetButtons = ({ onSelectPreset }) => {
         className={`preset-btn ${activePreset === 'pomodoro' ? 'active' : ''}`}
         onClick={() => handlePresetClick('pomodoro')}
       >
-        番茄工作法
+        {t('presets.pomodoro')}
       </button>
       <button 
         className={`preset-btn ${activePreset === 'deepwork' ? 'active' : ''}`}
         onClick={() => handlePresetClick('deepwork')}
       >
-        深度工作
+        {t('presets.deepwork')}
       </button>
       <button 
         className={`preset-btn ${activePreset === 'study' ? 'active' : ''}`}
         onClick={() => handlePresetClick('study')}
       >
-        考试复习
+        {t('presets.study')}
       </button>
       <button 
         className={`preset-btn ${activePreset === 'custom' ? 'active' : ''}`}
         onClick={() => handlePresetClick('custom')}
       >
-        自定义
+        {t('presets.custom')}
       </button>
     </div>
   );

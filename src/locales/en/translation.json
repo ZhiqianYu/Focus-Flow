@@ -1,7 +1,7 @@
 {
   "app": {
     "name": "Focus Flow",
-    "tagline": "Neural Science-Based Smart Learning Timer"
+    "tagline": "Smart Learning Timer Based on Neuroscience"
   },
   "timer": {
     "start": "Start Timer",
@@ -13,7 +13,7 @@
     "status": {
       "ready": "Ready to Start",
       "stage": "Focused Learning",
-      "shortBreak": "Brief Review",
+      "shortBreak": "Short Review",
       "stageBreak": "Stage Break"
     }
   },
@@ -22,7 +22,7 @@
     "totalTime": "Total Time",
     "stageTime": "Stage Time",
     "randomReminder": "Random Reminder Interval",
-    "breakSettings": "Break Settings",
+    "breakSettings": "Break Time Settings",
     "shortBreak": "Short Break",
     "stageBreak": "Stage Break",
     "save": "Save Settings",
@@ -30,9 +30,9 @@
     "max": "Max"
   },
   "presets": {
-    "pomodoro": "Pomodoro",
+    "pomodoro": "Pomodoro Technique",
     "deepwork": "Deep Work",
-    "study": "Exam Prep",
+    "study": "Exam Review",
     "custom": "Custom"
   },
   "audio": {
@@ -40,23 +40,43 @@
     "electronic": "Electronic Sounds",
     "electronic_desc": "Modern synthesizer sounds, ideal for tech-focused study environments",
     "piano": "Piano Sounds",
-    "piano_desc": "Soft piano chords and arpeggios, creating a calm study atmosphere",
+    "piano_desc": "Soft piano chords and arpeggios, creating a calm learning atmosphere",
     "nature": "Nature Sounds",
-    "nature_desc": "Natural environment sounds, including birds, water, and wind chimes",
+    "nature_desc": "Natural environment sounds, including bird songs, flowing water, and wind chimes",
     "volume": "Volume",
-    "preview": "Preview Sounds",
-    "startSound": "Start Sound",
-    "reminderSound": "Reminder Sound",
-    "breakSound": "Break Sound",
-    "endSound": "End Sound",
+    "preview": "Sound Preview",
+    "startSound": "Start Reminder",
+    "reminderSound": "Random Reminder",
+    "breakSound": "Stage Break Sound",
+    "endSound": "End Reminder",
     "theme": "Sound Theme",
-    "play": "Play"
+    "play": "Play",
+    "descriptions": {
+      "electronic": {
+        "start": "Rising electronic tone sequence",
+        "reminder": "Electronic chord alert",
+        "stageBreak": "Electronic sweep effect",
+        "end": "Electronic victory sequence"
+      },
+      "piano": {
+        "start": "Ascending piano arpeggio",
+        "reminder": "Soft piano chord",
+        "stageBreak": "Broken piano chord progression",
+        "end": "Descending piano scale"
+      },
+      "nature": {
+        "start": "Gentle bird chirping",
+        "reminder": "Water stream alert",
+        "stageBreak": "Soothing wind sounds",
+        "end": "Harmonious wind chimes"
+      }
+    }
   },
   "donate": {
     "button": "Donate",
     "title": "Thank You for Your Support!",
-    "message": "Your donation helps me continue improving Focus Flow and developing more useful tools.",
-    "paymentOptions": "Payment Options",
+    "message": "Your donation will help me continue to improve Focus Flow and develop more useful tools.",
+    "paymentOptions": "Please select a payment method",
     "wechat": "WeChat Pay",
     "alipay": "Alipay",
     "paypal": "PayPal",
@@ -66,36 +86,42 @@
     "button": "Install App",
     "guide": {
       "title": "Install to Home Screen",
-      "message": "In Safari, tap the share button then select 'Add to Home Screen' to install the app to your device.",
+      "message": "In Safari, tap the share button and then select \"Add to Home Screen\" to install the app on your device.",
       "step1": "Tap the share button",
-      "step2": "Scroll and select 'Add to Home Screen'",
-      "step3": "Tap 'Add' to complete installation"
+      "step2": "Scroll and select \"Add to Home Screen\"",
+      "step3": "Tap \"Add\" to complete installation"
     }
   },
   "about": {
     "title": "About Focus Flow",
-    "description": "Focus Flow is a smart learning timer based on neuroscience principles, promoting memory consolidation through random reminders.",
-    "author": "Developed by",
+    "description": "Focus Flow is a smart learning timer based on neuroscience principles, promoting brain recall and memory consolidation through random reminders.",
+    "author": "Developer",
     "contact": "Contact",
-    "license": "This app is licensed under",
-    "sourceCode": "Source code available at",
-    "version": "Current Version"
+    "license": " License",
+    "sourceCode": "Source code available on",
+    "version": "Current version",
+    "by": "Developed by",
+    "develop": "",
+    "sendEmail": "Click to Send Email",
+    "comD": "Commercial Use Details",
+    "get": ""
   },
   "notifications": {
     "start": "Timer started!",
     "pause": "Timer paused",
     "resume": "Timer resumed",
     "reset": "Timer reset",
+    "confirmReset": "Are you sure you want to reset the timer?",
     "presetLoaded": "Preset loaded",
-    "pleaseSetTime": "Please set total time and stage time",
-    "stageComplete": "Stage complete! Time for a break",
-    "shortBreakStarted": "Time's up! Close your eyes and review what you've learned",
+    "pleaseSetTime": "Please set the total time and stage time",
+    "stageComplete": "Stage complete! Take a break",
+    "shortBreakStarted": "Time's up! Close your eyes and review what you just learned",
     "continueStudy": "Continue studying!"
   },
   "time": {
-    "hour": "h",
-    "minute": "m",
-    "second": "s",
+    "hour": "hr",
+    "minute": "min",
+    "second": "sec",
     "hours": "hours",
     "minutes": "minutes",
     "seconds": "seconds"
@@ -107,5 +133,14 @@
   "language": {
     "name": "English",
     "select": "Select Language"
+  },
+  "progress": {
+    "total": "Total Progress",
+    "stage": "Stage Progress",
+    "break": "Break Progress"
+  },
+  "document": {
+    "title": "Focus Flow - Stage Random Reminder Timer",
+    "description": "Smart learning timer based on neuroscience principles"
   }
 }

@@ -10,9 +10,15 @@
   background: white;
   border: 2px solid #e5e7eb;
   border-radius: 999px;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
   cursor: pointer;
   transition: var(--transition);
+  min-height: 36px; /* 提高可点击性 */
+  flex: 1 1 auto; /* 允许按钮伸缩 */
+  min-width: min(120px, calc(50% - 10px)); /* 确保合理的最小宽度 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .preset-btn:hover {

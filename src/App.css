@@ -1,13 +1,17 @@
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 800px; /* 调整为更合适的最大宽度 */
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 24px;
   box-shadow: var(--shadow-lg);
-  padding: 40px;
+  padding: clamp(20px, 5vw, 40px); /* 响应式padding */
   position: relative;
   z-index: 1;
+  margin: 0 auto; /* 确保居中 */
+  display: flex;
+  flex-direction: column;
+  min-height: min(100vh - 40px, 800px); /* 设置最小高度 */
 }
 
 /* 标题区域 */
@@ -31,12 +35,12 @@
   font-size: 1.1rem;
 }
 
-/* 主要内容区域 */
 .main-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 30px;
   margin-bottom: 30px;
+  flex-grow: 1; /* 允许内容区域占据可用空间 */
 }
 
 .progress-area {

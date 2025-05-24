@@ -11,7 +11,7 @@
     "stageTime": "Phasenzeit",
     "breakTime": "Pausenzeit",
     "status": {
-      "ready": "Bereit zum Starten",
+      "ready": "Bereit zum Start",
       "stage": "Konzentriertes Lernen",
       "shortBreak": "Kurze Wiederholung",
       "stageBreak": "Phasenpause"
@@ -21,8 +21,8 @@
     "title": "Timer-Einstellungen",
     "totalTime": "Gesamtzeit",
     "stageTime": "Phasenzeit",
-    "randomReminder": "Zufällige Erinnerungsintervalle",
-    "breakSettings": "Pauseneinstellungen",
+    "randomReminder": "Zufälliges Erinnerungsintervall",
+    "breakSettings": "Pausenzeit-Einstellungen",
     "shortBreak": "Kurze Pause",
     "stageBreak": "Phasenpause",
     "save": "Einstellungen speichern",
@@ -30,33 +30,53 @@
     "max": "Max"
   },
   "presets": {
-    "pomodoro": "Pomodoro",
-    "deepwork": "Tiefe Arbeit",
+    "pomodoro": "Pomodoro-Technik",
+    "deepwork": "Konzentrierte Arbeit",
     "study": "Prüfungsvorbereitung",
     "custom": "Benutzerdefiniert"
   },
   "audio": {
-    "settings": "Audioeinstellungen",
+    "settings": "Audio-Einstellungen",
     "electronic": "Elektronische Klänge",
-    "electronic_desc": "Moderne Synthesizer-Klänge, ideal für technologieorientierte Lernumgebungen",
+    "electronic_desc": "Moderne Synthesizer-Sounds, ideal für technisch orientierte Lernumgebungen",
     "piano": "Klavierklänge",
-    "piano_desc": "Sanfte Klavierakkorde und Arpeggien für eine ruhige Lernatmosphäre",
+    "piano_desc": "Sanfte Klavierakkorde und Arpeggios für eine ruhige Lernatmosphäre",
     "nature": "Naturklänge",
-    "nature_desc": "Natürliche Umgebungsgeräusche, einschließlich Vogelstimmen, Wasser und Windspiele",
+    "nature_desc": "Natürliche Umgebungsgeräusche, einschließlich Vogelgesang, fließendes Wasser und Windspiel",
     "volume": "Lautstärke",
-    "preview": "Klänge vorhören",
-    "startSound": "Startklang",
-    "reminderSound": "Erinnerungsklang",
+    "preview": "Klangvorschau",
+    "startSound": "Start-Erinnerung",
+    "reminderSound": "Zufällige Erinnerung",
     "breakSound": "Pausenklang",
-    "endSound": "Endklang",
+    "endSound": "End-Erinnerung",
     "theme": "Klangthema",
-    "play": "Abspielen"
+    "play": "Abspielen",
+    "descriptions": {
+      "electronic": {
+        "start": "Aufsteigende elektronische Tonsequenz",
+        "reminder": "Elektronischer Akkord-Alert",
+        "stageBreak": "Elektronischer Sweep-Effekt",
+        "end": "Elektronische Siegessequenz"
+      },
+      "piano": {
+        "start": "Aufsteigendes Klavier-Arpeggio",
+        "reminder": "Sanfter Klavierakkord",
+        "stageBreak": "Gebrochene Klavierakkordfolge",
+        "end": "Absteigende Klaviertonleiter"
+      },
+      "nature": {
+        "start": "Sanftes Vogelgezwitscher",
+        "reminder": "Wasserströmungs-Alert",
+        "stageBreak": "Beruhigende Windgeräusche",
+        "end": "Harmonisches Windspiel"
+      }
+    }
   },
   "donate": {
     "button": "Spenden",
     "title": "Vielen Dank für Ihre Unterstützung!",
-    "message": "Ihre Spende hilft mir, Focus Flow weiter zu verbessern und mehr nützliche Tools zu entwickeln.",
-    "paymentOptions": "Zahlungsmöglichkeiten",
+    "message": "Ihre Spende hilft mir, Focus Flow weiter zu verbessern und weitere nützliche Tools zu entwickeln.",
+    "paymentOptions": "Bitte wählen Sie eine Zahlungsmethode",
     "wechat": "WeChat Pay",
     "alipay": "Alipay",
     "paypal": "PayPal",
@@ -66,30 +86,36 @@
     "button": "App installieren",
     "guide": {
       "title": "Zum Startbildschirm hinzufügen",
-      "message": "In Safari tippen Sie auf die Teilen-Schaltfläche und wählen dann 'Zum Startbildschirm hinzufügen', um die App auf Ihrem Gerät zu installieren.",
+      "message": "Tippen Sie in Safari auf die Teilen-Schaltfläche und wählen Sie dann \"Zum Startbildschirm hinzufügen\", um die App auf Ihrem Gerät zu installieren.",
       "step1": "Auf die Teilen-Schaltfläche tippen",
-      "step2": "Scrollen und 'Zum Startbildschirm hinzufügen' wählen",
-      "step3": "Auf 'Hinzufügen' tippen, um die Installation abzuschließen"
+      "step2": "Scrollen und \"Zum Startbildschirm hinzufügen\" wählen",
+      "step3": "Auf \"Hinzufügen\" tippen, um die Installation abzuschließen"
     }
   },
   "about": {
     "title": "Über Focus Flow",
-    "description": "Focus Flow ist ein intelligenter Lerntimer basierend auf neurowissenschaftlichen Prinzipien, der die Gedächtniskonsolidierung durch zufällige Erinnerungen fördert.",
-    "author": "Entwickelt von",
+    "description": "Focus Flow ist ein intelligenter Lerntimer, der auf neurowissenschaftlichen Prinzipien basiert und durch zufällige Erinnerungen das Gedächtnis und die Informationsverarbeitung fördert.",
+    "author": "Entwickler",
     "contact": "Kontakt",
-    "license": "Diese App ist lizenziert unter",
-    "sourceCode": "Quellcode verfügbar unter",
-    "version": "Aktuelle Version"
+    "license": " Lizenze",
+    "sourceCode": "Quellcode verfügbar auf",
+    "version": "Aktuelle Version",
+    "by": "Entwickelt von",
+    "develop": "",
+    "sendEmail": "Klicken, um E-Mail zu senden",
+    "comD": "Details zur kommerziellen Nutzung",
+    "get": ""
   },
   "notifications": {
     "start": "Timer gestartet!",
     "pause": "Timer pausiert",
     "resume": "Timer fortgesetzt",
     "reset": "Timer zurückgesetzt",
+    "confirmReset": "Sind Sie sicher, dass Sie den Timer zurücksetzen möchten?",
     "presetLoaded": "Voreinstellung geladen",
-    "pleaseSetTime": "Bitte Gesamtzeit und Phasenzeit einstellen",
-    "stageComplete": "Phase abgeschlossen! Zeit für eine Pause",
-    "shortBreakStarted": "Zeit ist um! Schließen Sie die Augen und wiederholen Sie das Gelernte",
+    "pleaseSetTime": "Bitte stellen Sie die Gesamtzeit und Phasenzeit ein",
+    "stageComplete": "Phase abgeschlossen! Machen Sie eine Pause",
+    "shortBreakStarted": "Zeit ist um! Schließen Sie die Augen und wiederholen Sie, was Sie gerade gelernt haben",
     "continueStudy": "Lernen fortsetzen!"
   },
   "time": {
@@ -107,5 +133,14 @@
   "language": {
     "name": "Deutsch",
     "select": "Sprache auswählen"
+  },
+  "progress": {
+    "total": "Gesamtfortschritt",
+    "stage": "Phasenfortschritt",
+    "break": "Pausenfortschritt"
+  },
+  "document": {
+    "title": "Focus Flow - Phasen-Zufallserinnerungs-Timer",
+    "description": "Intelligenter Lerntimer basierend auf neurowissenschaftlichen Prinzipien"
   }
 }

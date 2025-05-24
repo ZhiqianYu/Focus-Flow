@@ -76,37 +76,29 @@
 }
 
 .payment-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  display: flex; /* 改用 flex 而不是 grid，更容易控制两个按钮的对齐 */
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  gap: 55px; /* 两个按钮之间的间距 */
+  margin: 30px 0; /* 上下外边距 */
+  padding: 0 20px; /* 左右内边距 */
 }
 
-.payment-option {
+/* 为按钮容器添加样式 */
+.paypal-button, 
+.buymeacoffee-button {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 15px;
-  border: 2px solid #e5e7eb;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: var(--transition);
-  text-decoration: none;
-  color: var(--dark);
-  background: white;
+  align-items: center;
+  flex: 1; /* 让两个按钮平均分配空间 */
+  max-width: 240px; /* 限制最大宽度 */
+  transition: transform 0.3s ease;
 }
 
-.payment-option:hover {
-  border-color: var(--primary);
-  transform: translateY(-2px);
-}
-
-.payment-icon {
-  margin-bottom: 8px;
-}
-
-.paypal-icon {
-  color: #003087;
+/* 悬停效果 */
+.paypal-button:hover, 
+.buymeacoffee-button:hover {
+  transform: translateY(-5px);
 }
 
 .wechat-icon {
@@ -115,10 +107,6 @@
 
 .alipay-icon {
   color: #1677FF;
-}
-
-.card-icon {
-  color: var(--primary);
 }
 
 .qr-codes {
@@ -164,5 +152,18 @@
   .donate-button {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* 在小屏幕上调整为垂直布局 */
+@media (max-width: 576px) {
+  .payment-grid {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .paypal-button, 
+  .buymeacoffee-button {
+    width: 100%;
   }
 }

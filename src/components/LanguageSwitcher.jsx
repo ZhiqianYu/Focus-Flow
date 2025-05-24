@@ -65,6 +65,12 @@ const LanguageSwitcher = () => {
           >
             English
           </button>
+          <button 
+            className={i18n.language === 'de' ? 'active' : ''} 
+            onClick={() => changeLanguage('de')}
+          >
+            German
+          </button>
           {/* 可以添加更多语言选项 */}
         </div>
       )}
