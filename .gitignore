@@ -11,6 +11,8 @@ dist/
 *.log
 .env
 .vscode/
+public/
+dist-electron/
 
 # Distribution / packaging
 .Python

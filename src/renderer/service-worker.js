@@ -9,8 +9,14 @@ const STATIC_FILES = [
   './',
   './index.html',
   './manifest.json',
-  './assets/icon-192.png',
-  './assets/icon-512.png'
+  './assets/icons/icon-72.png',
+  './assets/icons/icon-96.png',
+  './assets/icons/icon-128.png',
+  './assets/icons/icon-144.png',
+  './assets/icons/icon-152.png',
+  './assets/icons/icon-192.png',
+  './assets/icons/icon-384.png',
+  './assets/icons/icon-512.png'
 ];
 
 // 安装 Service Worker

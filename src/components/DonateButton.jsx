@@ -17,10 +17,6 @@ const DonateButton = () => {
         onClick={() => setShowDonateOptions(true)}
         aria-label="捐赠支持开发者"
       >
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm0 2h12v1H4V4zm0 3h12v10H4V7z" clipRule="evenodd" />
-          <path fillRule="evenodd" d="M6 10a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1z" clipRule="evenodd" />
-        </svg>
         {t('donate.button')}
       </button>
       

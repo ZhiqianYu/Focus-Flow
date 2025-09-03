@@ -2,27 +2,19 @@ class AudioGenerator {
   constructor() {
     this.audioContext = null;
     this.masterVolume = 0.3;
+    this.whiteNoiseVolume = 0.2;
+    this.whiteNoiseType = 'off';
+    this.whiteNoiseSource = null;
+    this.whiteNoiseGain = null;
     this.presets = {
-      electronic: {
-        start: { type: 'sawtooth', freqs: [220, 440, 880], duration: 1.5, pattern: 'arpeggio' },
-        random: { type: 'square', freqs: [523.25, 659.25, 783.99], duration: 1, pattern: 'chord' },
-        stageBreak: { type: 'triangle', freqs: [261.63, 329.63, 392.00], duration: 1, pattern: 'sweep' },
-        end: { type: 'square', freqs: [523.25, 659.25, 783.99, 1046.5], duration: 2, pattern: 'sequence' }
-        },
       piano: {
         start: { type: 'sine', freqs: [261.63, 329.63, 392.00, 523.25], duration: 1.5, pattern: 'arpeggio-up' },
         random: { type: 'sine', freqs: [440, 554.37, 659.25], duration: 1, pattern: 'chord-soft' },
         stageBreak: { type: 'sine', freqs: [329.63, 392.00, 493.88, 587.33], duration: 1, pattern: 'chord-arp' },
         end: { type: 'sine', freqs: [523.25, 659.25, 783.99, 880, 1046.5], duration: 2, pattern: 'scale-down' }
-        },
-      nature: {
-        start: { type: 'sine', freqs: [396, 440, 498], duration: 1.5, pattern: 'bird' },
-        random: { type: 'sine', freqs: [220, 330, 440], duration: 1, pattern: 'water' },
-        stageBreak: { type: 'sine', freqs: [174.61, 220, 293.66], duration: 1, pattern: 'wind' },
-        end: { type: 'sine', freqs: [261.63, 329.63, 392.00, 493.88], duration: 2, pattern: 'chimes' }
         }
     };
-    this.currentPreset = 'electronic';
+    this.currentPreset = 'piano';
   }
 
   init() {
@@ -40,19 +32,13 @@ class AudioGenerator {
   this.init();
   if (!this.audioContext) return;
   
-  const preset = this.presets[this.currentPreset][type];
+  const preset = this.presets.piano[type];
   if (!preset) return;
 
   const now = this.audioContext.currentTime;
   
-  // 基于预设类型使用不同的播放方法
-  if (this.currentPreset === 'electronic') {
-    this.playElectronicSound(type, preset, now);
-  } else if (this.currentPreset === 'piano') {
-    this.playPianoSound(type, preset, now);
-  } else if (this.currentPreset === 'nature') {
-    this.playNatureSound(type, preset, now);
-  }
+  // 只播放钢琴音效
+  this.playPianoSound(type, preset, now);
   }
 
   // 播放钢琴音效
@@ -118,130 +104,260 @@ playPianoTone(freq, startTime, duration, attack = 0.02, decay = 0.5, volume = th
   osc.stop(startTime + duration);
 }
 
-// 播放自然音效
-playNatureSound(type, preset, now) {
-  switch (preset.pattern) {
-    case 'bird':
-      // 模拟鸟叫声
-      for (let i = 0; i < 3; i++) {
-        const chirpTime = now + i * 0.2;
-        const osc = this.audioContext.createOscillator();
-        const gain = this.audioContext.createGain();
-        
-        osc.connect(gain);
-        gain.connect(this.audioContext.destination);
-        
-        osc.type = 'sine';
-        
-        // 频率调制模拟鸟叫
-        osc.frequency.setValueAtTime(preset.freqs[0] + Math.random() * 50, chirpTime);
-        osc.frequency.linearRampToValueAtTime(preset.freqs[1] + Math.random() * 100, chirpTime + 0.1);
-        osc.frequency.linearRampToValueAtTime(preset.freqs[0], chirpTime + 0.2);
-        
-        gain.gain.setValueAtTime(0, chirpTime);
-        gain.gain.linearRampToValueAtTime(this.masterVolume * 0.7, chirpTime + 0.05);
-        gain.gain.linearRampToValueAtTime(0, chirpTime + 0.2);
-        
-        osc.start(chirpTime);
-        osc.stop(chirpTime + 0.3);
-      }
-      break;
-      
-    case 'water':
-      // 模拟流水声
-      for (let i = 0; i < 10; i++) {
-        const dropTime = now + i * 0.1 * Math.random();
-        const osc = this.audioContext.createOscillator();
-        const filter = this.audioContext.createBiquadFilter();
-        const gain = this.audioContext.createGain();
-        
-        filter.type = 'lowpass';
-        filter.frequency.value = 400 + Math.random() * 600;
-        filter.Q.value = 0.5;
-        
-        osc.type = 'triangle';
-        osc.frequency.value = 100 + Math.random() * 150;
-        
-        osc.connect(filter);
-        filter.connect(gain);
-        gain.connect(this.audioContext.destination);
-        
-        gain.gain.setValueAtTime(0, dropTime);
-        gain.gain.linearRampToValueAtTime(this.masterVolume * 0.3 * Math.random(), dropTime + 0.05);
-        gain.gain.linearRampToValueAtTime(0, dropTime + 0.3 + Math.random() * 0.2);
-        
-        osc.start(dropTime);
-        osc.stop(dropTime + 0.5);
-      }
-      break;
-      
-    case 'wind':
-      // 模拟风声
-      const noise = this.audioContext.createOscillator();
-      const filter = this.audioContext.createBiquadFilter();
-      const gain = this.audioContext.createGain();
-      const lfo = this.audioContext.createOscillator();
-      const lfoGain = this.audioContext.createGain();
-      
-      noise.type = 'sawtooth';
-      noise.frequency.value = 50;
-      
-      filter.type = 'bandpass';
-      filter.frequency.value = 250;
-      filter.Q.value = 1.5;
-      
-      lfo.frequency.value = 0.2;
-      lfoGain.gain.value = 150;
-      lfo.connect(lfoGain);
-      lfoGain.connect(filter.frequency);
-      
-      noise.connect(filter);
-      filter.connect(gain);
-      gain.connect(this.audioContext.destination);
-      
-      gain.gain.setValueAtTime(0, now);
-      gain.gain.linearRampToValueAtTime(this.masterVolume * 0.5, now + 0.5);
-      gain.gain.linearRampToValueAtTime(this.masterVolume * 0.5, now + preset.duration - 0.5);
-      gain.gain.linearRampToValueAtTime(0, now + preset.duration);
-      
-      lfo.start(now);
-      noise.start(now);
-      lfo.stop(now + preset.duration);
-      noise.stop(now + preset.duration);
-      break;
-      
-    case 'chimes':
-      // 模拟风铃声
-      for (let i = 0; i < preset.freqs.length; i++) {
-        const chimeTime = now + i * 0.15;
-        const osc = this.audioContext.createOscillator();
-        const gain = this.audioContext.createGain();
-        
-        osc.type = 'sine';
-        osc.frequency.value = preset.freqs[i];
-        
-        osc.connect(gain);
-        gain.connect(this.audioContext.destination);
-        
-        gain.gain.setValueAtTime(0, chimeTime);
-        gain.gain.linearRampToValueAtTime(this.masterVolume * 0.3, chimeTime + 0.05);
-        gain.gain.exponentialRampToValueAtTime(0.001, chimeTime + 1.5);
-        
-        osc.start(chimeTime);
-        osc.stop(chimeTime + 2);
-      }
-      break;
-  }
-  }
 
   setPreset(preset) {
-    if (this.presets[preset]) {
-      this.currentPreset = preset;
-    }
+    // 只支持钢琴音效
+    this.currentPreset = 'piano';
   }
 
   setVolume(volume) {
     this.masterVolume = Math.max(0, Math.min(1, volume));
+  }
+
+  // 白噪声相关方法
+  setWhiteNoiseType(type) {
+    this.whiteNoiseType = type;
+    if (this.whiteNoiseSource && type === 'off') {
+      this.stopWhiteNoise();
+    }
+  }
+
+  setWhiteNoiseVolume(volume) {
+    this.whiteNoiseVolume = Math.max(0, Math.min(1, volume));
+    if (this.whiteNoiseGain) {
+      this.whiteNoiseGain.gain.value = this.whiteNoiseVolume;
+    }
+  }
+
+  startWhiteNoise() {
+    if (this.whiteNoiseType === 'off') return;
+    
+    this.init();
+    if (!this.audioContext) return;
+
+    // 停止现有的白噪声
+    this.stopWhiteNoise();
+
+    try {
+      if (this.whiteNoiseType === 'classic' || this.whiteNoiseType === 'pink' || this.whiteNoiseType === 'brown') {
+        this.createGeneratedNoise();
+      } else {
+        this.createNaturalNoise();
+      }
+    } catch (e) {
+      console.error('Failed to start white noise:', e);
+    }
+  }
+
+  createGeneratedNoise() {
+    const bufferSize = this.audioContext.sampleRate * 2; // 2秒缓冲
+    const buffer = this.audioContext.createBuffer(1, bufferSize, this.audioContext.sampleRate);
+    const output = buffer.getChannelData(0);
+
+    // 生成不同类型的噪声
+    if (this.whiteNoiseType === 'classic') {
+      // 白噪声
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+    } else if (this.whiteNoiseType === 'pink') {
+      // 粉红噪声 (1/f噪声)
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        output[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+        b6 = white * 0.115926;
+      }
+    } else if (this.whiteNoiseType === 'brown') {
+      // 棕色噪声
+      let lastOut = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        output[i] = (lastOut + (0.02 * white)) / 1.02;
+        lastOut = output[i];
+        output[i] *= 3.5; // 调整音量
+      }
+    }
+
+    this.whiteNoiseSource = this.audioContext.createBufferSource();
+    this.whiteNoiseGain = this.audioContext.createGain();
+    
+    this.whiteNoiseSource.buffer = buffer;
+    this.whiteNoiseSource.loop = true;
+    
+    this.whiteNoiseSource.connect(this.whiteNoiseGain);
+    this.whiteNoiseGain.connect(this.audioContext.destination);
+    
+    this.whiteNoiseGain.gain.value = this.whiteNoiseVolume;
+    this.whiteNoiseSource.start();
+  }
+
+  createNaturalNoise() {
+    // 创建自然音效的复合音频
+    this.whiteNoiseGain = this.audioContext.createGain();
+    this.whiteNoiseGain.connect(this.audioContext.destination);
+    this.whiteNoiseGain.gain.value = this.whiteNoiseVolume;
+
+    if (this.whiteNoiseType === 'rain') {
+      this.createRainSound();
+    } else if (this.whiteNoiseType === 'ocean') {
+      this.createOceanSound();
+    } else if (this.whiteNoiseType === 'forest') {
+      this.createForestSound();
+    }
+  }
+
+  createRainSound() {
+    // 雨声：高频白噪声 + 随机点击声
+    const noise = this.audioContext.createOscillator();
+    const filter = this.audioContext.createBiquadFilter();
+    
+    noise.type = 'sawtooth';
+    noise.frequency.value = 100;
+    
+    filter.type = 'highpass';
+    filter.frequency.value = 1000;
+    filter.Q.value = 0.5;
+    
+    noise.connect(filter);
+    filter.connect(this.whiteNoiseGain);
+    
+    noise.start();
+    this.whiteNoiseSource = noise;
+
+    // 添加随机雨滴声
+    this.createRandomDrops();
+  }
+
+  createOceanSound() {
+    // 海浪声：低频振荡 + 白噪声
+    const noise = this.audioContext.createOscillator();
+    const filter = this.audioContext.createBiquadFilter();
+    const lfo = this.audioContext.createOscillator();
+    const lfoGain = this.audioContext.createGain();
+    
+    noise.type = 'sawtooth';
+    noise.frequency.value = 50;
+    
+    filter.type = 'bandpass';
+    filter.frequency.value = 400;
+    filter.Q.value = 1;
+    
+    lfo.frequency.value = 0.1;
+    lfoGain.gain.value = 200;
+    lfo.connect(lfoGain);
+    lfoGain.connect(filter.frequency);
+    
+    noise.connect(filter);
+    filter.connect(this.whiteNoiseGain);
+    
+    lfo.start();
+    noise.start();
+    this.whiteNoiseSource = noise;
+  }
+
+  createForestSound() {
+    // 森林声：低频噪声 + 偶尔的鸟叫
+    const noise = this.audioContext.createOscillator();
+    const filter = this.audioContext.createBiquadFilter();
+    
+    noise.type = 'triangle';
+    noise.frequency.value = 80;
+    
+    filter.type = 'lowpass';
+    filter.frequency.value = 800;
+    filter.Q.value = 0.8;
+    
+    noise.connect(filter);
+    filter.connect(this.whiteNoiseGain);
+    
+    noise.start();
+    this.whiteNoiseSource = noise;
+
+    // 添加偶尔的鸟叫声
+    this.createRandomBirds();
+  }
+
+  createRandomDrops() {
+    // 每隔一段时间创建雨滴声
+    const createDrop = () => {
+      if (this.whiteNoiseType !== 'rain' || !this.whiteNoiseGain) return;
+      
+      const osc = this.audioContext.createOscillator();
+      const gain = this.audioContext.createGain();
+      
+      osc.type = 'sine';
+      osc.frequency.value = 1000 + Math.random() * 2000;
+      
+      osc.connect(gain);
+      gain.connect(this.whiteNoiseGain);
+      
+      gain.gain.setValueAtTime(0, this.audioContext.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, this.audioContext.currentTime + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.1);
+      
+      osc.start();
+      osc.stop(this.audioContext.currentTime + 0.1);
+      
+      // 随机间隔创建下一个雨滴
+      setTimeout(createDrop, Math.random() * 200 + 50);
+    };
+    
+    createDrop();
+  }
+
+  createRandomBirds() {
+    // 每隔一段时间创建鸟叫声
+    const createBird = () => {
+      if (this.whiteNoiseType !== 'forest' || !this.whiteNoiseGain) return;
+      
+      const osc = this.audioContext.createOscillator();
+      const gain = this.audioContext.createGain();
+      
+      osc.type = 'sine';
+      const baseFreq = 400 + Math.random() * 800;
+      
+      osc.connect(gain);
+      gain.connect(this.whiteNoiseGain);
+      
+      // 鸟叫的频率变化
+      osc.frequency.setValueAtTime(baseFreq, this.audioContext.currentTime);
+      osc.frequency.linearRampToValueAtTime(baseFreq * 1.5, this.audioContext.currentTime + 0.1);
+      osc.frequency.linearRampToValueAtTime(baseFreq, this.audioContext.currentTime + 0.2);
+      
+      gain.gain.setValueAtTime(0, this.audioContext.currentTime);
+      gain.gain.linearRampToValueAtTime(0.005, this.audioContext.currentTime + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.3);
+      
+      osc.start();
+      osc.stop(this.audioContext.currentTime + 0.3);
+      
+      // 随机间隔创建下一个鸟叫
+      setTimeout(createBird, Math.random() * 10000 + 5000);
+    };
+    
+    createBird();
+  }
+
+  stopWhiteNoise() {
+    if (this.whiteNoiseSource) {
+      try {
+        this.whiteNoiseSource.stop();
+      } catch (e) {
+        // ignore errors when stopping
+      }
+      this.whiteNoiseSource = null;
+    }
+    if (this.whiteNoiseGain) {
+      this.whiteNoiseGain.disconnect();
+      this.whiteNoiseGain = null;
+    }
   }
 }
 

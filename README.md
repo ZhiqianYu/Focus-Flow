@@ -1,70 +1,142 @@
-# Focus-Flow
-Intelligent Study Timer Based on Neuroscience
+# Focus Flow - 智能学习计时器
 
-# 🕒 多阶段随机提醒计时器
+<div align="center">
+  <img src="assets/gitpic/logo.png" alt="Focus Flow Logo" width="200"/>
+  <h3>基于神经科学原理的智能学习计时器</h3>
+</div>
 
-一个支持 **阶段计时**、**随机提醒短休息**、**阶段间休息** 的高可配置桌面计时工具。适合用在番茄工作法、自主学习、集中注意力训练等场景中。
+## 🌟 预览
 
----
+<div align="center">
+  <img src="assets/gitpic/gitpic2.png" alt="应用预览" width="80%"/>
+</div>
 
-## 📦 功能特性
+## ✨ 特点
 
-- 自定义总时间、阶段时间、短休息、阶段休息；
-- 随机提醒触发短休息；
-- 提示音自定义，支持 `.mp3/.wav` 文件；
-- 支持配置保存与加载；
-- 打包为 `.exe` 后可离线运行；
+Focus Flow 是一款基于神经科学原理设计的学习计时器，通过随机提醒和智能休息间隔来优化记忆形成和知识巩固。
 
----
+### 核心功能
 
-## 🖥️ 界面截图
+- **基于神经科学的时间管理** - 优化学习效果与记忆形成
+- **随机提醒机制** - 在学习过程中随机触发短暂回顾，增强记忆巩固
+- **多阶段计时系统** - 包含专注学习、短暂休息和阶段性休息
+- **自定义预设** - 内置番茄工作法、深度工作和考试复习等多种预设模式
+- **进度可视化** - 直观显示总体和当前阶段的学习进度
+- **PWA 支持** - 可安装为桌面应用，支持离线使用
+- **Electron 桌面版** - 跨平台桌面应用支持 (Windows, macOS, Linux)
 
-<img src="images/pic1.png" alt="软件界面" width="400"/>
-<img src="images/pic2.png" alt="提示音设置" width="250"/>
+<div align="center">
+  <img src="assets/gitpic/gitpic1.png" alt="功能展示" width="80%"/>
+</div>
 
----
+## 🌍 多语言支持
 
-## 🌟 使用理念
+Focus Flow 提供多语言支持，目前已实现：
 
-在阶段式学习中，合理的时间管理和科学的复习方法能够显著提升学习效率和记忆效果。**多阶段随机提醒计时器** 的设计灵感来源于以下理念：
+- 简体中文
+- English (英语)
+- Deutsch (德语)
 
-- **随机提醒**：在每个学习阶段中，设置每隔 3-5 分钟的随机提醒。当提醒响起时，可以闭上眼睛，清空大脑，回顾刚才学习的内容。这一短暂的“复盘”可以帮助大脑快速整理信息，重新激活刚才激活过的神经通路。据研究表明，这种神经通路的激活速度是直接再次阅读知识点的 20 倍。这意味着，10s的时间通过这种技巧可以实现相当于3-5分钟高效复习的效果。
+<div align="center">
+  <img src="assets/gitpic/gitpic5.png" alt="多语言支持" width="80%"/>
+</div>
 
-- **阶段时间**：学习阶段是较长时间的专注学习期。在阶段结束后，建议进行一次较长的休息，彻底放松大脑。这不仅有助于缓解大脑疲劳，还能进一步巩固记忆。
+## 🎵 动态音频生成系统
 
-- **总时间**：可以根据一天的学习目标，设置多个学习阶段与休息时间的组合，达到科学高效的一天学习计划。
+应用内置了基于 Web Audio API 的实时音频生成系统，无需外部音频文件：
 
-通过这种方法，**多阶段随机提醒计时器** 不仅是一个简单的时间管理工具，更是一个助力高效学习的好帮手。
+- **三种音效主题**:
+  - 电子音效 - 现代合成器音效，适合科技风格的学习环境
+  - 钢琴音效 - 柔和的钢琴和弦与琶音，营造平静的学习氛围
+  - 自然音效 - 自然环境音效，包括鸟鸣、流水和风铃声
 
----
+- **四种提示音**:
+  - 开始提醒音 - 学习阶段开始时播放
+  - 随机提醒音 - 随机回顾提示时播放
+  - 阶段休息音 - 阶段结束进入休息时播放
+  - 结束提醒音 - 整个学习周期结束时播放
 
-## 🧪 使用方法
+<div align="center">
+  <img src="assets/gitpic/gitpic3.png" alt="音频设置" width="60%"/>
+</div>
 
-### ✅ 运行方式一：源码运行
+## 🛠️ 技术栈
 
-1. 安装依赖：
-    ```bash
-    pip install pygame
-    ```
-2. 运行程序：
-    ```bash
-    python MultiStageRandomNotificationTimer.py
-    ```
-3. 放置配置文件 `config.json` ，提醒声音`notification`与程序同目录。
+- **前端**: React, JavaScript, HTML5, CSS3
+- **状态管理**: React Hooks
+- **音频**: Web Audio API
+- **国际化**: i18next
+- **PWA**: Service Workers, Manifest
+- **桌面应用**: Electron
+- **构建工具**: Vite
 
----
+## 📥 安装和使用
 
-### ✅ 运行方式二：使用打包好的 `.exe`
+### Web 版本
 
-> 下载发布页中的 `Multi Stage Random Notification Timer.exe`， 直接运行即可，如无法运行，则需要电脑上装有python。
+访问在线版本: [https://zhiqianyu.github.io/focus-flow](https://zhiqianyu.github.io/focus-flow)
 
-## 📄 License
+或者本地运行:
 
-This software is licensed for **personal and non-commercial use only**.
+```bash
+# 克隆仓库
+git clone https://github.com/zhiqianyu/focus-flow.git
 
-For commercial use (including in companies, products, SaaS platforms), you must obtain a paid license. Please contact:
+# 进入项目目录
+cd focus-flow
 
-📧 yu-zhiqian@outlook.com  
-🌐 [github.com/ZhiqianYu](https://github.com/ZhiqianYu)
+# 安装依赖
+npm install
 
-Unauthorized commercial use is **strictly prohibited**.
+# 启动开发服务器
+npm run dev
+```
+
+### 桌面版本
+
+下载对应平台的安装包: [Releases](https://github.com/zhiqianyu/focus-flow/releases)
+
+或者从源码构建:
+
+```bash
+# 构建 Windows 版本
+npm run build-win
+
+# 构建 macOS 版本
+npm run build-mac
+
+# 构建 Linux 版本
+npm run build-linux
+```
+
+## 👨‍💻 开发指南
+
+```bash
+# Web 版开发
+npm run dev
+
+# Electron 版开发
+npm run electron:dev
+
+# 构建 Web 版
+npm run build
+
+# 构建 Electron 桌面版
+npm run build-win    # Windows
+npm run build-mac    # macOS
+npm run build-linux  # Linux
+```
+
+## 📝 许可证
+
+本项目使用 [MIT 许可证](LICENSE) 进行授权。
+
+## ✍️ 作者
+
+- **姓名** - [你的名字](https://github.com/zhiqianyu)
+- **联系方式** - [your-email@example.com](mailto:yu-zhiqian@outlook.com)
+
+## 🙏 致谢
+
+- 感谢所有贡献者和支持者
+- 如果你喜欢这个项目，请考虑 [给项目点星](https://github.com/zhiqianyu/focus-flow)

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import path from 'path'
 
 VitePWA({
   registerType: 'autoUpdate',
@@ -20,7 +21,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.ico', 'robots.txt', 'iOS.png'],
       manifest: {
         name: 'Focus Flow - 智能学习计时器',
         short_name: 'Focus Flow',
@@ -80,5 +81,16 @@ export default defineConfig({
         ]
       }
     })
-  ]
+  ],
+  base: './', // 这很重要，确保在Electron中可以正确加载资源
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true,
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
 })

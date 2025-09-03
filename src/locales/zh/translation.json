@@ -12,7 +12,7 @@
     "breakTime": "休息时间",
     "status": {
       "ready": "准备开始",
-      "stage": "专注学习中",
+      "stage": "专注模式",
       "shortBreak": "短暂回顾",
       "stageBreak": "阶段休息"
     }
@@ -26,50 +26,44 @@
     "shortBreak": "短休息",
     "stageBreak": "阶段休息",
     "save": "保存设置",
+    "resetToDefault": "恢复默认",
+    "presetName": "预设名称",
+    "createPreset": "创建预设",
+    "maxPresets": "最多创建2个自定义预设",
+    "nameRequired": "请输入预设名称",
+    "nameTooLong": "名称最多4个字符",
+    "confirmReset": "确定要恢复默认设置吗？",
     "min": "最小",
     "max": "最大"
   },
   "presets": {
-    "pomodoro": "番茄工作法",
+    "pomodoro": "番茄时钟",
     "deepwork": "深度工作",
     "study": "考试复习",
     "custom": "自定义"
   },
   "audio": {
     "settings": "音频设置",
-    "electronic": "电子音效",
-    "electronic_desc": "现代合成器音效，适合科技风格的学习环境",
     "piano": "钢琴音效",
     "piano_desc": "柔和的钢琴和弦与琶音，营造平静的学习氛围",
-    "nature": "自然音效",
-    "nature_desc": "自然环境音效，包括鸟鸣、流水和风铃声",
     "volume": "音量",
     "preview": "预览音效",
     "startSound": "开始提醒音",
     "reminderSound": "随机提醒音",
     "breakSound": "阶段休息音",
     "endSound": "结束提醒音",
-    "theme": "声音主题",
     "play": "播放",
-    "descriptions": {
-      "electronic": {
-        "start": "上升的电子音调序列",
-        "reminder": "电子和弦提醒",
-        "stageBreak": "电子扫频音效",
-        "end": "电子胜利序列"
-      },
-      "piano": {
-        "start": "上行钢琴琶音",
-        "reminder": "柔和钢琴和弦",
-        "stageBreak": "和弦分解钢琴声",
-        "end": "下行钢琴音阶"
-      },
-      "nature": {
-        "start": "轻柔的鸟鸣声",
-        "reminder": "流水声提醒",
-        "stageBreak": "舒缓的风声",
-        "end": "和谐的风铃声"
-      }
+    "whiteNoise": "白噪声",
+    "whiteNoiseSettings": "白噪声设置",
+    "whiteNoiseVolume": "白噪声音量",
+    "whiteNoiseTypes": {
+      "off": "关闭",
+      "classic": "经典白噪声",
+      "pink": "粉红噪声",
+      "brown": "棕色噪声",
+      "rain": "雨声",
+      "ocean": "海浪声",
+      "forest": "森林声"
     }
   },
   "donate": {
@@ -112,6 +106,7 @@
     "pause": "计时已暂停",
     "resume": "计时继续",
     "reset": "计时器已重置",
+    "resetToDefault": "已恢复默认设置",
     "confirmReset": "确定要重置计时器吗？",
     "presetLoaded": "预设已加载",
     "pleaseSetTime": "请设置总时间和阶段时间",

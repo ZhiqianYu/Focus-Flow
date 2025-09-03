@@ -105,7 +105,26 @@
   color: white;
 }
 
-/* 响应式设计 */
+/* 平板设备 */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .timer-main {
+    font-size: 3.5rem;
+  }
+  
+  .timer-display {
+    padding: 32px;
+  }
+  
+  .timer-item {
+    padding: 18px;
+  }
+  
+  .timer-item-time {
+    font-size: 1.6rem;
+  }
+}
+
+/* 移动设备竖屏 */
 @media (max-width: 768px) {
   .timer-main {
     font-size: 2.8rem;
@@ -113,26 +132,12 @@
   
   .timer-display {
     padding: 20px 16px 16px 16px;
-  }
-  
-  .timer-item {
-    padding: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .timer-main {
-    font-size: 2.2rem;
+    min-height: 280px;
   }
   
   .timer-status {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-bottom: 20px;
-  }
-  
-  .timer-sub {
-    grid-template-columns: 1fr;
-    gap: 12px;
   }
   
   .timer-item {
@@ -140,27 +145,150 @@
   }
   
   .timer-item-time {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
+  }
+  
+  .settings-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .timer-settings-icon {
+    top: 12px;
+    right: 12px;
+  }
+  
+  .audio-settings-icon {
+    top: 12px;
+    left: 12px;
   }
 }
 
-/* 横屏适配 */
-@media (max-width: 768px) and (orientation: landscape) {
-  .timer-display {
-    padding: 16px;
+/* 小屏幕移动设备竖屏 */
+@media (max-width: 480px) {
+  .timer-main {
+    font-size: 2.2rem;
   }
   
-  .timer-main {
-    font-size: 2.4rem;
-    margin-bottom: 10px;
+  .timer-display {
+    padding: 16px 12px 12px 12px;
+    min-height: 260px;
   }
   
   .timer-status {
+    font-size: 1rem;
     margin-bottom: 15px;
   }
   
   .timer-sub {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .timer-item {
+    padding: 12px;
+  }
+  
+  .timer-item-time {
+    font-size: 1.2rem;
+  }
+  
+  .timer-item-label {
+    font-size: 0.8rem;
+  }
+  
+  .settings-icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .timer-settings-icon {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .audio-settings-icon {
+    top: 10px;
+    left: 10px;
+  }
+}
+
+/* 移动设备横屏 */
+@media (max-width: 768px) and (orientation: landscape) {
+  .timer-display {
+    padding: 12px 16px;
+    min-height: 200px;
+  }
+  
+  .timer-main {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  
+  .timer-status {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+  
+  .timer-sub {
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  
+  .timer-item {
+    padding: 8px 10px;
+  }
+  
+  .timer-item-time {
+    font-size: 1.1rem;
+  }
+  
+  .timer-item-label {
+    font-size: 0.75rem;
+  }
+  
+  .settings-icon {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .timer-settings-icon {
+    top: 8px;
+    right: 8px;
+  }
+  
+  .audio-settings-icon {
+    top: 8px;
+    left: 8px;
+  }
+}
+
+/* 大屏幕设备 */
+@media (min-width: 1025px) {
+  .timer-main {
+    font-size: 4.5rem;
+  }
+  
+  .timer-display {
+    padding: 40px;
+    min-height: 400px;
+  }
+  
+  .timer-status {
+    font-size: 1.4rem;
+    margin-bottom: 35px;
+  }
+  
+  .timer-item {
+    padding: 24px;
+  }
+  
+  .timer-item-time {
+    font-size: 1.8rem;
+  }
+  
+  .timer-item-label {
+    font-size: 1rem;
   }
 }

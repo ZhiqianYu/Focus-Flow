@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/SettingsPanel.css';
 import { useTranslation } from 'react-i18next';
+import settingsManager from '../utils/SettingsManager';
 
-const SettingsPanel = ({ isOpen, onClose, config, onConfigChange }) => {
+const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, onResetToDefault }) => {
   const [localConfig, setLocalConfig] = useState(config);
+  const [presetName, setPresetName] = useState('');
+  const [showCreatePreset, setShowCreatePreset] = useState(false);
   const { t } = useTranslation();
   
   useEffect(() => {
@@ -61,6 +64,44 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange }) => {
     onConfigChange(localConfig);
     onClose();
   };
+
+  const handleResetToDefault = () => {
+    if (confirm(t('settings.confirmReset'))) {
+      onResetToDefault();
+    }
+  };
+
+  const handleCreatePreset = () => {
+    if (!presetName.trim()) {
+      alert(t('settings.nameRequired'));
+      return;
+    }
+    
+    if (presetName.length > 4) {
+      alert(t('settings.nameTooLong'));
+      return;
+    }
+
+    const userPresets = settingsManager.getUserCustomPresets();
+    if (userPresets.length >= 2) {
+      alert(t('settings.maxPresets'));
+      return;
+    }
+
+    const presetId = `custom_${Date.now()}`;
+    const newPreset = {
+      id: presetId,
+      name: presetName.trim(),
+      config: localConfig
+    };
+
+    if (settingsManager.addUserCustomPreset(newPreset)) {
+      setPresetName('');
+      setShowCreatePreset(false);
+      onConfigChange(localConfig);
+      onClose();
+    }
+  };
   
   if (!isOpen) return null;
   
@@ -77,6 +118,73 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange }) => {
         </div>
         
         <div className="settings-panel">
+          {/* 预设名称编辑 - 仅在非custom模式显示 */}
+          {activePreset && activePreset !== 'custom' && (
+            <div className="setting-group">
+              <div className="setting-label">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                </svg>
+                {t('settings.presetName')}
+              </div>
+              <div style={{ color: '#6b7280', fontSize: '0.9rem', marginLeft: '28px' }}>
+                {t(`presets.${activePreset}`)}
+              </div>
+            </div>
+          )}
+
+          {/* 自定义预设创建 - 仅在custom模式显示 */}
+          {activePreset === 'custom' && (
+            <div className="setting-group">
+              <div className="setting-label">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                {t('settings.createPreset')}
+              </div>
+              {!showCreatePreset ? (
+                <button 
+                  className="btn btn-secondary"
+                  style={{ marginLeft: '28px', padding: '6px 12px', fontSize: '0.9rem' }}
+                  onClick={() => setShowCreatePreset(true)}
+                >
+                  {t('settings.createPreset')}
+                </button>
+              ) : (
+                <div style={{ marginLeft: '28px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <input
+                    type="text"
+                    value={presetName}
+                    onChange={(e) => setPresetName(e.target.value)}
+                    placeholder={t('settings.presetName')}
+                    maxLength="4"
+                    style={{
+                      padding: '6px 8px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '4px',
+                      fontSize: '0.9rem',
+                      width: '80px'
+                    }}
+                  />
+                  <button 
+                    className="btn btn-primary"
+                    style={{ padding: '6px 12px', fontSize: '0.8rem' }}
+                    onClick={handleCreatePreset}
+                  >
+                    ✓
+                  </button>
+                  <button 
+                    className="btn btn-secondary"
+                    style={{ padding: '6px 12px', fontSize: '0.8rem' }}
+                    onClick={() => setShowCreatePreset(false)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="setting-group">
             <div className="setting-label">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -278,6 +386,9 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange }) => {
         </div>
         
         <div className="modal-footer">
+          <button className="btn btn-secondary" onClick={handleResetToDefault}>
+            {t('settings.resetToDefault')}
+          </button>
           <button className="btn btn-primary" onClick={handleSave}>
             {t('settings.save')}
           </button>

@@ -12,7 +12,7 @@
     "breakTime": "Pausenzeit",
     "status": {
       "ready": "Bereit zum Start",
-      "stage": "Konzentriertes Lernen",
+      "stage": "Fokus-Modus",
       "shortBreak": "Kurze Wiederholung",
       "stageBreak": "Phasenpause"
     }
@@ -26,50 +26,43 @@
     "shortBreak": "Kurze Pause",
     "stageBreak": "Phasenpause",
     "save": "Einstellungen speichern",
+    "resetToDefault": "Standard",
+    "presetName": "Name",
+    "createPreset": "Erstellen",
+    "maxPresets": "Max. 2 eigene",
+    "nameRequired": "Name erforderlich",
+    "nameTooLong": "Max. 4 Zeichen",
     "min": "Min",
     "max": "Max"
   },
   "presets": {
-    "pomodoro": "Pomodoro-Technik",
+    "pomodoro": "Pomodoro-Timer",
     "deepwork": "Konzentrierte Arbeit",
     "study": "Prüfungsvorbereitung",
     "custom": "Benutzerdefiniert"
   },
   "audio": {
     "settings": "Audio-Einstellungen",
-    "electronic": "Elektronische Klänge",
-    "electronic_desc": "Moderne Synthesizer-Sounds, ideal für technisch orientierte Lernumgebungen",
     "piano": "Klavierklänge",
     "piano_desc": "Sanfte Klavierakkorde und Arpeggios für eine ruhige Lernatmosphäre",
-    "nature": "Naturklänge",
-    "nature_desc": "Natürliche Umgebungsgeräusche, einschließlich Vogelgesang, fließendes Wasser und Windspiel",
     "volume": "Lautstärke",
     "preview": "Klangvorschau",
     "startSound": "Start-Erinnerung",
     "reminderSound": "Zufällige Erinnerung",
     "breakSound": "Pausenklang",
     "endSound": "End-Erinnerung",
-    "theme": "Klangthema",
     "play": "Abspielen",
-    "descriptions": {
-      "electronic": {
-        "start": "Aufsteigende elektronische Tonsequenz",
-        "reminder": "Elektronischer Akkord-Alert",
-        "stageBreak": "Elektronischer Sweep-Effekt",
-        "end": "Elektronische Siegessequenz"
-      },
-      "piano": {
-        "start": "Aufsteigendes Klavier-Arpeggio",
-        "reminder": "Sanfter Klavierakkord",
-        "stageBreak": "Gebrochene Klavierakkordfolge",
-        "end": "Absteigende Klaviertonleiter"
-      },
-      "nature": {
-        "start": "Sanftes Vogelgezwitscher",
-        "reminder": "Wasserströmungs-Alert",
-        "stageBreak": "Beruhigende Windgeräusche",
-        "end": "Harmonisches Windspiel"
-      }
+    "whiteNoise": "Weißes Rauschen",
+    "whiteNoiseSettings": "Einstellungen für weißes Rauschen",
+    "whiteNoiseVolume": "Lautstärke des weißen Rauschens",
+    "whiteNoiseTypes": {
+      "off": "Aus",
+      "classic": "Klassisches weißes Rauschen",
+      "pink": "Rosa Rauschen",
+      "brown": "Braunes Rauschen",
+      "rain": "Regengeräusche",
+      "ocean": "Meeresrauschen",
+      "forest": "Waldgeräusche"
     }
   },
   "donate": {
@@ -97,14 +90,14 @@
     "description": "Focus Flow ist ein intelligenter Lerntimer, der auf neurowissenschaftlichen Prinzipien basiert und durch zufällige Erinnerungen das Gedächtnis und die Informationsverarbeitung fördert.",
     "author": "Entwickler",
     "contact": "Kontakt",
-    "license": " Lizenze",
+    "license": "Lizenz",
     "sourceCode": "Quellcode verfügbar auf",
     "version": "Aktuelle Version",
     "by": "Entwickelt von",
-    "develop": "",
+    "develop": "Entwicklung",
     "sendEmail": "Klicken, um E-Mail zu senden",
     "comD": "Details zur kommerziellen Nutzung",
-    "get": ""
+    "get": "Erhalten"
   },
   "notifications": {
     "start": "Timer gestartet!",

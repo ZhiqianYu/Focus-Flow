@@ -83,7 +83,7 @@
     </div>
 
     <script>
-        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512, 1024];
         const icons = {};
 
         // 绘制图标
@@ -118,14 +118,14 @@
             
             // 绘制时钟圆圈
             ctx.beginPath();
-            ctx.arc(size/2, size/2, size*0.35, 0, 2 * Math.PI);
+            ctx.arc(size/2, size/2.4, size*0.35, 0, 2 * Math.PI);
             ctx.strokeStyle = 'white';
             ctx.lineWidth = size * 0.04;
             ctx.stroke();
             
             // 绘制时钟指针
             ctx.beginPath();
-            ctx.moveTo(size/2, size/2);
+            ctx.moveTo(size/2, size/2.4);
             ctx.lineTo(size/2, size*0.25);
             ctx.strokeStyle = 'white';
             ctx.lineWidth = size * 0.03;
@@ -133,8 +133,8 @@
             ctx.stroke();
             
             ctx.beginPath();
-            ctx.moveTo(size/2, size/2);
-            ctx.lineTo(size*0.7, size*0.6);
+            ctx.moveTo(size/2, size/2.4);
+            ctx.lineTo(size*0.7, size*0.5);
             ctx.strokeStyle = 'white';
             ctx.lineWidth = size * 0.03;
             ctx.lineCap = 'round';
@@ -142,7 +142,7 @@
             
             // 中心点
             ctx.beginPath();
-            ctx.arc(size/2, size/2, size*0.03, 0, 2 * Math.PI);
+            ctx.arc(size/2, size/2.4, size*0.03, 0, 2 * Math.PI);
             ctx.fillStyle = 'white';
             ctx.fill();
             
@@ -152,7 +152,7 @@
                 ctx.fillStyle = 'white';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText('FF', size/2, size*0.85);
+                ctx.fillText('Focus FLow', size/2, size*0.9);
             }
         }
 

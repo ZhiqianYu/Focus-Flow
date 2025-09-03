@@ -12,7 +12,7 @@
     "breakTime": "Break Time",
     "status": {
       "ready": "Ready to Start",
-      "stage": "Focused Learning",
+      "stage": "Focus Mode",
       "shortBreak": "Short Review",
       "stageBreak": "Stage Break"
     }
@@ -26,50 +26,43 @@
     "shortBreak": "Short Break",
     "stageBreak": "Stage Break",
     "save": "Save Settings",
+    "resetToDefault": "Reset Default",
+    "presetName": "Preset Name",
+    "createPreset": "Create Preset",
+    "maxPresets": "Max 2 custom presets",
+    "nameRequired": "Name required",
+    "nameTooLong": "Max 4 characters",
     "min": "Min",
     "max": "Max"
   },
   "presets": {
-    "pomodoro": "Pomodoro Technique",
+    "pomodoro": "Pomodoro Timer",
     "deepwork": "Deep Work",
     "study": "Exam Review",
     "custom": "Custom"
   },
   "audio": {
     "settings": "Audio Settings",
-    "electronic": "Electronic Sounds",
-    "electronic_desc": "Modern synthesizer sounds, ideal for tech-focused study environments",
     "piano": "Piano Sounds",
     "piano_desc": "Soft piano chords and arpeggios, creating a calm learning atmosphere",
-    "nature": "Nature Sounds",
-    "nature_desc": "Natural environment sounds, including bird songs, flowing water, and wind chimes",
     "volume": "Volume",
     "preview": "Sound Preview",
     "startSound": "Start Reminder",
     "reminderSound": "Random Reminder",
     "breakSound": "Stage Break Sound",
     "endSound": "End Reminder",
-    "theme": "Sound Theme",
     "play": "Play",
-    "descriptions": {
-      "electronic": {
-        "start": "Rising electronic tone sequence",
-        "reminder": "Electronic chord alert",
-        "stageBreak": "Electronic sweep effect",
-        "end": "Electronic victory sequence"
-      },
-      "piano": {
-        "start": "Ascending piano arpeggio",
-        "reminder": "Soft piano chord",
-        "stageBreak": "Broken piano chord progression",
-        "end": "Descending piano scale"
-      },
-      "nature": {
-        "start": "Gentle bird chirping",
-        "reminder": "Water stream alert",
-        "stageBreak": "Soothing wind sounds",
-        "end": "Harmonious wind chimes"
-      }
+    "whiteNoise": "White Noise",
+    "whiteNoiseSettings": "White Noise Settings",
+    "whiteNoiseVolume": "White Noise Volume",
+    "whiteNoiseTypes": {
+      "off": "Off",
+      "classic": "Classic White Noise",
+      "pink": "Pink Noise",
+      "brown": "Brown Noise",
+      "rain": "Rain Sounds",
+      "ocean": "Ocean Waves",
+      "forest": "Forest Sounds"
     }
   },
   "donate": {
@@ -97,14 +90,14 @@
     "description": "Focus Flow is a smart learning timer based on neuroscience principles, promoting brain recall and memory consolidation through random reminders.",
     "author": "Developer",
     "contact": "Contact",
-    "license": " License",
+    "license": "License",
     "sourceCode": "Source code available on",
     "version": "Current version",
     "by": "Developed by",
-    "develop": "",
+    "develop": "Development",
     "sendEmail": "Click to Send Email",
     "comD": "Commercial Use Details",
-    "get": ""
+    "get": "Get"
   },
   "notifications": {
     "start": "Timer started!",
@@ -140,7 +133,7 @@
     "break": "Break Progress"
   },
   "document": {
-    "title": "Focus Flow - Stage Random Reminder Timer",
+    "title": "Focus Flow - Smart Learning Timer with Random Reminders",
     "description": "Smart learning timer based on neuroscience principles"
   }
 }

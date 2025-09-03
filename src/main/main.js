@@ -27,7 +27,7 @@ function createWindow() {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     },
-    icon: path.join(__dirname, '../public/assets/icons/icon-512.png'),
+    icon: path.join(__dirname, '../public/assets/icons/linux_android.png'),
     show: false // 先不显示窗口，等待加载完成
   });
 

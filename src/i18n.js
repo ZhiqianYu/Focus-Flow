@@ -25,7 +25,7 @@ i18n
       }
       // 其他语言...
     },
-    fallbackLng: 'en', // 找不到翻译时使用英语
+    fallbackLng: 'zh', // 找不到翻译时使用英语
     debug: process.env.NODE_ENV === 'development', // 开发环境启用调试
     interpolation: {
       escapeValue: false // React已经安全处理了

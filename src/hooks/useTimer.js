@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import audioGenerator from '../utils/AudioGenerator';
+import settingsManager from '../utils/SettingsManager';
 
 const DEFAULT_CONFIG = {
   totalTime: { hours: 2, minutes: 0, seconds: 0 },
@@ -92,42 +93,47 @@ const useTimer = () => {
     }
   }, [config, calculateSeconds, isRunning]);
     
-  // 加载预设 - 避免循环更新
+  // 加载预设 - 支持用户自定义配置
   const loadPreset = useCallback((presetName) => {
     if (presetName === 'custom') {
       return null;
     }
 
-    const preset = PRESETS[presetName];
-    if (!preset) return null;
+    // 获取默认预设配置
+    const defaultPreset = PRESETS[presetName];
+    if (!defaultPreset) return null;
+    
+    // 尝试获取用户的自定义配置，如果没有则使用默认配置
+    const customConfig = settingsManager.getCustomPresetConfig(presetName);
+    const finalConfig = customConfig || defaultPreset;
     
     // 保存到配置
-    setConfig(preset);
+    setConfig(finalConfig);
     
     // 直接设置时间而不是调用 updateDisplayTimes
     if (!isRunning) {
-      const totalSeconds = calculateSeconds(preset.totalTime);
-      const stageSeconds = calculateSeconds(preset.stageTime);
-      const breakSeconds = calculateSeconds(preset.shortBreak);
+      const totalSeconds = calculateSeconds(finalConfig.totalTime);
+      const stageSeconds = calculateSeconds(finalConfig.stageTime);
+      const breakSeconds = calculateSeconds(finalConfig.shortBreak);
       
       setTotalTimeLeft(totalSeconds);
       setStageTimeLeft(stageSeconds);
       setBreakTimeLeft(breakSeconds);
     }
     
-    // 保存到本地存储或Electron
+    // 保存当前配置到本地存储或Electron
     if (window.electronAPI) {
       try {
-        window.electronAPI.saveConfig(preset);
+        window.electronAPI.saveConfig(finalConfig);
       } catch (error) {
         console.error('保存配置失败:', error);
       }
     } else {
       // 在浏览器环境中使用localStorage
-      localStorage.setItem('timerConfig', JSON.stringify(preset));
+      localStorage.setItem('timerConfig', JSON.stringify(finalConfig));
     }
     
-    return preset;
+    return finalConfig;
   }, [isRunning, calculateSeconds]);
     
   // 开始/暂停计时器
@@ -154,14 +160,20 @@ const useTimer = () => {
       setNextReminderTime(Math.floor(Math.random() * (maxSeconds - minSeconds + 1)) + minSeconds);
       
       audioGenerator.playSound('start');
+      // 启动白噪声
+      audioGenerator.startWhiteNoise();
       return true;
     } else if (!isPaused) {
       // 暂停
       setIsPaused(true);
+      // 停止白噪声
+      audioGenerator.stopWhiteNoise();
       return true;
     } else {
       // 继续
       setIsPaused(false);
+      // 重新启动白噪声
+      audioGenerator.startWhiteNoise();
       return true;
     }
   }, [isRunning, isPaused, config, calculateSeconds]);
@@ -189,6 +201,9 @@ const useTimer = () => {
       clearInterval(timerRef.current);
       timerRef.current = null;
     }
+    
+    // 停止白噪声
+    audioGenerator.stopWhiteNoise();
   }, [config, calculateSeconds]);
   
   // 更新进度
@@ -290,6 +305,8 @@ const useTimer = () => {
       // 检查总时间结束
       if (totalTimeLeft <= 0) {
         audioGenerator.playSound('end');
+        // 停止白噪声
+        audioGenerator.stopWhiteNoise();
         resetTimer();
       }
     }
@@ -306,7 +323,7 @@ const useTimer = () => {
     resetTimer
   ]);
 
-  // 保存和加载配置 - 避免循环更新
+  // 保存和加载配置 - 支持预设自定义保存
   const saveConfig = useCallback(async (newConfig) => {
     setConfig(newConfig);
     
@@ -319,6 +336,13 @@ const useTimer = () => {
       setTotalTimeLeft(totalSeconds);
       setStageTimeLeft(stageSeconds);
       setBreakTimeLeft(breakSeconds);
+    }
+    
+    // 检查当前是否有活跃的预设
+    const activePreset = settingsManager.getActivePreset();
+    if (activePreset && activePreset !== 'custom' && PRESETS[activePreset]) {
+      // 如果有活跃预设且不是custom，将新配置保存为该预设的自定义配置
+      settingsManager.setCustomPresetConfig(activePreset, newConfig);
     }
     
     // 保存到本地存储或Electron
@@ -379,6 +403,12 @@ const useTimer = () => {
   // 组件加载时加载配置
   useEffect(() => {
     loadSavedConfig();
+    
+    // 加载白噪声设置
+    const whiteNoiseType = localStorage.getItem('whiteNoiseType') || 'off';
+    const whiteNoiseVolume = parseFloat(localStorage.getItem('whiteNoiseVolume') || '0.2');
+    audioGenerator.setWhiteNoiseType(whiteNoiseType);
+    audioGenerator.setWhiteNoiseVolume(whiteNoiseVolume);
   }, [loadSavedConfig]);
   
   return {

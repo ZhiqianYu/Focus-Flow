@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/PresetButtons.css';
+import settingsManager from '../utils/SettingsManager';
 import { useTranslation } from 'react-i18next';
 
 const PresetButtons = ({ onSelectPreset }) => {
 
   const { t } = useTranslation();
 
-  const [activePreset, setActivePreset] = useState(null);
+  const [activePreset, setActivePreset] = useState(() => {
+    return settingsManager.getActivePreset();
+  });
   
   const handlePresetClick = (preset) => {
     setActivePreset(preset);
+    settingsManager.setActivePreset(preset);
     onSelectPreset(preset);
   };
   

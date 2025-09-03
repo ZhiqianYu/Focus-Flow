@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "description": "基于神经科学的智能学习计时器",
   "type": "module",
-  "main": "dist-electron/main.js",
+  "main": "src/main/main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "electron:dev": "vite --config vite.electron.config.js",
-    "electron:build": "vite build --config vite.electron.config.js && electron-builder",
-    "build-win": "vite build --config vite.electron.config.js && electron-builder --win",
-    "build-mac": "vite build --config vite.electron.config.js && electron-builder --mac",
-    "build-linux": "vite build --config vite.electron.config.js && electron-builder --linux"
+    "electron:dev": "concurrently \"npm run dev\" \"electron-forge start\"",
+    "electron:build": "npm run build && electron-builder",
+    "build-win": "npm run build && electron-builder --win",
+    "build-mac": "npm run build && electron-builder --mac",
+    "build-linux": "npm run build && electron-builder --linux"
   },
   "keywords": [
     "timer",
@@ -35,6 +35,7 @@
     "@vitejs/plugin-react": "^4.5.0",
     "electron": "^27.3.11",
     "electron-builder": "^24.13.3",
+    "png2icons": "^2.0.1",
     "vite": "^6.3.5",
     "vite-plugin-electron": "^0.15.6",
     "vite-plugin-pwa": "^1.0.0"

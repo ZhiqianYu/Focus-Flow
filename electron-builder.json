@@ -1,1 +1,23 @@
-# Electron打包配置
+{
+  "appId": "com.yourname.focusflow",
+  "productName": "Focus Flow",
+  "directories": {
+    "output": "dist_electron"
+  },
+  "files": [
+    "dist/**/*",
+    "main/**/*"
+  ],
+  "mac": {
+    "icon": "public/assets/icons/icon.icns",
+    "category": "public.app-category.productivity"
+  },
+  "win": {
+    "icon": "public/assets/icons/icon.ico",
+    "target": ["nsis"]
+  },
+  "linux": {
+    "icon": "public/assets/icons/linux_android.png",
+    "target": ["AppImage", "deb"]
+  }
+}

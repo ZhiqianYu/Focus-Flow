@@ -1,41 +1,78 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/AudioSettingsModal.css';
 import audioGenerator from '../utils/AudioGenerator';
+import settingsManager from '../utils/SettingsManager';
 import { useTranslation } from 'react-i18next';
 
 const AudioSettingsModal = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
 
   const [activePreset, setActivePreset] = useState(() => {
-    // 从本地存储加载预设，默认为electronic
-    return localStorage.getItem('audioPreset') || 'electronic';
+    // 只支持钢琴音效
+    const audioSettings = settingsManager.getAudioSettings();
+    settingsManager.setAudioSettings({ preset: 'piano' });
+    return 'piano';
   });
   const [volume, setVolume] = useState(() => {
-    // 从本地存储加载音量，默认为0.3
-    return parseFloat(localStorage.getItem('audioVolume') || '0.3');
+    const audioSettings = settingsManager.getAudioSettings();
+    return audioSettings.volume;
+  });
+
+  const [whiteNoiseType, setWhiteNoiseType] = useState(() => {
+    const whiteNoiseSettings = settingsManager.getWhiteNoiseSettings();
+    return whiteNoiseSettings.type;
+  });
+
+  const [whiteNoiseVolume, setWhiteNoiseVolume] = useState(() => {
+    const whiteNoiseSettings = settingsManager.getWhiteNoiseSettings();
+    return whiteNoiseSettings.volume;
   });
 
   const handlePresetChange = (preset) => {
     setActivePreset(preset);
     audioGenerator.setPreset(preset);
-    localStorage.setItem('audioPreset', preset);
+    settingsManager.setAudioSettings({ preset });
   };
   
   const handleVolumeChange = (e) => {
     const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);
     audioGenerator.setVolume(newVolume);
-    localStorage.setItem('audioVolume', newVolume.toString());
+    settingsManager.setAudioSettings({ volume: newVolume });
   };
   
   const playSound = (type) => {
     audioGenerator.playSound(type);
   };
 
+  const handleWhiteNoiseTypeChange = (type) => {
+    setWhiteNoiseType(type);
+    audioGenerator.setWhiteNoiseType(type);
+    settingsManager.setWhiteNoiseSettings({ type });
+  };
+
+  const handleWhiteNoiseVolumeChange = (e) => {
+    const newVolume = parseFloat(e.target.value);
+    setWhiteNoiseVolume(newVolume);
+    audioGenerator.setWhiteNoiseVolume(newVolume);
+    settingsManager.setWhiteNoiseSettings({ volume: newVolume });
+  };
+
+  const previewWhiteNoise = () => {
+    if (whiteNoiseType === 'off') return;
+    audioGenerator.startWhiteNoise();
+    // 3秒后停止预览
+    setTimeout(() => {
+      audioGenerator.stopWhiteNoise();
+    }, 3000);
+  };
+
   useEffect(() => {
     audioGenerator.setPreset(activePreset);
     audioGenerator.setVolume(volume);
-  }, [activePreset, volume]);
+    audioGenerator.setWhiteNoiseType(whiteNoiseType);
+    audioGenerator.setWhiteNoiseVolume(whiteNoiseVolume);
+  }, [activePreset, volume, whiteNoiseType, whiteNoiseVolume]);
   
   if (!isOpen) return null;
   
@@ -52,44 +89,18 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
         </div>
         
         <div className="audio-presets">
-          <h3 style={{ marginBottom: '15px', fontSize: '1rem', color: '#4b5563', width: '100%' }}>{t('audio.theme')}</h3>
+          <h3 style={{ marginBottom: '15px', fontSize: '1rem', color: '#4b5563', width: '100%' }}>提示音设置</h3>
           
           <label className="audio-option">
             <input 
               type="radio" 
               name="preset" 
-              checked={activePreset === 'electronic'} 
-              onChange={() => handlePresetChange('electronic')} 
-            />
-            <div>
-              <span className="audio-option-title">{t('audio.electronic')}</span>
-              <span className="audio-option-desc">{t('audio.electronic_desc')}</span>
-            </div>
-          </label>
-          
-          <label className="audio-option">
-            <input 
-              type="radio" 
-              name="preset" 
-              checked={activePreset === 'piano'} 
-              onChange={() => handlePresetChange('piano')} 
+              checked={true} 
+              readOnly
             />
             <div>
               <span className="audio-option-title">{t('audio.piano')}</span>
               <span className="audio-option-desc">{t('audio.piano_desc')}</span>
-            </div>
-          </label>
-          
-          <label className="audio-option">
-            <input 
-              type="radio" 
-              name="preset" 
-              checked={activePreset === 'nature'} 
-              onChange={() => handlePresetChange('nature')} 
-            />
-            <div>
-              <span className="audio-option-title">{t('audio.nature')}</span>
-              <span className="audio-option-desc">{t('audio.nature_desc')}</span>
             </div>
           </label>
         </div>
@@ -106,6 +117,61 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
             onChange={handleVolumeChange}
           />
         </div>
+
+        {/* 白噪声设置 */}
+        <div className="white-noise-settings">
+          <h3 style={{ marginBottom: '15px', fontSize: '1rem', color: '#4b5563' }}>{t('audio.whiteNoiseSettings')}</h3>
+          
+          <div className="white-noise-type-selection">
+            <select 
+              value={whiteNoiseType} 
+              onChange={(e) => handleWhiteNoiseTypeChange(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '8px 12px',
+                marginBottom: '15px',
+                border: '1px solid #d1d5db',
+                borderRadius: '4px',
+                fontSize: '14px'
+              }}
+            >
+              <option value="off">{t('audio.whiteNoiseTypes.off')}</option>
+              <option value="classic">{t('audio.whiteNoiseTypes.classic')}</option>
+              <option value="pink">{t('audio.whiteNoiseTypes.pink')}</option>
+              <option value="brown">{t('audio.whiteNoiseTypes.brown')}</option>
+              <option value="rain">{t('audio.whiteNoiseTypes.rain')}</option>
+              <option value="ocean">{t('audio.whiteNoiseTypes.ocean')}</option>
+              <option value="forest">{t('audio.whiteNoiseTypes.forest')}</option>
+            </select>
+          </div>
+
+          {whiteNoiseType !== 'off' && (
+            <>
+              <div className="volume-control">
+                <p>{t('audio.whiteNoiseVolume')}：{Math.round(whiteNoiseVolume * 100)}%</p>
+                <input 
+                  type="range"
+                  className="volume-slider"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={whiteNoiseVolume}
+                  onChange={handleWhiteNoiseVolumeChange}
+                />
+              </div>
+              
+              <div style={{ textAlign: 'center', marginTop: '10px' }}>
+                <button 
+                  className="btn btn-secondary" 
+                  style={{ padding: '6px 12px', fontSize: '0.9rem' }}
+                  onClick={previewWhiteNoise}
+                >
+                  {t('audio.preview')} (3s)
+                </button>
+              </div>
+            </>
+          )}
+        </div>
         
         <div className="audio-list">
           <h3 style={{ marginBottom: '15px', fontSize: '1rem', color: '#4b5563' }}>{t('audio.preview')}</h3>
@@ -113,11 +179,7 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
           <div className="audio-item">
             <div className="audio-info">
               <span className="audio-name">{t('audio.startSound')}</span>
-              <span className="audio-desc">
-                {activePreset === 'electronic' && t('audio.descriptions.electronic.start')}
-                {activePreset === 'piano' && t('audio.descriptions.piano.start')}
-                {activePreset === 'nature' && t('audio.descriptions.nature.start')}
-              </span>
+              <span className="audio-desc">上行钢琴琶音</span>
             </div>
             <div className="audio-controls">
               <button 
@@ -133,11 +195,7 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
           <div className="audio-item">
             <div className="audio-info">
               <span className="audio-name">{t('audio.reminderSound')}</span>
-              <span className="audio-desc">
-                {activePreset === 'electronic' && t('audio.descriptions.electronic.reminder')}
-                {activePreset === 'piano' && t('audio.descriptions.piano.reminder')}
-                {activePreset === 'nature' && t('audio.descriptions.nature.reminder')}
-              </span>
+              <span className="audio-desc">柔和钢琴和弦</span>
             </div>
             <div className="audio-controls">
               <button 
@@ -153,11 +211,7 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
           <div className="audio-item">
             <div className="audio-info">
               <span className="audio-name">{t('audio.breakSound')}</span>
-              <span className="audio-desc">
-                {activePreset === 'electronic' && t('audio.descriptions.electronic.stageBreak')}
-                {activePreset === 'piano' && t('audio.descriptions.piano.stageBreak')}
-                {activePreset === 'nature' && t('audio.descriptions.nature.stageBreak')}
-              </span>
+              <span className="audio-desc">和弦分解钢琴声</span>
             </div>
             <div className="audio-controls">
               <button 
@@ -173,11 +227,7 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
           <div className="audio-item">
             <div className="audio-info">
               <span className="audio-name">{t('audio.endSound')}</span>
-              <span className="audio-desc">
-                {activePreset === 'electronic' && t('audio.descriptions.electronic.end')}
-                {activePreset === 'piano' && t('audio.descriptions.piano.end')}
-                {activePreset === 'nature' && t('audio.descriptions.nature.end')}
-              </span>
+              <span className="audio-desc">下行钢琴音阶</span>
             </div>
             <div className="audio-controls">
               <button 
