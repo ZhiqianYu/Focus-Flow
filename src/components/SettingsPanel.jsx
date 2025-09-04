@@ -369,11 +369,30 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
                       )}
                       <span className="preset-type">{t('settings.custom')}</span>
                     </div>
-                  </button>
-                  <button className="preset-delete-btn" onClick={() => handleDeletePreset(preset.id)}>
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-                    </svg>
+                    {/* 编辑按钮 - 右上角 */}
+                    <button 
+                      className="preset-edit-corner-btn" 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleStartEditingName(preset.id, preset.name);
+                      }}
+                    >
+                      <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                      </svg>
+                    </button>
+                    {/* 删除按钮 - 右下角 */}
+                    <button 
+                      className="preset-delete-corner-btn" 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeletePreset(preset.id);
+                      }}
+                    >
+                      <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                      </svg>
+                    </button>
                   </button>
                 </div>
               ))}
