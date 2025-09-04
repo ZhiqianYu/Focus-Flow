@@ -33,7 +33,16 @@
     "nameRequired": "Name required",
     "nameTooLong": "Max 4 characters",
     "min": "Min",
-    "max": "Max"
+    "max": "Max",
+    "builtin": "Built-in",
+    "custom": "Custom",
+    "addPreset": "Add Preset",
+    "confirmReset": "Are you sure you want to reset to default?",
+    "confirmDeletePreset": "Are you sure you want to delete this preset?",
+    "presetList": "Preset List",
+    "managePresets": "Manage Custom Presets",
+    "deletePreset": "Delete",
+    "confirmResetBuiltinPreset": "Are you sure you want to reset this built-in preset? This will remove all custom modifications."
   },
   "presets": {
     "pomodoro": "Pomodoro Timer",
@@ -59,10 +68,7 @@
       "off": "Off",
       "classic": "Classic White Noise",
       "pink": "Pink Noise",
-      "brown": "Brown Noise",
-      "rain": "Rain Sounds",
-      "ocean": "Ocean Waves",
-      "forest": "Forest Sounds"
+      "brown": "Brown Noise"
     }
   },
   "donate": {

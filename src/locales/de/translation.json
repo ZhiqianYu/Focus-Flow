@@ -33,7 +33,16 @@
     "nameRequired": "Name erforderlich",
     "nameTooLong": "Max. 4 Zeichen",
     "min": "Min",
-    "max": "Max"
+    "max": "Max",
+    "builtin": "Eingebaut",
+    "custom": "Benutzerdefiniert",
+    "addPreset": "Vorlage hinzufügen",
+    "confirmReset": "Sind Sie sicher, dass Sie auf Standard zurücksetzen möchten?",
+    "confirmDeletePreset": "Sind Sie sicher, dass Sie diese Vorlage löschen möchten?",
+    "presetList": "Vorlagenliste",
+    "managePresets": "Benutzerdefinierte Vorlagen verwalten",
+    "deletePreset": "Löschen",
+    "confirmResetBuiltinPreset": "Sind Sie sicher, dass Sie diese eingebaute Vorlage zurücksetzen möchten? Dadurch werden alle benutzerdefinierten Änderungen entfernt."
   },
   "presets": {
     "pomodoro": "Pomodoro-Timer",
@@ -59,10 +68,7 @@
       "off": "Aus",
       "classic": "Klassisches weißes Rauschen",
       "pink": "Rosa Rauschen",
-      "brown": "Braunes Rauschen",
-      "rain": "Regengeräusche",
-      "ocean": "Meeresrauschen",
-      "forest": "Waldgeräusche"
+      "brown": "Braunes Rauschen"
     }
   },
   "donate": {

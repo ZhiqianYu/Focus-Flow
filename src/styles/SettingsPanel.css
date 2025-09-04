@@ -54,8 +54,12 @@
 
 .modal-footer {
   display: flex;
-  justify-content: flex-end;
+  gap: 12px;
   margin-top: 20px;
+}
+
+.modal-footer .btn {
+  flex: 1;
 }
 
 .settings-panel {
@@ -120,6 +124,247 @@
   font-size: 0.9rem;
 }
 
+/* 预设列表容器 */
+.preset-list-container {
+  margin-left: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* 预设项 */
+.preset-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 预设项按钮 */
+.preset-item-btn {
+  width: 100%;
+  padding: 12px 8px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.preset-item-btn:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.preset-item-btn.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+/* 预设项内容 */
+.preset-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.preset-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.preset-type {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.preset-item-btn.active .preset-type {
+  opacity: 0.9;
+}
+
+/* 预设名称输入框 */
+.preset-name-input {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  width: 100%;
+  outline: none;
+  padding: 0;
+}
+
+/* 预设删除按钮 */
+.preset-delete-btn {
+  width: 100%;
+  height: 28px;
+  border: none;
+  background: #ef4444;
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 0.8rem;
+}
+
+.preset-delete-btn:hover {
+  background: #dc2626;
+}
+
+/* 添加预设项 */
+.add-preset-item {
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 添加预设按钮 */
+.add-preset-btn {
+  width: 100%;
+  padding: 16px 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  min-height: 70px;
+}
+
+.add-preset-btn:hover {
+  background: #f9fafb;
+  color: #374151;
+}
+
+/* 创建预设表单 */
+.create-preset-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: #f9fafb;
+  min-height: 70px;
+  justify-content: space-between;
+}
+
+.create-preset-form .preset-name-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.create-preset-form .form-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+/* 保存和取消按钮 */
+.save-preset-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #10b981;
+  color: white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.save-preset-btn:hover {
+  background: #059669;
+}
+
+.cancel-preset-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #6b7280;
+  color: white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cancel-preset-btn:hover {
+  background: #4b5563;
+}
+
+/* 内置预设操作按钮 */
+.preset-edit-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: rgba(59, 130, 246, 0.8);
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  opacity: 0;
+  z-index: 10;
+}
+
+.preset-edit-btn:hover {
+  background: rgba(59, 130, 246, 1);
+}
+
+.preset-delete-corner-btn {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: rgba(239, 68, 68, 0.8);
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  opacity: 0;
+  z-index: 10;
+}
+
+.preset-delete-corner-btn:hover {
+  background: rgba(239, 68, 68, 1);
+}
+
+/* 鼠标悬停时显示操作按钮 */
+.preset-item-btn:hover .preset-edit-btn,
+.preset-item-btn:hover .preset-delete-corner-btn {
+  opacity: 1;
+}
+
 @media (max-width: 480px) {
   .time-inputs {
     flex-wrap: wrap;
@@ -131,5 +376,21 @@
   
   .settings-panel {
     padding: 15px;
+  }
+  
+  .preset-list-container {
+    margin-left: 14px;
+  }
+  
+  .preset-item-btn {
+    padding: 10px 12px;
+  }
+  
+  .preset-name {
+    font-size: 0.9rem;
+  }
+  
+  .preset-type {
+    font-size: 0.75rem;
   }
 }

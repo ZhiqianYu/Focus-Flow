@@ -5,17 +5,33 @@ import '../styles/TimerDisplay.css';
 const TimerDisplay = ({ 
   mainTime, 
   stageTime, 
-  breakTime, 
+  shortBreakTime,
+  stageBreakTime,
+  currentBreakTime,
   status, 
   phase,
+  isPortrait = false,
   onOpenAudioSettings,
   onOpenTimerSettings
 }) => {
 
   const { t } = useTranslation();
   
+  // 根据当前阶段决定显示的休息时间
+  const getDisplayBreakTime = (type) => {
+    if (phase === 'shortBreak' && type === 'short') {
+      return currentBreakTime; // 显示剩余时间
+    } else if (phase === 'stageBreak' && type === 'stage') {
+      return currentBreakTime; // 显示剩余时间
+    } else if (type === 'short') {
+      return shortBreakTime; // 显示配置时间
+    } else {
+      return stageBreakTime; // 显示配置时间
+    }
+  };
+  
   return (
-    <div className="timer-display">
+    <div className={`timer-display ${isPortrait ? 'portrait-mode' : ''}`}>
       {/* 音频设置按钮 - 左上角 */}
       <button className="settings-icon audio-settings-icon" onClick={onOpenAudioSettings} title={t('audio.settings')}>
         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,15 +48,25 @@ const TimerDisplay = ({
       </button>
       
       <div className="timer-main">{mainTime}</div>
-      <div className="timer-status">{status}</div>
-      <div className="timer-sub">
-        <div className="timer-item">
-          <div className="timer-item-label">{t('timer.stageTime')}</div>
-          <div className="timer-item-time">{stageTime}</div>
+      {/* 竖版模式下隐藏状态文字 */}
+      {!isPortrait && <div className="timer-status">{status}</div>}
+      <div className="timer-info-layout">
+        {/* 阶段时间大块 */}
+        <div className="timer-stage-block">
+          <div className="timer-stage-label">{t('timer.stageTime')}</div>
+          <div className="timer-stage-time">{stageTime}</div>
         </div>
-        <div className="timer-item">
-          <div className="timer-item-label">{t('timer.breakTime')}</div>
-          <div className="timer-item-time">{breakTime}</div>
+        
+        {/* 两个休息时间小块 */}
+        <div className="timer-break-blocks">
+          <div className="timer-break-item">
+            <div className="timer-break-label">{t('settings.shortBreak')}</div>
+            <div className="timer-break-time">{getDisplayBreakTime('short')}</div>
+          </div>
+          <div className="timer-break-item">
+            <div className="timer-break-label">{t('settings.stageBreak')}</div>
+            <div className="timer-break-time">{getDisplayBreakTime('stage')}</div>
+          </div>
         </div>
       </div>
     </div>

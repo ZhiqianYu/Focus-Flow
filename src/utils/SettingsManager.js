@@ -194,6 +194,19 @@ class SettingsManager {
     return this.removeSetting(`preset_${presetName}`);
   }
 
+  // 内置预设自定义名称管理
+  getCustomPresetName(presetName) {
+    return this.getSetting(`presetName_${presetName}`, null);
+  }
+
+  setCustomPresetName(presetName, customName) {
+    return this.setSetting(`presetName_${presetName}`, customName);
+  }
+
+  removeCustomPresetName(presetName) {
+    return this.removeSetting(`presetName_${presetName}`);
+  }
+
   // 自定义预设管理
   getUserCustomPresets() {
     return this.getSetting('userCustomPresets', []);

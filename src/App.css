@@ -58,6 +58,9 @@
   align-items: center;
   margin-top: 10px;
   margin-bottom: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .control-buttons-wrapper {
@@ -68,6 +71,25 @@
 .donate-wrapper {
   display: flex;
   align-items: center;
+}
+
+.right-buttons-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  max-width: 50%;
+}
+
+.right-buttons-wrapper .about-btn {
+  white-space: nowrap;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.about-btn:hover {
+  background: #f5f5f5 !important;
+  border-color: #999 !important;
 }
 
 /* 横屏布局基础样式 */
@@ -136,6 +158,14 @@
     align-items: center;
     margin-top: 15px;
     margin-bottom: 10px;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+  
+  .right-buttons-wrapper {
+    max-width: 100%;
+    justify-content: center;
   }
   
   .control-buttons-wrapper {
@@ -410,6 +440,7 @@
   /* 阶段信息包装器 */
   .landscape-stage-info-wrapper {
     position: relative;
+    margin-top: -10px; /* 上移10px */
   }
 
   /* 阶段信息框外部按钮区域 */
@@ -661,4 +692,186 @@
 
 .about-info a:hover {
   text-decoration: underline;
+}
+
+/* 计时运行时的扩展布局样式 */
+.main-content.timer-running {
+  margin-bottom: 15px; /* 减少底部间距 */
+  justify-content: center; /* 垂直居中 */
+  align-items: center; /* 水平居中 */
+}
+
+.main-content.timer-running .timer-display {
+  height: auto;
+  min-height: 300px; /* 给更多垂直空间 */
+}
+
+.main-content.timer-running .timer-info-layout {
+  gap: clamp(15px, 3.5vw, 25px); /* 增加间距 */
+}
+
+.main-content.timer-running .timer-stage-block {
+  padding: clamp(20px, 5vw, 30px); /* 增加内边距 */
+  width: 90%; /* 增加宽度 */
+}
+
+.main-content.timer-running .timer-stage-time {
+  font-size: clamp(2.2rem, 5.5vw, 3rem); /* 增大字体 */
+}
+
+.main-content.timer-running .timer-stage-label {
+  font-size: clamp(1.2rem, 3vw, 1.4rem); /* 增大标签字体 */
+}
+
+.main-content.timer-running .timer-break-item {
+  padding: clamp(16px, 4vw, 22px); /* 增加内边距 */
+}
+
+.main-content.timer-running .timer-break-time {
+  font-size: clamp(1.6rem, 4vw, 2rem); /* 增大休息时间字体 */
+}
+
+.main-content.timer-running .timer-break-label {
+  font-size: clamp(0.95rem, 2.2vw, 1.1rem); /* 增大休息标签字体 */
+}
+
+/* 横屏模式计时运行时的扩展布局（被下面更具体的样式覆盖） */
+
+.landscape-stage-info-wrapper.expanded .landscape-stage-info {
+  flex-grow: 1; /* 让信息框扩展 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 垂直居中内容 */
+  padding: clamp(24px, 5vw, 40px); /* 增加内边距 */
+}
+
+.landscape-stage-info-wrapper.expanded .landscape-info-item {
+  padding: clamp(16px, 3vw, 24px) 0; /* 增加项目间距 */
+}
+
+.landscape-stage-info-wrapper.expanded .landscape-info-time {
+  font-size: clamp(1.8rem, 4vw, 2.4rem); /* 增大时间字体 */
+}
+
+.landscape-stage-info-wrapper.expanded .landscape-info-label {
+  font-size: clamp(1.2rem, 2.5vw, 1.4rem); /* 增大标签字体 */
+}
+
+.landscape-stage-info-wrapper.expanded .landscape-break-time {
+  font-size: clamp(1.4rem, 3vw, 1.8rem); /* 增大休息时间字体 */
+}
+
+.landscape-stage-info-wrapper.expanded .landscape-break-label {
+  font-size: clamp(0.9rem, 2vw, 1rem); /* 增大休息标签字体 */
+}
+
+/* 移动设备计时运行时样式优化 */
+@media (max-width: 768px) {
+  .main-content.timer-running {
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .main-content.timer-running .timer-display {
+    min-height: 250px;
+    padding: 16px;
+  }
+  
+  .main-content.timer-running .timer-stage-block {
+    padding: 18px;
+    width: 95%;
+  }
+  
+  .main-content.timer-running .timer-stage-time {
+    font-size: 2rem;
+  }
+  
+  .main-content.timer-running .timer-break-item {
+    padding: 12px;
+  }
+  
+  .main-content.timer-running .timer-break-time {
+    font-size: 1.4rem;
+  }
+}
+
+/* 横屏计时时的简化布局 */
+@media (min-width: 769px) and (orientation: landscape) {
+  .landscape-stage-info-wrapper.expanded {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: clamp(16px, 4vw, 24px);
+    /* 确保内容不会溢出 */
+    overflow: hidden;
+  }
+
+  .landscape-timer-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 3vw, 18px);
+    align-items: center;
+    /* 大框占据右侧可用空间，减去合理边距 */
+    width: calc(100% - 32px);
+    max-width: 360px;
+    /* 确保垂直居中 */
+    justify-content: center;
+    /* 背景和边框用于调试，实际可移除 */
+    /* background: rgba(0,0,0,0.05); border: 1px dashed #ccc; */
+  }
+
+  .landscape-timer-block {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius);
+    padding: clamp(14px, 3.5vw, 20px);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .landscape-timer-block.large {
+    width: clamp(180px, 22vw, 240px);
+    align-self: center;
+  }
+
+  .landscape-timer-row {
+    display: flex;
+    gap: clamp(12px, 3vw, 20px);
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+    /* 第二行的总宽度应该更大，让两个小框有足够空间 */
+    max-width: min(100%, 320px);
+  }
+
+  .landscape-timer-block.small {
+    flex: 1;
+    min-width: clamp(90px, 12vw, 130px);
+    /* 下面的框高度可以小一些 */
+    padding: clamp(12px, 3vw, 16px);
+  }
+
+  .landscape-timer-label {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: #6b7280;
+    font-weight: 500;
+    margin-bottom: clamp(6px, 1.5vw, 10px);
+  }
+
+  .landscape-timer-time {
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-weight: 700;
+    color: var(--primary);
+    font-feature-settings: "tnum";
+  }
+
+  .landscape-timer-block.large .landscape-timer-time {
+    font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  }
+
+  .landscape-timer-block.large .landscape-timer-label {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+  }
 }

@@ -5,11 +5,16 @@ import '../styles/LanguageSwitcher.css';
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [hasEverSelected, setHasEverSelected] = useState(() => {
+    return localStorage.getItem('languageEverSelected') === 'true';
+  });
   const dropdownRef = useRef(null);
   
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     localStorage.setItem('userLanguage', lng);
+    localStorage.setItem('languageEverSelected', 'true');
+    setHasEverSelected(true);
     setDropdownOpen(false);
   };
   
@@ -27,13 +32,18 @@ const LanguageSwitcher = () => {
     };
   }, []);
   
-  // 显示当前语言的名称
-  const getCurrentLanguageName = () => {
-    switch(i18n.language) {
-      case 'zh': return '中文';
-      case 'en': return 'English';
-      default: return 'Language';
+  // 显示当前语言的名称或代码
+  const getCurrentLanguageDisplay = () => {
+    if (!hasEverSelected) {
+      return 'Language'; // 第一次显示提示文字
     }
+    
+    // 用户选择过语言后显示简洁格式
+    const currentLang = i18n.language.toUpperCase();
+    const allLanguages = ['ZH', 'EN', 'DE'];
+    const otherLanguages = allLanguages.filter(lang => lang !== currentLang);
+    
+    return `${currentLang}/${otherLanguages.join('/')}`;
   };
   
   return (
@@ -48,7 +58,7 @@ const LanguageSwitcher = () => {
           <line x1="2" y1="12" x2="22" y2="12"></line>
           <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
         </svg>
-        <span className="current-language">{getCurrentLanguageName()}</span>
+        <span className="current-language">{getCurrentLanguageDisplay()}</span>
       </button>
       
       {dropdownOpen && (

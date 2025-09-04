@@ -3,16 +3,26 @@ import '../styles/Footer.css';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 
-const Footer = () => {
+const Footer = ({ showAboutButton = true, onAboutClick = null }) => {
   const [showInfo, setShowInfo] = useState(false);
   const currentYear = new Date().getFullYear();
   const { t } = useTranslation();
+  
+  const handleAboutClick = () => {
+    if (onAboutClick) {
+      onAboutClick();
+    } else {
+      setShowInfo(!showInfo);
+    }
+  };
   
   return (
     <footer className="app-footer">
       <div className="footer-content">
         <div className="copyright">
-          © {currentYear} Focus Flow | <button className="info-button" onClick={() => setShowInfo(!showInfo)}>{t('footer.about')}</button>
+          © {currentYear} Focus Flow {showAboutButton && (
+            <>| <button className="info-button" onClick={handleAboutClick}>{t('footer.about')}</button></>
+          )}
         </div>
         
         {showInfo && (

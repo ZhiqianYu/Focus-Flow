@@ -41,32 +41,90 @@
   opacity: 0.9;
 }
 
-.timer-sub {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(10px, 3vw, 20px);
+/* 新的布局：阶段时间大块 + 休息时间小块 */
+.timer-info-layout {
   position: relative;
   z-index: 1;
   width: 100%;
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2.5vw, 18px);
+  align-items: center;
+}
+
+/* 阶段时间大块 */
+.timer-stage-block {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  padding: clamp(16px, 4vw, 24px);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  width: 85%;
+  min-width: 200px;
+}
+
+.timer-stage-label {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  opacity: 0.85;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.timer-stage-time {
+  font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* 休息时间小块容器 */
+.timer-break-blocks {
+  display: flex;
+  gap: clamp(10px, 2.5vw, 15px);
+  width: 100%;
+  justify-content: center;
+}
+
+/* 休息时间小块 */
+.timer-break-item {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: clamp(12px, 3vw, 18px);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  flex: 1;
+  max-width: 140px;
+}
+
+.timer-break-label {
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
+  opacity: 0.8;
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+
+.timer-break-time {
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .timer-item {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  padding: 20px;
+  padding: clamp(12px, 3vw, 20px);
   border-radius: var(--radius-sm);
   text-align: center;
 }
 
 .timer-item-label {
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2vw, 1rem);
   opacity: 0.8;
   margin-bottom: 5px;
 }
 
 .timer-item-time {
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
   font-weight: 600;
 }
 
@@ -231,8 +289,8 @@
   }
   
   .timer-sub {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
     margin-top: 8px;
   }
   
@@ -264,6 +322,21 @@
   }
 }
 
+/* 竖版模式特殊样式 */
+.timer-display.portrait-mode {
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-display.portrait-mode .timer-main {
+  font-size: clamp(3rem, 12vw, 6rem);
+  margin-bottom: clamp(20px, 5vw, 40px);
+}
+
+.timer-display.portrait-mode .timer-sub {
+  margin-top: auto;
+}
+
 /* 大屏幕设备 */
 @media (min-width: 1025px) {
   .timer-main {
@@ -290,5 +363,10 @@
   
   .timer-item-label {
     font-size: 1rem;
+  }
+  
+  /* 大屏幕竖版模式 */
+  .timer-display.portrait-mode .timer-main {
+    font-size: 6rem;
   }
 }
