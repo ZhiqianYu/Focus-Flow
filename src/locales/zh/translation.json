@@ -42,7 +42,8 @@
     "builtin": "内置",
     "custom": "自定义",
     "addPreset": "添加预设",
-    "confirmResetBuiltinPreset": "确定要重置这个内置预设吗？这将删除所有自定义修改。"
+    "confirmResetBuiltinPreset": "确定要重置这个内置预设吗？这将删除所有自定义修改。",
+    "confirmDeleteBuiltinPreset": "确定要删除这个内置预设吗？删除后将不再显示在列表中。"
   },
   "presets": {
     "pomodoro": "番茄时钟",

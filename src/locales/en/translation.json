@@ -42,7 +42,8 @@
     "presetList": "Preset List",
     "managePresets": "Manage Custom Presets",
     "deletePreset": "Delete",
-    "confirmResetBuiltinPreset": "Are you sure you want to reset this built-in preset? This will remove all custom modifications."
+    "confirmResetBuiltinPreset": "Are you sure you want to reset this built-in preset? This will remove all custom modifications.",
+    "confirmDeleteBuiltinPreset": "Are you sure you want to delete this built-in preset? It will no longer appear in the list."
   },
   "presets": {
     "pomodoro": "Pomodoro Timer",

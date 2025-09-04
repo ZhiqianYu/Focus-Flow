@@ -248,19 +248,30 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
     forceUpdate();
   };
 
-  // 删除内置预设（重置为默认）
+  // 删除内置预设（隐藏预设）
   const handleDeleteBuiltinPreset = (presetId) => {
-    if (confirm(t('settings.confirmResetBuiltinPreset'))) {
-      // 删除内置预设的所有自定义配置
-      settingsManager.removeCustomPresetConfig(presetId);
-      settingsManager.removeCustomPresetName(presetId);
-      // 如果当前选中的是被重置的预设，重新加载默认配置
+    if (confirm(t('settings.confirmDeleteBuiltinPreset'))) {
+      // 隐藏内置预设
+      settingsManager.hideBuiltinPreset(presetId);
+      
+      // 如果当前选中的是被删除的预设，切换到第一个可用预设
       if (selectedPreset === presetId) {
-        const defaultConfig = BUILT_IN_PRESETS[presetId];
-        setLocalConfig(defaultConfig);
-        onConfigChange(defaultConfig);
+        const availablePresets = Object.keys(BUILT_IN_PRESETS).filter(key => !settingsManager.isBuiltinPresetHidden(key));
+        const userPresets = settingsManager.getUserCustomPresets();
+        
+        if (availablePresets.length > 0) {
+          // 选择第一个可用的内置预设
+          handleLoadPreset(availablePresets[0]);
+        } else if (userPresets.length > 0) {
+          // 选择第一个用户预设
+          handleLoadPreset(userPresets[0].id);
+        } else {
+          // 如果没有任何预设，使用默认配置
+          setSelectedPreset(null);
+        }
       }
-      // 强制重新渲染 - 正确的方式
+      
+      // 强制重新渲染
       forceUpdate();
     }
   };
@@ -289,8 +300,8 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
               {t('settings.presetList')}
             </div>
             <div className="preset-list-container">
-              {/* 内置预设 */}
-              {Object.keys(BUILT_IN_PRESETS).map(presetKey => (
+              {/* 内置预设 - 只显示未隐藏的 */}
+              {Object.keys(BUILT_IN_PRESETS).filter(presetKey => !settingsManager.isBuiltinPresetHidden(presetKey)).map(presetKey => (
                 <div key={presetKey} className="preset-item">
                   <button
                     className={`preset-item-btn ${selectedPreset === presetKey ? 'active' : ''}`}

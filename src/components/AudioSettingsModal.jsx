@@ -20,7 +20,13 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
 
   const [whiteNoiseType, setWhiteNoiseType] = useState(() => {
     const whiteNoiseSettings = settingsManager.getWhiteNoiseSettings();
-    return whiteNoiseSettings.type;
+    const currentType = whiteNoiseSettings.type;
+    // 如果当前设置是已废弃的rain、forest或ocean，重置为off
+    if (currentType === 'rain' || currentType === 'forest' || currentType === 'ocean') {
+      settingsManager.setWhiteNoiseSettings({ type: 'off' });
+      return 'off';
+    }
+    return currentType;
   });
 
   const [whiteNoiseVolume, setWhiteNoiseVolume] = useState(() => {
@@ -122,54 +128,52 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
         <div className="white-noise-settings">
           <h3 style={{ marginBottom: '15px', fontSize: '1rem', color: '#4b5563' }}>{t('audio.whiteNoiseSettings')}</h3>
           
-          <div className="white-noise-type-selection">
-            <select 
-              value={whiteNoiseType} 
-              onChange={(e) => handleWhiteNoiseTypeChange(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                marginBottom: '15px',
-                border: '1px solid #d1d5db',
-                borderRadius: '4px',
-                fontSize: '14px'
-              }}
-            >
-              <option value="off">{t('audio.whiteNoiseTypes.off')}</option>
-              <option value="classic">{t('audio.whiteNoiseTypes.classic')}</option>
-              <option value="pink">{t('audio.whiteNoiseTypes.pink')}</option>
-              <option value="brown">{t('audio.whiteNoiseTypes.brown')}</option>
-              <option value="rain">{t('audio.whiteNoiseTypes.rain')}</option>
-              <option value="ocean">{t('audio.whiteNoiseTypes.ocean')}</option>
-              <option value="forest">{t('audio.whiteNoiseTypes.forest')}</option>
-            </select>
+          <div className="white-noise-toggle-grid">
+            {/* 关闭选项 */}
+            <div className="white-noise-toggle-item">
+              <button
+                className={`white-noise-toggle ${whiteNoiseType === 'off' ? 'active' : ''}`}
+                onClick={() => handleWhiteNoiseTypeChange('off')}
+              >
+                <span className="toggle-label">{t('audio.whiteNoiseTypes.off')}</span>
+              </button>
+            </div>
+
+            {/* 各种白噪声类型 */}
+            {['classic', 'pink', 'brown'].map(type => (
+              <div key={type} className="white-noise-toggle-item">
+                <button
+                  className={`white-noise-toggle ${whiteNoiseType === type ? 'active' : ''}`}
+                  onClick={() => handleWhiteNoiseTypeChange(type)}
+                >
+                  <span className="toggle-label">{t(`audio.whiteNoiseTypes.${type}`)}</span>
+                </button>
+                {whiteNoiseType === type && (
+                  <button
+                    className="preview-btn"
+                    onClick={previewWhiteNoise}
+                    title={t('audio.preview')}
+                  >
+                    ▶
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
 
           {whiteNoiseType !== 'off' && (
-            <>
-              <div className="volume-control">
-                <p>{t('audio.whiteNoiseVolume')}：{Math.round(whiteNoiseVolume * 100)}%</p>
-                <input 
-                  type="range"
-                  className="volume-slider"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={whiteNoiseVolume}
-                  onChange={handleWhiteNoiseVolumeChange}
-                />
-              </div>
-              
-              <div style={{ textAlign: 'center', marginTop: '10px' }}>
-                <button 
-                  className="btn btn-secondary" 
-                  style={{ padding: '6px 12px', fontSize: '0.9rem' }}
-                  onClick={previewWhiteNoise}
-                >
-                  {t('audio.preview')} (3s)
-                </button>
-              </div>
-            </>
+            <div className="volume-control" style={{ marginTop: '20px' }}>
+              <p>{t('audio.whiteNoiseVolume')}：{Math.round(whiteNoiseVolume * 100)}%</p>
+              <input 
+                type="range"
+                className="volume-slider"
+                min="0"
+                max="1"
+                step="0.01"
+                value={whiteNoiseVolume}
+                onChange={handleWhiteNoiseVolumeChange}
+              />
+            </div>
           )}
         </div>
         

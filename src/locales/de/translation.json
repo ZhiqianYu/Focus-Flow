@@ -42,7 +42,8 @@
     "presetList": "Vorlagenliste",
     "managePresets": "Benutzerdefinierte Vorlagen verwalten",
     "deletePreset": "Löschen",
-    "confirmResetBuiltinPreset": "Sind Sie sicher, dass Sie diese eingebaute Vorlage zurücksetzen möchten? Dadurch werden alle benutzerdefinierten Änderungen entfernt."
+    "confirmResetBuiltinPreset": "Sind Sie sicher, dass Sie diese eingebaute Vorlage zurücksetzen möchten? Dadurch werden alle benutzerdefinierten Änderungen entfernt.",
+    "confirmDeleteBuiltinPreset": "Sind Sie sicher, dass Sie diese eingebaute Vorlage löschen möchten? Sie wird nicht mehr in der Liste angezeigt."
   },
   "presets": {
     "pomodoro": "Pomodoro-Timer",

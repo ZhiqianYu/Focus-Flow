@@ -290,6 +290,34 @@ class SettingsManager {
       return 0;
     }
   }
+
+  // 内置预设隐藏管理
+  getHiddenBuiltinPresets() {
+    return this.getSetting('hiddenBuiltinPresets', []);
+  }
+
+  hideBuiltinPreset(presetName) {
+    const hiddenPresets = this.getHiddenBuiltinPresets();
+    if (!hiddenPresets.includes(presetName)) {
+      hiddenPresets.push(presetName);
+      return this.setSetting('hiddenBuiltinPresets', hiddenPresets);
+    }
+    return true;
+  }
+
+  showBuiltinPreset(presetName) {
+    const hiddenPresets = this.getHiddenBuiltinPresets();
+    const index = hiddenPresets.indexOf(presetName);
+    if (index > -1) {
+      hiddenPresets.splice(index, 1);
+      return this.setSetting('hiddenBuiltinPresets', hiddenPresets);
+    }
+    return true;
+  }
+
+  isBuiltinPresetHidden(presetName) {
+    return this.getHiddenBuiltinPresets().includes(presetName);
+  }
 }
 
 // 导出单例

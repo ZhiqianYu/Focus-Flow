@@ -810,15 +810,12 @@
   .landscape-timer-blocks {
     display: flex;
     flex-direction: column;
-    gap: clamp(12px, 3vw, 18px);
+    gap: clamp(16px, 4vw, 24px);
     align-items: center;
-    /* 大框占据右侧可用空间，减去合理边距 */
-    width: calc(100% - 32px);
-    max-width: 360px;
-    /* 确保垂直居中 */
     justify-content: center;
-    /* 背景和边框用于调试，实际可移除 */
-    /* background: rgba(0,0,0,0.05); border: 1px dashed #ccc; */
+    /* 完全居中布局 */
+    width: 100%;
+    height: 100%;
   }
 
   .landscape-timer-block {
@@ -832,25 +829,24 @@
   }
 
   .landscape-timer-block.large {
-    width: clamp(180px, 22vw, 240px);
+    width: clamp(200px, 25vw, 280px);
     align-self: center;
   }
 
   .landscape-timer-row {
     display: flex;
-    gap: clamp(12px, 3vw, 20px);
+    gap: clamp(16px, 4vw, 24px);
     justify-content: center;
     align-items: stretch;
-    width: 100%;
-    /* 第二行的总宽度应该更大，让两个小框有足够空间 */
-    max-width: min(100%, 320px);
+    /* 让第二行的两个方块有更充足的空间 */
+    width: clamp(300px, 35vw, 400px);
   }
 
   .landscape-timer-block.small {
     flex: 1;
-    min-width: clamp(90px, 12vw, 130px);
-    /* 下面的框高度可以小一些 */
-    padding: clamp(12px, 3vw, 16px);
+    min-width: clamp(120px, 15vw, 180px);
+    /* 下面的框高度稍小 */
+    padding: clamp(12px, 3vw, 18px);
   }
 
   .landscape-timer-label {
