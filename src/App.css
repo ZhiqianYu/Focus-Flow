@@ -93,7 +93,7 @@
 }
 
 /* 横屏布局基础样式 */
-@media (min-width: 769px) and (orientation: landscape) {
+@media (orientation: landscape) {
   .container {
     max-width: 1200px;
   }
@@ -118,16 +118,12 @@
   }
 }
 
-/* 平板设备 */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .container {
-    max-width: 900px;
-    padding: 24px;
-  }
-}
+/* 平板设备样式已合并到主要布局中 */
 
-/* 移动设备竖屏 */
-@media (max-width: 768px) {
+/* ======================
+   竖屏布局
+   ====================== */
+@media (orientation: portrait) {
   .container {
     padding: 16px;
     margin: 8px auto;
@@ -186,106 +182,22 @@
   }
 }
 
-/* 小屏幕移动设备 */
-@media (max-width: 480px) {
-  .container {
-    padding: 12px;
-    margin: 4px auto;
-    border-radius: 12px;
-  }
-
-  .header {
-    margin-bottom: 15px;
-  }
-
-  .header h1 {
-    font-size: 1.8rem;
-  }
-
-  .header p {
-    font-size: 0.9rem;
-  }
-
-  .main-content {
-    gap: 15px;
-    margin-bottom: 15px;
-  }
-
-  .action-buttons-container {
-    gap: 12px;
-    margin-top: 12px;
-  }
-
-  .progress-area {
-    margin-top: 12px;
-    margin-bottom: 12px;
-  }
-}
-
-/* 移动设备横屏 */
-@media (max-width: 768px) and (orientation: landscape) {
-  body {
-    margin: 0;
-    padding: 8px 0;
-  }
-
-  .container {
-    padding: 12px 16px;
-    margin: 0 auto;
-    border-radius: 12px;
-    max-height: calc(100vh - 16px);
-    overflow-y: auto;
-  }
-
-  .header {
-    margin-bottom: 12px;
-  }
-
-  .header h1 {
-    font-size: 1.6rem;
-    margin-bottom: 4px;
-  }
-
-  .header p {
-    font-size: 0.85rem;
-    margin: 0;
-  }
-
-  .main-content {
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-
-  .action-buttons-container {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
-
-  .control-buttons-wrapper {
-    width: auto;
-  }
-
-  .donate-wrapper {
-    width: auto;
-  }
-
-  .progress-area {
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
-}
+/* 过渡样式已整合到主要布局中 */
 
 /* 横屏布局专用样式 */
-@media (min-width: 769px) and (orientation: landscape) {
+@media (orientation: landscape) {
   .landscape-left {
     padding-right: 20px;
   }
   
   .landscape-right {
     padding-left: 20px;
+  }
+
+  /* 横屏计时时右侧区域居中 */
+  .landscape-right.timer-running {
+    justify-content: center;
+    align-items: center;
   }
   
   /* 左侧大时间显示 */
@@ -572,32 +484,7 @@
   }
 }
 
-/* 大屏幕横屏优化 */
-@media (min-width: 1025px) and (orientation: landscape) {
-  .container {
-    max-width: 1400px;
-  }
-
-  .landscape-timer-main {
-    font-size: 6rem;
-  }
-  
-  .landscape-timer-status {
-    font-size: 1.8rem;
-  }
-  
-  .landscape-header h2 {
-    font-size: 2.5rem;
-  }
-  
-  .landscape-info-time {
-    font-size: 1.6rem;
-  }
-  
-  .landscape-info-label {
-    font-size: 1.1rem;
-  }
-}
+/* 大屏幕样式已整合到主横屏布局 */
 
 /* 关于模态框样式 */
 .about-modal {
@@ -765,8 +652,8 @@
   font-size: clamp(0.9rem, 2vw, 1rem); /* 增大休息标签字体 */
 }
 
-/* 移动设备计时运行时样式优化 */
-@media (max-width: 768px) {
+/* 竖屏设备计时运行时样式优化 */
+@media (orientation: portrait) {
   .main-content.timer-running {
     gap: 15px;
     margin-bottom: 10px;
@@ -796,7 +683,7 @@
 }
 
 /* 横屏计时时的简化布局 */
-@media (min-width: 769px) and (orientation: landscape) {
+@media (orientation: landscape) {
   .landscape-stage-info-wrapper.expanded {
     display: flex;
     align-items: center;
