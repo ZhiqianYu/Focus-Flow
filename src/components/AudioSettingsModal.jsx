@@ -83,165 +83,136 @@ const AudioSettingsModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
   
   return (
-    <div className="modal show">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h2 className="modal-title">{t('audio.settings')}</h2>
-          <button className="close-btn" onClick={onClose}>
+    <div className="modern-modal-overlay">
+      <div className="modern-modal-content">
+        {/* 头部 */}
+        <div className="modern-modal-header">
+          <div className="modal-header-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 className="modern-modal-title">{t('audio.settings')}</h2>
+            <p className="modern-modal-subtitle">调整提示音和背景声音</p>
+          </div>
+          <button className="modern-close-btn" onClick={onClose}>
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
             </svg>
           </button>
         </div>
         
-        <div className="audio-presets">
-          <h3 style={{ marginBottom: '15px', fontSize: '1rem', color: '#4b5563', width: '100%' }}>提示音设置</h3>
-          
-          <label className="audio-option">
-            <input 
-              type="radio" 
-              name="preset" 
-              checked={true} 
-              readOnly
-            />
-            <div>
-              <span className="audio-option-title">{t('audio.piano')}</span>
-              <span className="audio-option-desc">{t('audio.piano_desc')}</span>
+        <div className="modern-modal-body">
+          {/* 提示音区域 */}
+          <div className="settings-section">
+            <div className="section-header">
+              <h3>提示音设置</h3>
+              <span className="section-desc">计时器的各种提示音效</span>
             </div>
-          </label>
-        </div>
-
-        <div className="volume-control">
-          <p>{t('audio.volume')}：{Math.round(volume * 100)}%</p>
-          <input 
-            type="range"
-            className="volume-slider"
-            min="0"
-            max="1"
-            step="0.01"
-            value={volume}
-            onChange={handleVolumeChange}
-          />
-        </div>
-
-        {/* 白噪声设置 */}
-        <div className="white-noise-settings">
-          <h3 style={{ marginBottom: '15px', fontSize: '1rem', color: '#4b5563' }}>{t('audio.whiteNoiseSettings')}</h3>
-          
-          <div className="white-noise-toggle-grid">
-            {/* 关闭选项 */}
-            <div className="white-noise-toggle-item">
-              <button
-                className={`white-noise-toggle ${whiteNoiseType === 'off' ? 'active' : ''}`}
-                onClick={() => handleWhiteNoiseTypeChange('off')}
-              >
-                <span className="toggle-label">{t('audio.whiteNoiseTypes.off')}</span>
-              </button>
-            </div>
-
-            {/* 各种白噪声类型 */}
-            {['classic', 'pink', 'brown'].map(type => (
-              <div key={type} className="white-noise-toggle-item">
-                <button
-                  className={`white-noise-toggle ${whiteNoiseType === type ? 'active' : ''}`}
-                  onClick={() => handleWhiteNoiseTypeChange(type)}
-                >
-                  <span className="toggle-label">{t(`audio.whiteNoiseTypes.${type}`)}</span>
-                </button>
-                {whiteNoiseType === type && (
-                  <button
-                    className="preview-btn"
-                    onClick={previewWhiteNoise}
-                    title={t('audio.preview')}
-                  >
-                    ▶
-                  </button>
-                )}
+            
+            <div className="volume-card">
+              <div className="volume-header">
+                <span>音量</span>
+                <span className="volume-value">{Math.round(volume * 100)}%</span>
               </div>
-            ))}
+              <div className="modern-volume-control">
+                <input 
+                  type="range"
+                  className="modern-volume-slider"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={volume}
+                  onChange={handleVolumeChange}
+                />
+              </div>
+            </div>
+
+            <div className="sound-preview-grid">
+              {[
+                { key: 'start', name: '开始计时', desc: '上行钢琴琶音', icon: '▶️' },
+                { key: 'random', name: '阶段提醒', desc: '柔和钢琴和弦', icon: '🔔' },
+                { key: 'stageBreak', name: '休息时间', desc: '和弦分解钢琴声', icon: '☕' },
+                { key: 'end', name: '结束计时', desc: '下行钢琴音阶', icon: '🎯' }
+              ].map(sound => (
+                <div key={sound.key} className="sound-card">
+                  <div className="sound-icon">{sound.icon}</div>
+                  <div className="sound-info">
+                    <span className="sound-name">{sound.name}</span>
+                    <span className="sound-desc">{sound.desc}</span>
+                  </div>
+                  <button 
+                    className="play-button" 
+                    onClick={() => playSound(sound.key)}
+                  >
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"></path>
+                    </svg>
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {whiteNoiseType !== 'off' && (
-            <div className="volume-control" style={{ marginTop: '20px' }}>
-              <p>{t('audio.whiteNoiseVolume')}：{Math.round(whiteNoiseVolume * 100)}%</p>
-              <input 
-                type="range"
-                className="volume-slider"
-                min="0"
-                max="1"
-                step="0.01"
-                value={whiteNoiseVolume}
-                onChange={handleWhiteNoiseVolumeChange}
-              />
+          {/* 白噪声区域 */}
+          <div className="settings-section">
+            <div className="section-header">
+              <h3>背景声音</h3>
+              <span className="section-desc">专注时的背景白噪声</span>
             </div>
-          )}
-        </div>
-        
-        <div className="audio-list">
-          <h3 style={{ marginBottom: '15px', fontSize: '1rem', color: '#4b5563' }}>{t('audio.preview')}</h3>
-          
-          <div className="audio-item">
-            <div className="audio-info">
-              <span className="audio-name">{t('audio.startSound')}</span>
-              <span className="audio-desc">上行钢琴琶音</span>
+            
+            <div className="noise-type-grid">
+              {[
+                { type: 'off', name: '关闭', desc: '无背景声音', icon: '🔇' },
+                { type: 'classic', name: '经典白噪声', desc: '均匀频谱噪声', icon: '📻' },
+                { type: 'pink', name: '粉红噪声', desc: '柔和低频噪声', icon: '🌸' },
+                { type: 'brown', name: '棕色噪声', desc: '深沉低频噪声', icon: '🌰' }
+              ].map(noise => (
+                <div key={noise.type} 
+                     className={`noise-card ${whiteNoiseType === noise.type ? 'active' : ''}`}
+                     onClick={() => handleWhiteNoiseTypeChange(noise.type)}>
+                  <div className="noise-icon">{noise.icon}</div>
+                  <div className="noise-info">
+                    <span className="noise-name">{noise.name}</span>
+                    <span className="noise-desc">{noise.desc}</span>
+                  </div>
+                  {whiteNoiseType === noise.type && noise.type !== 'off' && (
+                    <button
+                      className="preview-button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        previewWhiteNoise();
+                      }}
+                    >
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"></path>
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              ))}
             </div>
-            <div className="audio-controls">
-              <button 
-                className="btn btn-secondary" 
-                style={{ padding: '6px 12px', fontSize: '0.9rem' }}
-                onClick={() => playSound('start')}
-              >
-                {t('audio.play')}
-              </button>
-            </div>
-          </div>
-          
-          <div className="audio-item">
-            <div className="audio-info">
-              <span className="audio-name">{t('audio.reminderSound')}</span>
-              <span className="audio-desc">柔和钢琴和弦</span>
-            </div>
-            <div className="audio-controls">
-              <button 
-                className="btn btn-secondary" 
-                style={{ padding: '6px 12px', fontSize: '0.9rem' }}
-                onClick={() => playSound('random')}
-              >
-                {t('audio.play')}
-              </button>
-            </div>
-          </div>
-          
-          <div className="audio-item">
-            <div className="audio-info">
-              <span className="audio-name">{t('audio.breakSound')}</span>
-              <span className="audio-desc">和弦分解钢琴声</span>
-            </div>
-            <div className="audio-controls">
-              <button 
-                className="btn btn-secondary" 
-                style={{ padding: '6px 12px', fontSize: '0.9rem' }}
-                onClick={() => playSound('stageBreak')}
-              >
-                {t('audio.play')}
-              </button>
-            </div>
-          </div>
-          
-          <div className="audio-item">
-            <div className="audio-info">
-              <span className="audio-name">{t('audio.endSound')}</span>
-              <span className="audio-desc">下行钢琴音阶</span>
-            </div>
-            <div className="audio-controls">
-              <button 
-                className="btn btn-secondary" 
-                style={{ padding: '6px 12px', fontSize: '0.9rem' }}
-                onClick={() => playSound('end')}
-              >
-                {t('audio.play')}
-              </button>
-            </div>
+
+            {whiteNoiseType !== 'off' && (
+              <div className="volume-card" style={{ marginTop: '16px' }}>
+                <div className="volume-header">
+                  <span>背景音量</span>
+                  <span className="volume-value">{Math.round(whiteNoiseVolume * 100)}%</span>
+                </div>
+                <div className="modern-volume-control">
+                  <input 
+                    type="range"
+                    className="modern-volume-slider"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={whiteNoiseVolume}
+                    onChange={handleWhiteNoiseVolumeChange}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 .progress-container {
-  margin-top: 15px;
+  margin: 0; /* 移除固定margin，由父容器控制布局 */
 }
 
 .progress-bar {
@@ -33,4 +33,16 @@
   justify-content: space-between;
   font-size: 0.9rem;
   color: #6b7280;
+}
+
+/* 竖屏固定尺寸模式 - 进度条优化 */
+@media (orientation: portrait) {
+  .progress-bar {
+    height: 6px !important; /* 稍微减小进度条高度 */
+    margin-bottom: 6px !important;
+  }
+  
+  .progress-label {
+    font-size: 0.8rem !important; /* 缩小字体 */
+  }
 }

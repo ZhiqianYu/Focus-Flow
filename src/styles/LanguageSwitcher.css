@@ -64,6 +64,31 @@
   color: white;
 }
 
+/* 竖屏固定尺寸模式 - 语言切换器优化 */
+@media (orientation: portrait) {
+  .language-switcher {
+    position: static !important; /* 移除绝对定位，由布局控制 */
+    z-index: 10;
+  }
+  
+  .language-toggle {
+    padding: 4px 8px !important;
+    font-size: 0.75rem !important;
+    border-radius: 12px !important;
+    height: 28px !important;
+  }
+  
+  .language-toggle svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  
+  .current-language {
+    display: inline-block;
+    font-size: 0.7rem !important;
+  }
+}
+
 /* 在大屏幕上显示语言名称 */
 @media (min-width: 768px) {
   .current-language {

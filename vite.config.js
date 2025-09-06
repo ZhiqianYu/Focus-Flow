@@ -83,6 +83,20 @@ export default defineConfig({
     })
   ],
   base: './', // 这很重要，确保在Electron中可以正确加载资源
+  server: {
+    port: 5173,
+    host: 'localhost',
+    hmr: {
+      port: 5173,
+      host: 'localhost'
+    },
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+      'Surrogate-Control': 'no-store'
+    }
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

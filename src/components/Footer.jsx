@@ -21,7 +21,7 @@ const Footer = ({ showAboutButton = true, onAboutClick = null }) => {
       <div className="footer-content">
         <div className="copyright">
           © {currentYear} Focus Flow {showAboutButton && (
-            <>| <button className="info-button" onClick={handleAboutClick}>{t('footer.about')}</button></>
+            <> <button className="info-button" onClick={handleAboutClick}>{t('footer.about')}</button></>
           )}
         </div>
         

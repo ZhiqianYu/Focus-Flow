@@ -129,7 +129,7 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
       return;
     }
     
-    if (presetName.length > 4) {
+    if (presetName.length > 10) {
       alert(t('settings.nameTooLong'));
       return;
     }
@@ -205,7 +205,7 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
       return;
     }
     
-    if (editingPresetName.length > 4) {
+    if (editingPresetName.length > 10) {
       alert(t('settings.nameTooLong'));
       return;
     }
@@ -235,7 +235,7 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
       return;
     }
     
-    if (editingPresetName.length > 4) {
+    if (editingPresetName.length > 10) {
       alert(t('settings.nameTooLong'));
       return;
     }
@@ -279,16 +279,28 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
   if (!isOpen) return null;
   
   return (
-    <div className="settings-modal">
-      <div className="settings-modal-content">
-        <div className="modal-header">
-          <h2 className="modal-title">{t('settings.title')}</h2>
-          <button className="close-btn" onClick={onClose}>
+    <div className="modern-modal-overlay">
+      <div className="modern-modal-content timer-settings-modal">
+        {/* 现代化头部 */}
+        <div className="modern-modal-header">
+          <div className="modal-header-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 className="modern-modal-title">{t('settings.title')}</h2>
+            <p className="modern-modal-subtitle">自定义计时器配置和预设</p>
+          </div>
+          <button className="modern-close-btn" onClick={onClose}>
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
             </svg>
           </button>
         </div>
+
+        <div className="modern-modal-body">
         
         <div className="settings-panel">
           {/* 统一预设列表 */}
@@ -315,7 +327,7 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
                           onChange={(e) => setEditingPresetName(e.target.value)}
                           onKeyPress={(e) => e.key === 'Enter' && handleSaveBuiltinPresetName(presetKey)}
                           onBlur={() => handleSaveBuiltinPresetName(presetKey)}
-                          maxLength="4"
+                          maxLength="10"
                           className="preset-name-input"
                           autoFocus
                         />
@@ -369,7 +381,7 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
                           onChange={(e) => setEditingPresetName(e.target.value)}
                           onKeyPress={(e) => e.key === 'Enter' && handleSavePresetName(preset.id)}
                           onBlur={() => handleSavePresetName(preset.id)}
-                          maxLength="4"
+                          maxLength="10"
                           className="preset-name-input"
                           autoFocus
                         />
@@ -425,7 +437,7 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
                         value={presetName}
                         onChange={(e) => setPresetName(e.target.value)}
                         placeholder={t('settings.presetName')}
-                        maxLength="4"
+                        maxLength="10"
                         className="preset-name-input"
                       />
                       <div className="form-buttons">
@@ -447,10 +459,8 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
             </div>
           </div>
 
-          {/* 仅在选择了预设时显示配置选项 */}
-          {selectedPreset && (
-            <>
-              <div className="setting-group">
+          {/* 配置选项始终显示 */}
+          <div className="setting-group">
                 <div className="setting-label">
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -648,17 +658,23 @@ const SettingsPanel = ({ isOpen, onClose, config, onConfigChange, activePreset, 
                   </div>
                 </div>
               </div>
-            </>
-          )}
         </div>
         
-        <div className="modal-footer">
-          <button className="btn btn-secondary" onClick={handleResetToDefault}>
+        {/* 现代化底部按钮 */}
+        <div className="modern-modal-footer">
+          <button className="modern-btn modern-btn-secondary" onClick={handleResetToDefault}>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd"></path>
+            </svg>
             {t('settings.resetToDefault')}
           </button>
-          <button className="btn btn-primary" onClick={handleSave}>
+          <button className="modern-btn modern-btn-primary" onClick={handleSave}>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+            </svg>
             {t('settings.save')}
           </button>
+        </div>
         </div>
       </div>
     </div>

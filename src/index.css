@@ -152,20 +152,7 @@ html {
 }
 
 /* 竖屏优化 */
-@media (orientation: portrait) {
-  .container {
-    padding: 20px;
-    border-radius: 16px;
-  }
-  
-  .header h1 {
-    font-size: 2rem;
-  }
-  
-  .timer-display {
-    padding: 20px;
-  }
-}
+/* 竖屏样式已移至 App.css 统一管理 */
 
 /* 超小屏幕优化 */
 @media (max-width: 350px) {

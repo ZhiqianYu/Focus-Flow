@@ -9,7 +9,6 @@ import AudioSettingsModal from './components/AudioSettingsModal';
 import Notification from './components/Notification';
 import useTimer from './hooks/useTimer';
 
-import Footer from './components/Footer';
 import DonateButton from './components/DonateButton';
 
 import { useTranslation } from 'react-i18next';
@@ -43,10 +42,10 @@ function useWindowSize() {
   return windowSize;
 }
 
-// 判断是否为横屏布局的hook
+// 判断是否为横屏布局的hook - 基于屏幕宽高比
 function useIsLandscape() {
   const { width, height } = useWindowSize();
-  return width >= 769 && width > height;
+  return width > height; // 只需要宽度大于高度即为横屏
 }
 
 function App() {
@@ -202,67 +201,61 @@ function App() {
     };
   }, [state.isRunning]);
   
+  // 计算容器类名
+  const containerClasses = [
+    'container',
+    isLandscape ? 'landscape-layout' : 'portrait-layout',
+    state.isRunning && !state.isPaused ? 'timer-running' : ''
+  ].filter(Boolean).join(' ');
+
   return (
     <>
       <DocumentHead />
-      <div className={`container ${isLandscape ? 'landscape-layout' : ''}`}>
+      <div className={containerClasses}>
         {isLandscape ? (
-          // 横屏布局
+          // 横屏双列布局
           <>
-            
             <div className="landscape-left">
-              {/* 大时间显示 */}
-              <div className="landscape-main-timer">
-                {/* 音频设置按钮 - 左上角 */}
-                <button className="settings-icon audio-settings-icon" onClick={() => setIsSettingsOpen(true)} title={t('audio.settings')}>
-                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {/* 主计时器区域 */}
+              <div className="timer-section">
+                {/* 音频和计时器设置按钮 */}
+                <button className="icon-btn" style={{position: 'absolute', top: '16px', left: '16px'}} 
+                        onClick={() => setIsSettingsOpen(true)} title={t('audio.settings')}>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                   </svg>
                 </button>
-                {/* 计时器设置按钮 - 右上角 */}
-                <button className="settings-icon timer-settings-icon" onClick={() => setIsTimerSettingsOpen(true)} title={t('settings.title')}>
-                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button className="icon-btn" style={{position: 'absolute', top: '16px', right: '16px'}} 
+                        onClick={() => setIsTimerSettingsOpen(true)} title={t('settings.title')}>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
                 </button>
-
-                {/* 开始计时按钮 - 左下角 */}
-                <button className={`control-btn start-pause-btn ${state.isRunning ? 'running' : ''}`} onClick={handleStartPause}>
-                  {state.isRunning && !state.isPaused ? (
-                    // 暂停图标
-                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-                    </svg>
-                  ) : (
-                    // 播放图标
-                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  )}
-                  <span className="control-btn-text">
-                    {state.isRunning && !state.isPaused ? t('timer.pause') : t('timer.start')}
-                  </span>
-                </button>
-
-                {/* 重置按钮 - 右下角 */}
-                <button className={`control-btn reset-btn ${state.isRunning ? 'running' : ''}`} onClick={handleReset}>
-                  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                  </svg>
-                  <span className="control-btn-text">{t('timer.reset')}</span>
-                </button>
                 
-                <div className="landscape-timer-main">
-                  {utils.formatTime(state.totalTimeLeft)}
+                {/* 主计时显示 */}
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                  <div className="landscape-timer-main">
+                    {utils.formatTime(state.totalTimeLeft)}
+                  </div>
+                  <div className="landscape-timer-status">
+                    {getStatusText()}
+                  </div>
                 </div>
-                <div className="landscape-timer-status">
-                  {getStatusText()}
+
+                {/* 控制按钮 */}
+                <div style={{position: 'absolute', bottom: '16px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '16px'}}>
+                  <button className="btn-primary" onClick={handleStartPause}>
+                    {state.isRunning && !state.isPaused ? t('timer.pause') : t('timer.start')}
+                  </button>
+                  <button className="btn-secondary" onClick={handleReset}>
+                    {t('timer.reset')}
+                  </button>
                 </div>
               </div>
               
-              {/* 进度条区域 */}
-              <div className="landscape-progress-area">
+              {/* 进度区域 */}
+              <div className="progress-section">
                 <ProgressBar 
                   value={state.totalProgress}
                   label={t('progress.total')}
@@ -272,129 +265,80 @@ function App() {
                   label={state.currentPhase === 'stage' ? t('progress.stage') : t('progress.break')}
                 />
               </div>
-
             </div>
             
-            <div className={`landscape-right ${state.isRunning && !state.isPaused ? 'timer-running' : ''}`}>
-              {/* 计时时隐藏顶部导航元素 */}
-              {(!state.isRunning || state.isPaused) && (
-                <>
-                  {/* 语言切换器和标题区域 */}
-                  <div className="landscape-header-with-lang">
-                    <div className="landscape-lang-switcher">
-                      <LanguageSwitcher />
-                    </div>
-                    <div className="landscape-header">
-                      <h2>{t('app.name')}</h2>
-                    </div>
+            <div className="landscape-right">
+              {/* 上半部分内容 */}
+              <div className="landscape-right-content">
+                {/* 标题区域 */}
+                <div className="header-section">
+                  <div className="language-switcher">
+                    <LanguageSwitcher />
                   </div>
-                  
-                  {/* 预设按钮 */}
+                  <h1>{t('app.name')}</h1>
+                </div>
+                
+                {/* 预设区域 */}
+                <div className="presets-section">
                   <PresetButtons onSelectPreset={handlePresetSelect} />
-                </>
-              )}
-              
-              {/* 阶段信息显示 */}
-              <div className={`landscape-stage-info-wrapper ${state.isRunning && !state.isPaused ? 'expanded' : ''}`}>
-                {/* 计时时显示简化的三个倒计时 */}
-                {state.isRunning && !state.isPaused ? (
-                  <div className="landscape-timer-blocks">
-                    {/* 阶段时间大块 */}
-                    <div className="landscape-timer-block large">
-                      <div className="landscape-timer-label">{t('timer.stageTime')}</div>
-                      <div className="landscape-timer-time">{utils.formatTime(state.stageTimeLeft)}</div>
+                </div>
+                
+                {/* 阶段信息 */}
+                <div className="stage-info-block">
+                  <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                      <span>{t('timer.stageTime')}</span>
+                      <span style={{fontWeight: 600, color: 'var(--primary)'}}>
+                        {utils.formatTime(state.stageTimeLeft)}
+                      </span>
                     </div>
-                    {/* 两个休息时间小块 */}
-                    <div className="landscape-timer-row">
-                      <div className="landscape-timer-block small">
-                        <div className="landscape-timer-label">{t('settings.shortBreak')}</div>
-                        <div className="landscape-timer-time">
-                          {state.currentPhase === 'shortBreak' ? 
-                            utils.formatTime(state.breakTimeLeft) : 
-                            utils.formatTime(utils.calculateSeconds(state.config.shortBreak))
-                          }
-                        </div>
-                      </div>
-                      <div className="landscape-timer-block small">
-                        <div className="landscape-timer-label">{t('settings.stageBreak')}</div>
-                        <div className="landscape-timer-time">
-                          {state.currentPhase === 'stageBreak' ? 
-                            utils.formatTime(state.breakTimeLeft) : 
-                            utils.formatTime(utils.calculateSeconds(state.config.stageBreak))
-                          }
-                        </div>
-                      </div>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                      <span>{t('settings.shortBreak')}</span>
+                      <span style={{fontWeight: 600, color: 'var(--primary)'}}>
+                        {state.currentPhase === 'shortBreak' ? 
+                          utils.formatTime(state.breakTimeLeft) : 
+                          utils.formatTime(utils.calculateSeconds(state.config.shortBreak))
+                        }
+                      </span>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                      <span>{t('settings.stageBreak')}</span>
+                      <span style={{fontWeight: 600, color: 'var(--primary)'}}>
+                        {state.currentPhase === 'stageBreak' ? 
+                          utils.formatTime(state.breakTimeLeft) : 
+                          utils.formatTime(utils.calculateSeconds(state.config.stageBreak))
+                        }
+                      </span>
                     </div>
                   </div>
-                ) : (
-                  /* 非计时时显示原来的布局 */
-                  <>
-                    <div className="landscape-stage-info">
-                      <div className="landscape-info-item">
-                        <span className="landscape-info-label">{t('timer.stageTime')}</span>
-                        <span className="landscape-info-time">{utils.formatTime(state.stageTimeLeft)}</span>
-                      </div>
-                      <div className="landscape-info-item">
-                        <span className="landscape-info-label">{t('timer.breakTime')}</span>
-                        <div className="landscape-break-times">
-                          <div className="landscape-break-item">
-                            <span className="landscape-break-label">{t('settings.shortBreak')}</span>
-                            <span className="landscape-break-time">
-                              {state.currentPhase === 'shortBreak' ? 
-                                utils.formatTime(state.breakTimeLeft) : 
-                                utils.formatTime(utils.calculateSeconds(state.config.shortBreak))
-                              }
-                            </span>
-                          </div>
-                          <div className="landscape-break-item">
-                            <span className="landscape-break-label">{t('settings.stageBreak')}</span>
-                            <span className="landscape-break-time">
-                              {state.currentPhase === 'stageBreak' ? 
-                                utils.formatTime(state.breakTimeLeft) : 
-                                utils.formatTime(utils.calculateSeconds(state.config.stageBreak))
-                              }
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 关于和捐赠按钮 */}
-                    <div className="landscape-stage-info-buttons">
-                      <DonateButton />
-                      <button className="landscape-about-link" onClick={() => setIsAboutOpen(true)}>
-                        {t('footer.about')}
-                      </button>
-                    </div>
-                  </>
-                )}
+                </div>
               </div>
               
+              {/* 底部按钮区域 */}
+              <div className="landscape-bottom-buttons">
+                <DonateButton />
+                <button className="btn-small" onClick={() => setIsAboutOpen(true)}>
+                  {t('footer.about')}
+                </button>
+              </div>
             </div>
           </>
         ) : (
-          // 竖屏布局（原布局）
+          // 竖屏模块化布局：3-1-4-2-5
           <>
-            {/* 计时时隐藏顶部导航元素 */}
-            {(!state.isRunning || state.isPaused) && (
-              <>
-                {/* 语言切换器 - 放在容器顶部 */}
+            {/* 模块3: 语言+标题+模式选择 */}
+            <div className="module-3 header-section">
+              <div className="language-switcher">
                 <LanguageSwitcher />
-
-                {/* 标题区域 */}
-                <div className="header">
-                  <h1>{t('app.name')}</h1>
-                  <p>{t('app.tagline')}</p>
-                </div>
-                
-                {/* 预设按钮 */}
+              </div>
+              <h1>{t('app.name')}</h1>
+              <div className="presets-container">
                 <PresetButtons onSelectPreset={handlePresetSelect} />
-              </>
-            )}
+              </div>
+            </div>
             
-            {/* 主要内容区域 */}
-            <div className={`main-content ${state.isRunning && !state.isPaused ? 'timer-running' : ''}`}>
-              {/* 计时器显示 */}
+            {/* 模块1: 大蓝色计时器 */}
+            <div className="module-1 timer-section">
               <TimerDisplay 
                 mainTime={utils.formatTime(state.totalTimeLeft)}
                 stageTime={utils.formatTime(state.stageTimeLeft)}
@@ -410,23 +354,51 @@ function App() {
               />
             </div>
             
-            {/* 进度条 */}
-            <div className="progress-area">
+            {/* 模块4: 阶段时间信息 */}
+            <div className="module-4 stage-info-block">
+              <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                  <span>{t('timer.stageTime')}</span>
+                  <span style={{fontWeight: 600, color: 'var(--primary)'}}>
+                    {utils.formatTime(state.stageTimeLeft)}
+                  </span>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                  <span>{t('settings.shortBreak')}</span>
+                  <span style={{fontWeight: 600, color: 'var(--primary)'}}>
+                    {state.currentPhase === 'shortBreak' ? 
+                      utils.formatTime(state.breakTimeLeft) : 
+                      utils.formatTime(utils.calculateSeconds(state.config.shortBreak))
+                    }
+                  </span>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                  <span>{t('settings.stageBreak')}</span>
+                  <span style={{fontWeight: 600, color: 'var(--primary)'}}>
+                    {state.currentPhase === 'stageBreak' ? 
+                      utils.formatTime(state.breakTimeLeft) : 
+                      utils.formatTime(utils.calculateSeconds(state.config.stageBreak))
+                    }
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            {/* 模块2: 两个进度条 */}
+            <div className="module-2 progress-section">
               <ProgressBar 
                 value={state.totalProgress}
                 label={t('progress.total')}
               />
-              
               <ProgressBar 
                 value={state.stageProgress}
                 label={state.currentPhase === 'stage' ? t('progress.stage') : t('progress.break')}
               />
             </div>
             
-            {/* 控制按钮和其他按钮的容器 */}
-            <div className="action-buttons-container">
-              {/* 控制按钮 - 靠左 */}
-              <div className="control-buttons-wrapper">
+            {/* 模块5: 捐赠+关于+控制按钮 */}
+            <div className="module-5 controls-section">
+              <div className="left-controls">
                 <ControlButtons 
                   isRunning={state.isRunning}
                   isPaused={state.isPaused}
@@ -434,58 +406,22 @@ function App() {
                   onReset={handleReset}
                 />
               </div>
-              
-              {/* 计时时隐藏关于和捐赠按钮 */}
-              {(!state.isRunning || state.isPaused) && (
-                <div className="right-buttons-wrapper">
-                  <button 
-                    className="about-btn"
-                    onClick={() => setIsAboutOpen(true)}
-                    style={{
-                      background: 'transparent',
-                      border: '1px solid #ccc',
-                      borderRadius: '6px',
-                      padding: '8px 16px',
-                      fontSize: '0.9rem',
-                      cursor: 'pointer',
-                      color: '#666',
-                      transition: 'all 0.3s ease',
-                      marginRight: '8px'
-                    }}
-                  >
-                    {t('footer.about')}
-                  </button>
-                  <DonateButton />
-                </div>
-              )}
+              <div className="right-controls">
+                <DonateButton />
+                <button className="btn-small" onClick={() => setIsAboutOpen(true)}>
+                  {t('footer.about')}
+                </button>
+              </div>
             </div>
-
-            {/* 计时时隐藏底部元素 */}
-            {(!state.isRunning || state.isPaused) && (
-              <>
-                {/* 安装按钮 */}
-                <InstallButton 
-                  isInstallable={isInstallable} 
-                  promptInstall={promptInstall} 
-                />
-                
-                {/* Safari安装指南 */}
-                <SafariInstallGuide />
-                
-                {/* 添加页脚 */}
-                <Footer showAboutButton={false} />
-              </>
-            )}
           </>
         )}
 
-        {/* 音频设置模态框 */}
+        {/* 模态框 */}
         <AudioSettingsModal 
           isOpen={isSettingsOpen}
           onClose={closeAudioSettings}
         />
         
-        {/* 计时器设置模态框 */}
         <SettingsPanel 
           isOpen={isTimerSettingsOpen}
           onClose={closeTimerSettings}
@@ -495,7 +431,6 @@ function App() {
           onResetToDefault={handleResetToDefault}
         />
         
-        {/* 通知提示 */}
         <Notification
           message={notification?.message}
           type={notification?.type}
@@ -507,13 +442,7 @@ function App() {
         {isAboutOpen && (
           <div className="about-modal">
             <div className="about-modal-content">
-              <button 
-                className="close-about-modal"
-                onClick={() => setIsAboutOpen(false)}
-              >
-                ×
-              </button>
-              
+              <button className="close-about-modal" onClick={() => setIsAboutOpen(false)}>×</button>
               <div className="about-info">
                 <div className="info-header">
                   <h3>{t('about.title')}</h3>
@@ -537,7 +466,6 @@ function App() {
         )}
       </div>
     </>
-
   );
 }
 

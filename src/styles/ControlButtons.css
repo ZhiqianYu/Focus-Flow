@@ -88,3 +88,23 @@
     padding: 10px 14px;
   }
 }
+
+/* 竖屏固定尺寸模式 */
+@media (orientation: portrait) {
+  .controls {
+    height: 40px;
+    gap: 8px;
+    justify-content: flex-start;
+    margin: 0;
+  }
+  
+  .btn {
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 16px !important;
+    font-size: 0.85rem !important;
+    min-width: 80px;
+    max-width: 100px;
+    flex-shrink: 0;
+  }
+}

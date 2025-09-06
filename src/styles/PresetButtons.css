@@ -15,9 +15,9 @@
   cursor: pointer;
   transition: var(--transition);
   min-height: 40px;
-  flex: 1 1 auto;
-  min-width: 120px;
-  max-width: 180px;
+  flex: 0 0 auto; /* 改为根据内容自动调整宽度 */
+  min-width: fit-content;
+  max-width: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,14 +55,14 @@
   .presets {
     gap: 8px;
     margin-bottom: 16px;
-    justify-content: stretch;
+    justify-content: center; /* 改为居中对齐 */
   }
   
   .preset-btn {
-    flex: 1 1 calc(50% - 4px);
-    min-width: calc(50% - 4px);
+    flex: 0 0 auto; /* 改为根据内容自动调整宽度 */
+    min-width: fit-content;
     max-width: none;
-    padding: 12px 8px;
+    padding: 12px 16px; /* 调整内边距 */
     font-size: 0.9rem;
     min-height: 42px;
   }
@@ -73,16 +73,43 @@
   .presets {
     gap: 6px;
     margin-bottom: 12px;
-    flex-direction: column;
+    flex-direction: row; /* 改为水平排列 */
+    flex-wrap: wrap; /* 允许换行 */
+    justify-content: center; /* 居中对齐 */
   }
   
   .preset-btn {
-    flex: none;
-    width: 100%;
-    min-width: 100%;
-    padding: 14px 16px;
+    flex: 0 0 auto; /* 根据内容自动调整宽度 */
+    width: auto;
+    min-width: fit-content;
+    padding: 12px 16px; /* 调整内边距 */
     font-size: 0.9rem;
-    min-height: 44px;
+    min-height: 42px;
+  }
+}
+
+/* 竖屏固定尺寸模式 */
+@media (orientation: portrait) {
+  .presets {
+    height: 40px !important;
+    margin-bottom: 8px !important;
+    gap: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap; /* 不换行，防止高度变化 */
+  }
+  
+  .preset-btn {
+    height: 36px !important;
+    min-height: 36px !important;
+    max-height: 36px !important;
+    padding: 0 12px !important;
+    font-size: 0.8rem !important;
+    min-width: fit-content;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 }
 

@@ -1,7 +1,7 @@
 .install-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin: 0; /* 移除固定margin，由父容器控制布局 */
 }
 
 .install-button {
@@ -27,6 +27,21 @@
 
 .install-button:active {
   transform: translateY(0);
+}
+
+/* 竖屏固定尺寸模式 - 安装按钮优化 */
+@media (orientation: portrait) {
+  .install-button {
+    height: 30px !important; /* 固定高度适应安装区域 */
+    padding: 0 12px !important;
+    font-size: 0.75rem !important;
+    gap: 4px !important;
+  }
+  
+  .install-button svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
 }
 
 @media (max-width: 480px) {

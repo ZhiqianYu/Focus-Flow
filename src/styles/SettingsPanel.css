@@ -208,12 +208,14 @@
   border: 2px dashed #d1d5db;
   border-radius: 8px;
   overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative; /* 为绝对定位表单提供定位基准 */
 }
 
-/* 添加预设按钮 */
+/* 添加预设按钮 - 与预设按钮一样大 */
 .add-preset-btn {
   width: 100%;
-  padding: 16px 8px;
+  padding: 12px 8px; /* 与预设按钮相同 */
   background: transparent;
   border: none;
   cursor: pointer;
@@ -221,10 +223,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 4px; /* 减小间距 */
   color: #6b7280;
   transition: all 0.2s ease;
-  min-height: 70px;
+  min-height: 70px; /* 与预设按钮相同 */
+  font-size: 0.85rem; /* 调整字体大小 */
 }
 
 .add-preset-btn:hover {
@@ -232,15 +235,22 @@
   color: #374151;
 }
 
-/* 创建预设表单 */
+/* 创建预设表单 - 展开宽度 */
 .create-preset-form {
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 12px;
   background: #f9fafb;
-  min-height: 70px;
+  min-height: 70px; /* 高度保持不变 */
+  max-height: 70px; /* 限制最大高度 */
   justify-content: space-between;
+  position: absolute; /* 绝对定位以支持扩展宽度 */
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 10; /* 确保在其他元素之上 */
 }
 
 .create-preset-form .preset-name-input {
@@ -258,43 +268,45 @@
   justify-content: center;
 }
 
-/* 保存和取消按钮 */
+/* 保存和取消按钮 - 调小尺寸 */
 .save-preset-btn {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border: none;
   background: #10b981;
   color: white;
-  border-radius: 5px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background 0.2s ease;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .save-preset-btn:hover {
   background: #059669;
+  transform: scale(1.05);
 }
 
 .cancel-preset-btn {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border: none;
   background: #6b7280;
   color: white;
-  border-radius: 5px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background 0.2s ease;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .cancel-preset-btn:hover {
   background: #4b5563;
+  transform: scale(1.05);
 }
 
 /* 内置预设操作按钮 */
